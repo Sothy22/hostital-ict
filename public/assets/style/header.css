@@ -1,0 +1,135 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --accent-color: #3b82f6;
+}
+
+/* --- 2. DARK MODE VARIABLES --- */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+  --accent-color: #60a5fa;
+}
+
+/* --- 3. APPLY VARIABLES TO YOUR STYLES --- */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  /* Smooth fading transition when changing modes */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  height: 100px;
+}
+
+.head {
+  margin-inline: 15%;
+  /* background-color: blueviolet; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.head-logo {
+  width: 100px;
+  height: 100px;
+  /* background-color: aquamarine; */
+}
+
+.head-logo img {
+  width: 100%;
+  padding: 2px;
+  object-fit: cover;
+}
+
+.menu-btn {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: black;
+  user-select: none;
+}
+
+.close-btn {
+  display: none;
+}
+
+.head-page {
+  display: none;
+}
+
+.head-page {
+  /* background-color: aqua; */
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.head-page a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+  transition: all 0.3s ease;
+  border: 1px solid #f5efef;
+  border-radius: 8px;
+  padding: 8px;
+  display: inline-block;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .head-page a {
+  color: #f5f5f5;
+}
+
+.head-page a:hover,
+.head-page a.active {
+  background-color: #3b82f6;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-icons {
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 4px 10px;
+  width: 40px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  /* color: #121212; */
+  right: -50px;
+}
+
+.search:hover,
+.search:focus-within {
+  width: 200px;
+  border-color: #ccc;
+}
+
+.search input {
+  border: none;
+  outline: none;
+  margin-left: 25px;
+  width: 100%;
+}
+
+/* @media screen and (min-width: 768px) and (max-width: 1023px) {
+
+} */

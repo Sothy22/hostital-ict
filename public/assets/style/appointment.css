@@ -1,0 +1,54 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --accent-color: #3b82f6;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    /* --text-color: #f5f5f5; */
+    --accent-color: #60a5fa;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* Smooth fading transition when changing modes */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+}
+
+.mode-icon {
+    font-size: 25px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+body.dark-mode .mode-icon {
+    font-size: 25px;
+    margin-right: 15px;
+    color: white;
+}
+
+.status-pending{
+    color:#f39c12;
+    font-weight:bold;
+}
+
+.status-completed{
+    color:#27ae60;
+    font-weight:bold;
+}
+
+.status-cancelled{
+    color:#e74c3c;
+    font-weight:bold;
+}
+
+#appointmentForm{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}

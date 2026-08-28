@@ -1,0 +1,417 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f8fc;
+  color: #172b4d;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main_add {
+  margin-left: 100px;
+}
+
+/* =========================
+   Back to Doctors
+========================= */
+.back {
+  margin: 20px;
+}
+
+.back > a {
+  text-decoration: none;
+  display: flex;
+  text-align: center;
+  gap: 8px;
+  color: #121212;
+  cursor: pointer;
+}
+
+/* =========================
+   DOCTOR CARD
+========================= */
+.doctor-form-card {
+  width: calc(100% - 40px);
+  margin: 20px;
+  background: white;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 3px 18px rgba(25, 60, 100, 0.07);
+  border: 1px solid #edf1f7;
+  box-sizing: border-box;
+}
+
+/* TITLE */
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.title-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  background: #287cf5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+.card-title h2 {
+  font-size: 20px;
+  color: #172b4d;
+}
+
+/* =========================
+   FORM GRID
+========================= */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 25px;
+}
+
+/* FORM GROUP */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label,
+.status-group > label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #344054;
+  margin-bottom: 10px;
+}
+
+.form-group label span,
+.status-group label span {
+  color: #ef4444;
+}
+
+/* INPUT */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #d9e0ea;
+  border-radius: 8px;
+  outline: none;
+  padding: 0 15px;
+  color: #344054;
+  font-size: 14px;
+  background: white;
+  transition: 0.2s ease;
+}
+
+.form-group input,
+.form-group select {
+  height: 48px;
+}
+
+.form-group textarea {
+  height: 70px;
+  padding-top: 13px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #287cf5;
+  box-shadow: 0 0 0 3px rgba(40, 124, 245, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a5afbf;
+}
+
+/* SELECT */
+
+.form-group select {
+  cursor: pointer;
+}
+
+/* =========================
+   PHOTO UPLOAD
+========================= */
+
+.photo-group {
+  grid-row: span 2;
+}
+
+.upload-box {
+  min-height: 220px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.upload-box:hover {
+  border-color: #287cf5;
+  background: #f8fbff;
+}
+
+.upload-box input {
+  display: none;
+}
+
+.upload-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #edf5ff;
+  color: #287cf5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.upload-box h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #344054;
+  margin-bottom: 8px;
+}
+
+.upload-box p {
+  font-size: 13px;
+  color: #98a2b3;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-container {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  height: 48px;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #667085;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.radio input {
+  width: 19px;
+  height: 19px;
+  accent-color: #287cf5;
+  cursor: pointer;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.form-buttons {
+  margin-top: 35px;
+  padding-top: 22px;
+  border-top: 1px solid #edf1f7;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-btn,
+.save-btn {
+  height: 47px;
+  padding: 0 25px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.cancel-btn {
+  border: 1px solid #d9e0ea;
+  background: white;
+  color: #344054;
+}
+
+.cancel-btn:hover {
+  background: #f5f7fa;
+}
+
+.save-btn {
+  border: none;
+  background: #287cf5;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.save-btn:hover {
+  background: #1769db;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .main {
+    flex: 1;
+    width: auto;
+    margin-left: 0;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .photo-group {
+    grid-row: span 1;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width: 767.99px) {
+  .sidebar {
+    left: -260px;
+    width: 260px;
+    z-index: 1000;
+    transition: 0.3s ease;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .main {
+    width: 100%;
+    margin-left: 0;
+    padding: 20px 15px;
+  }
+
+  .header {
+    align-items: flex-start;
+  }
+
+  .header-left {
+    gap: 15px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .header-right {
+    gap: 12px;
+  }
+
+  .profile-info,
+  .profile > i {
+    display: none;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-form-card {
+    padding: 18px;
+  }
+
+  .form-buttons {
+    justify-content: stretch;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    flex: 1;
+  }
+
+  .save-btn {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media screen and (max-width: 500px) {
+  .header-right {
+    display: none;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+  }
+
+  .card-title h2 {
+    font-size: 18px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+  }
+}

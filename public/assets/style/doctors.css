@@ -1,0 +1,249 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --accent-color: #3b82f6;
+}
+
+/* --- 2. DARK MODE VARIABLES --- */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+  --accent-color: #60a5fa;
+}
+
+/* --- 3. APPLY VARIABLES TO YOUR STYLES --- */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  /* Smooth fading transition when changing modes */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+main {
+  margin: 0;
+  padding: 0;
+}
+
+.back-page {
+  /* background-color: aqua; */
+  width: 100%;
+}
+
+.back-page .back-container {
+  margin-inline: 15%;
+  margin-top: 90px;
+}
+
+.back-page .back-container > a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #626263;
+}
+
+.back-page .back-container > h1 {
+  font-size: 28px;
+}
+
+.back-page .back-container > p {
+  color: #717182;
+  margin: 0;
+}
+
+.container {
+  /* background-color: aqua; */
+  width: 100%;
+}
+
+.container .doctor-container {
+  margin-inline: 15%;
+  /* background-color: rgb(15, 205, 31); */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.title-dep {
+  /* display: grid; */
+  text-align: center;
+}
+
+.title-dep h1 {
+  font-size: 40px;
+}
+
+.container .doctor-container .doctors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: rebeccapurple; */
+  gap: 100px;
+  justify-content: center;
+}
+
+.book-btn > a {
+  text-decoration: none;
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.doctors-grid .doctor-card {
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+  width: 350px;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 6px;
+  box-shadow: 0px 6px 10px rgba(192, 191, 191, 0.785);
+  cursor: pointer;
+  transition:
+    tranform 0.3 ease,
+    box-shadow 0.2 ease;
+}
+
+.doctors-grid .doctor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 8px 16px rgba(192, 191, 191, 0.26);
+}
+
+.doctors-grid .doctor-card .doctor-avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.doctors-grid .doctor-card .doctor-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.doctors-grid .doctor-card:hover .doctor-avatar img {
+  transform: scale(1.15);
+}
+
+.doctors-grid .doctor-card .doctor-info {
+  text-align: center;
+}
+
+.doctors-grid .doctor-card .doctor-info h3 {
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+body.dark-mode .doctors-grid .doctor-card .doctor-info h3 {
+  color: black;
+}
+
+.doctors-grid .doctor-card .doctor-info p {
+  font-size: 19px;
+  color: rgb(13, 12, 12);
+}
+
+body.dark-mode .doctors-grid .doctor-card .doctor-info p {
+  font-size: 19px;
+  color: #141313;
+}
+
+.doctors-grid .doctor-card .doctor-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+body.dark-mode .doctors-grid .doctor-card .doctor-rating {
+  color: #f5f5f5;
+}
+
+.doctors-grid .doctor-card .doctor-rating > i {
+  color: orange;
+  size: 16px;
+}
+
+.doctors-grid .doctor-card .doctor-rating .rating {
+  font-size: 20px;
+  padding: 0;
+}
+
+.doctors-grid .doctor-card .doctor-rating .rating > span {
+  color: gray;
+}
+
+.doctors-grid .doctor-card .doctor-meta {
+  display: grid;
+  /* background-color: #1a73e8; */
+  border-top: 1px solid rgb(221, 220, 220);
+}
+
+.doctors-grid .doctor-card .doctor-meta .meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+  padding-bottom: 14px;
+  font-size: 19px;
+  margin-top: 6px;
+}
+
+body.dark-mode .doctors-grid .doctor-card .doctor-meta .meta {
+  color: black;
+}
+
+.doctors-grid .doctor-card .doctor-meta .meta span:last-child {
+  background-color: rgb(219, 218, 218);
+  border-radius: 10px;
+  padding: 2px 4px;
+}
+
+body.dark-mode .doctors-grid .doctor-card .doctor-meta .meta span:last-child {
+  background-color: rgb(219, 218, 218);
+  border-radius: 10px;
+  padding: 2px 4px;
+}
+
+.doctors-grid .doctor-card .book-btn {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  width: 80%;
+}
+
+.doctors-grid .doctor-card .book-btn span {
+  font-size: 16px;
+}
+
+.container .doctor-container .btn {
+  width: 100%;
+  /* background-color: #717182; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .doctor-container .btn > button {
+  padding: 20px 60px;
+  /* width: 200px; */
+  margin-top: 50px;
+  background-color: #55565a;
+  color: #ffffff;
+  border: none;
+  border-radius: 15px;
+}

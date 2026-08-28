@@ -1,0 +1,590 @@
+/* =================================
+   MAIN
+================================= */
+
+.main {
+  width: 100%;
+  min-height: 100vh;
+  margin-left: 250px;
+  background: #f6f9fd;
+  color: #172b4d;
+}
+
+/* =================================
+   PAGE TOP
+================================= */
+
+.page-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 10px;
+}
+
+/* =================================
+   ADD DEPARTMENT BUTTON
+================================= */
+
+.add-department-btn > a {
+  color: white;
+  text-decoration: none;
+}
+
+.add-department-btn {
+  font-size: 18px;
+  color: white;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 10px;
+  padding: 20px 20px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.add-department-btn:hover {
+  background: #1769db;
+  transform: translateY(-1px);
+}
+
+.contain {
+  padding: 10px;
+}
+
+/* =================================
+   STATISTICS
+================================= */
+
+.department-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.stat-card {
+  min-height: 115px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #edf1f7;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 15px rgba(25, 60, 100, 0.05);
+}
+
+/* STAT ICON */
+
+.stat-icon {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 21px;
+}
+
+/* Different icons */
+
+.stat-icon.blue {
+  color: #287cf5;
+  background: #edf5ff;
+}
+
+.stat-icon.green {
+  color: #16a34a;
+  background: #eafaf0;
+}
+
+.stat-icon.purple {
+  color: #8b5cf6;
+  background: #f3edff;
+}
+
+.stat-icon.orange {
+  color: #f59e0b;
+  background: #fff4df;
+}
+
+/* STAT TEXT */
+
+.stat-info p {
+  margin: 0 0 5px;
+
+  color: #667085;
+
+  font-size: 12px;
+}
+
+.stat-info h2 {
+  margin: 0 0 4px;
+
+  font-size: 25px;
+
+  color: #172b4d;
+}
+
+.stat-info span {
+  font-size: 11px;
+
+  color: #98a2b3;
+}
+
+/* =================================
+   DEPARTMENT CARD
+================================= */
+
+.department-card {
+  background: #ffffff;
+
+  border: 1px solid #edf1f7;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 15px rgba(25, 60, 100, 0.05);
+
+  overflow: hidden;
+}
+
+/* =================================
+   CARD HEADER
+================================= */
+
+.department-card-header {
+  min-height: 70px;
+
+  padding: 0 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.department-card-header h2 {
+  margin: 0;
+
+  font-size: 17px;
+
+  color: #172b4d;
+}
+
+/* =================================
+   STATUS FILTER
+================================= */
+
+.status-filter {
+  height: 38px;
+
+  min-width: 145px;
+
+  padding: 0 12px;
+
+  border: 1px solid #dce2ea;
+
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #344054;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+/* =================================
+   TABLE
+================================= */
+
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  padding: 0 22px;
+}
+
+.department-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 900px;
+}
+
+/* TABLE HEADER */
+
+.department-table thead {
+  background: #f7f9fc;
+}
+
+.department-table th {
+  padding: 15px 14px;
+
+  text-align: left;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #344054;
+
+  white-space: nowrap;
+}
+
+/* TABLE BODY */
+
+.department-table td {
+  padding: 14px;
+
+  border-bottom: 1px solid #edf1f7;
+
+  font-size: 12px;
+
+  color: #344054;
+
+  vertical-align: middle;
+}
+
+.department-table tbody tr {
+  transition: 0.2s ease;
+}
+
+.department-table tbody tr:hover {
+  background: #fafcff;
+}
+
+/* =================================
+   DEPARTMENT NAME
+================================= */
+
+.department-name {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  font-weight: 500;
+
+  color: #172b4d;
+}
+
+.department-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+}
+
+/* Department icon colors */
+
+.department-icon.cardiology {
+  color: #ef4444;
+  background: #fff0f1;
+}
+
+.department-icon.orthopedics {
+  color: #22c55e;
+  background: #ecfbf1;
+}
+
+.department-icon.oncology {
+  color: #8b5cf6;
+  background: #f3edff;
+}
+
+.department-icon.dermatology {
+  color: #f59e0b;
+  background: #fff5e3;
+}
+
+.department-icon.surgery {
+  color: #287cf5;
+  background: #edf5ff;
+}
+
+.department-icon.gynecology {
+  color: #ec4899;
+  background: #fff0f7;
+}
+
+/* =================================
+   DOCTOR INFO
+================================= */
+
+.doctor-info {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  white-space: nowrap;
+}
+
+.doctor-info img {
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.doctor-info span {
+  color: #344054;
+
+  font-size: 12px;
+}
+
+/* =================================
+   STATUS
+================================= */
+
+.status {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 65px;
+
+  padding: 7px 12px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status.active {
+  background: #e8f9ef;
+
+  color: #16a34a;
+}
+
+.status.inactive {
+  background: #fff0f0;
+
+  color: #ef4444;
+}
+
+/* =================================
+   ACTION BUTTONS
+================================= */
+
+.action-buttons {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.action-buttons button {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 7px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+/* Edit */
+
+.edit-btn {
+  border: 1px solid #dce7f7;
+
+  background: #f8fbff;
+
+  color: #287cf5;
+}
+
+.edit-btn:hover {
+  background: #287cf5;
+
+  color: #ffffff;
+}
+
+/* Delete */
+
+.delete-btn {
+  border: 1px solid #ffd9d9;
+
+  background: #fff8f8;
+
+  color: #ef4444;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+
+  color: #ffffff;
+}
+
+/* =================================
+   TABLE FOOTER
+================================= */
+
+.table-footer {
+  min-height: 65px;
+
+  padding: 0 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-footer p {
+  margin: 0;
+
+  color: #98a2b3;
+
+  font-size: 12px;
+}
+
+/* =================================
+   PAGINATION
+================================= */
+
+.pagination {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+.pagination button {
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid #dce2ea;
+
+  background: #ffffff;
+
+  border-radius: 7px;
+
+  color: #344054;
+
+  cursor: pointer;
+
+  font-size: 12px;
+
+  transition: 0.2s ease;
+}
+
+.pagination button:hover {
+  border-color: #287cf5;
+
+  color: #287cf5;
+}
+
+.pagination .page-active {
+  background: #287cf5;
+
+  border-color: #287cf5;
+
+  color: #ffffff;
+}
+
+/* =================================
+   TABLET
+================================= */
+
+@media screen and (max-width: 1100px) {
+  .department-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =================================
+   MOBILE
+================================= */
+
+@media screen and (max-width: 767.99px) {
+  .main {
+    padding: 15px;
+  }
+
+  .page-top {
+    align-items: flex-start;
+
+    gap: 15px;
+
+    flex-direction: column;
+  }
+
+  .page-title h1 {
+    font-size: 24px;
+  }
+
+  .add-department-btn {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+  .department-stats {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  .stat-card {
+    min-height: 95px;
+  }
+
+  .department-card-header {
+    padding: 15px;
+
+    gap: 12px;
+
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .status-filter {
+    width: 100%;
+  }
+
+  .table-wrapper {
+    padding: 0 15px;
+  }
+
+  .table-footer {
+    padding: 15px;
+
+    gap: 15px;
+
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+}

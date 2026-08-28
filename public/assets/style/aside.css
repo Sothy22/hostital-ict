@@ -1,0 +1,258 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --accent-color: #3b82f6;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #121212;
+    --accent-color: #60a5fa;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.aside {
+    width: 250px;
+    min-height: 100vh;
+    background: #4361ee;
+    border-right: 1px solid #e2e8f0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: flex-start; */
+    position: fixed;
+    gap: 5px;
+    padding: 1.5rem 1rem;
+    overflow-y: auto;
+    z-index: 10000;
+    transition: left 0.3s ease;
+}
+
+.title-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.title-head i {
+    font-size: 1.75rem;
+    color: white;
+}
+
+.title-head .title {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-head .title span:first-child {
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: white;
+    line-height: 1.2;
+}
+
+.title-head .title span:last-child {
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+}
+
+.aside a {
+    width: 150px;
+    height: 50px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding-left: 10px;
+    gap: 5px;
+    transition: 0.3s;
+}
+
+.aside a:hover {
+    background: white;
+    color: #4361ee;
+}
+
+.aside a.active {
+    background: white;
+    color: #4361ee;
+}
+
+.aside-head {
+    height: 85vh;
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.upper-head {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.upper-head a,
+.dropbtn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    color: white;
+    background: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.upper-head a:hover,
+.dropbtn:hover {
+    background: #f2f2f2;
+    border-radius: 8px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    margin-left: 25px;
+    flex-direction: column;
+}
+
+.dropdown-content a {
+    padding: 10px 15px;
+    font-size: 15px;
+}
+
+.dropdown.active .dropdown-content {
+    display: flex;
+}
+
+.avatar-user {
+    width: 135%;
+    display: flex;
+    align-items: center;
+    /* background-color: aqua; */
+    gap: 16px;
+    color: white;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.avatar-user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar-user > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logout-btn {
+    border: none;
+    background: none;
+    /* margin: 0;  */
+    padding-left: 11px;
+    font: inherit;
+    cursor: pointer;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+}
+
+@media screen and (max-width: 767.99px) {
+    :root {
+        --bg-color: #ffffff;
+        --text-color: #1a1a1a;
+        --accent-color: #3b82f6;
+    }
+
+    body.dark-mode {
+        --bg-color: #121212;
+        --text-color: #121212;
+        --accent-color: #60a5fa;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        /* Smooth fading transition when changing modes */
+        transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
+        margin: 0;
+    }
+
+    .aside {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        background: #4361ee;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+        padding-top: 90px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .aside.active {
+        left: 0;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .aside .logo {
+        width: 100%;
+        margin-bottom: 10px;
+        padding-left: 10px;
+    }
+
+    .aside .logo > h2 {
+        text-align: left;
+        margin: 0;
+    }
+
+    .aside a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        height: 48px;
+        padding-left: 15px;
+        gap: 15px;
+        box-sizing: border-box;
+        border-radius: 10px;
+    }
+}

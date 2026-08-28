@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -18,35 +19,46 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        // if (!$user) {
-        //     return response()->json([
-        //         "message" => "Email or password is incorrect"
-        //     ], 401);
-        // }
-
-        // if (!Hash::check($request->password, $user->password)) {
-        //     return response()->json([
-        //         'message' => 'Email or password is incorrect',
-        //     ], 401);
-        // }
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Email or password is incorrect',
-            ], 401);
+            return back()
+                ->withErrors([
+                    'email' => 'Email or password is incorrect.',
+                ])
+                ->withInput();
         }
 
-        $token = $user->createToken('hospital-api-token')->plainTextToken;
+        Auth::login($user);
 
-        return response()->json([
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role,
-            ],
-            'message' => 'Login successful',
-            'token' => $token,
-            'token_type' => 'Bearer',
-        ], 200);
+        $request->session()->regenerate();
+
+        if ($user->role === 'admin') {
+            return redirect()->route('admin');
+        }
+
+        if ($user->role === 'doctor') {
+            return redirect()->route('doctor');
+        }
+
+        Auth::logout();
+
+        return redirect()->route('login')
+            ->withErrors([
+            'email' => 'You do not have permission to access this system.',
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
+
+        // return response()->json([
+        //     'message' => 'Logout Successfully'
+        // ], 200);
     }
 }

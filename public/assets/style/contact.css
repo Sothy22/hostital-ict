@@ -1,0 +1,382 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --accent-color: #3b82f6;
+}
+
+/* --- 2. DARK MODE VARIABLES --- */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+    --accent-color: #60a5fa;
+}
+
+/* --- 3. APPLY VARIABLES TO YOUR STYLES --- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* Smooth fading transition when changing modes */
+    transition: background-color 0.3s ease, color 0.3s ease; 
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    min-height: 100vh;
+} */
+
+/* --- PAGE GRID STRUCTURE --- */
+.booking-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+}
+
+/* --- HEADER COMPONENT --- */
+.con-container {
+    grid-column: 1 / -1;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 12px;
+}
+
+body.dark-mode .back-link {
+    font-size: 14px;
+    color: #f5f5f5;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.back-link {
+    font-size: 14px;
+    color: #121212;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    /* color: #0f172a; */
+    margin: 0 0 6px 0;
+}
+
+.page-subtitle {
+    font-size: 15px;
+    color: #64748b;
+    margin: 0;
+}
+
+body.dark-mode .page-subtitle {
+    font-size: 15px;
+    color: #f5f5f5;
+    margin: 0;
+}
+
+/* --- SIDEBAR & MAIN COLUMNS --- */
+.sidebar-column,
+.content-column {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* --- GLOBAL CARD BASE LAYOUT --- */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.card-section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0f172a;
+    margin-bottom: 24px;
+}
+
+/* --- DOCTOR IDENTITY CARD --- */
+.doctor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.avatar-circle {
+    width: 72px;
+    height: 72px;
+    background-color: #1e60ff;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.doctor-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.doctor-specialty {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.rating-text {
+    color: #0f172a;
+}
+
+.star-icon {
+    color: #eab308;
+}
+
+.badge {
+    background-color: #f1f5f9;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+/* --- HOSPITAL METADATA CONTACTS --- */
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-icon {
+    font-size: 16px;
+    color: #0f172a;
+    margin-top: 3px;
+    width: 20px;
+    text-align: center;
+}
+
+.contact-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 2px;
+}
+
+.contact-value {
+    display: block;
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* --- DYNAMIC CALENDAR & SCHEDULER PANELS --- */
+.scheduler-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.input-group-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.calendar-widget {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.cal-nav-btn {
+    background: none;
+    border: 1px solid #e2e8f0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cal-nav-btn:hover {
+    background-color: #f8fafc;
+}
+
+.current-month-year {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* This creates the 7-column grid */
+    row-gap: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: #334155;
+    /* Add these two lines to ensure it has space to render */
+    min-height: 150px;
+    width: 100%;
+}
+
+.calendar-days span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    width: 28px;
+    margin: 0 auto;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.day-muted {
+    color: #cbd5e1;
+    cursor: not-allowed !important;
+}
+
+.day-selected {
+    background-color: #0f172a;
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+/* --- HOURLY SLOTS PANELS --- */
+.time-slots-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.time-btn {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.time-btn.active-slot {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: #0f172a;
+}
+
+/* --- PATIENT DATA FORM STRUCTURES --- */
+.form-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    background-color: #f1f5f9;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 14px;
+    outline: none;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+/* --- FORM SUBMIT ACTION MAIN CTA --- */
+.submit-booking-btn {
+    background-color: #7c7e8c;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+}
+

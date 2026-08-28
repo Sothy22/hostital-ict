@@ -1,0 +1,63 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --accent-color: #3b82f6;
+}
+
+/* --- 2. DARK MODE VARIABLES --- */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+    --accent-color: #60a5fa;
+}
+
+/* --- 3. APPLY VARIABLES TO YOUR STYLES --- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* Smooth fading transition when changing modes */
+    transition: background-color 0.3s ease, color 0.3s ease; 
+    margin: 0;
+}
+
+.footer {
+    width: 100%;
+    background-color: rgb(210, 208, 208);
+    margin-top: 40px;
+    padding-block: 50px;
+}   
+
+body.dark-mode .footer {
+    width: 100%;
+    background-color: #494949;
+    margin-top: 40px;
+    padding-block: 50px;
+}  
+
+.footer .foot-grid {
+    margin-inline: 15%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.footer .foot-grid .footer-info>h1 {
+   font-size: 25px;
+   font-family: 'Times New Roman', Times, serif;
+}
+
+.footer .foot-grid .footer-info>p {
+    display: grid;
+    color: #6a6a73;
+    font-size: 20px;
+}
+
+body.dark-mode .footer .foot-grid .footer-info>p {
+    display: grid;
+    color: #f5f5f5;
+    font-size: 20px;
+}
+
+.footer .foot-grid .footer-info>p span {
+    padding: 4px;
+}

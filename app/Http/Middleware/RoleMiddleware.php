@@ -15,8 +15,9 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
+
         if (!auth()->check()) {
-            return redirect('/login');
+            return redirect()->route('login');
         }
 
         if (!in_array(auth()->user()->role, $roles)) {

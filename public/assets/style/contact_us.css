@@ -1,0 +1,244 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --accent-color: #3b82f6;
+}
+
+/* --- 2. DARK MODE VARIABLES --- */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+    --accent-color: #60a5fa;
+}
+
+/* --- 3. APPLY VARIABLES TO YOUR STYLES --- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* Smooth fading transition when changing modes */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+}
+
+.contact-page {
+    max-width: 1200px;
+    margin: 2rem auto 0 auto;
+    padding: 0 1rem;
+    margin-inline: 15%;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-form-row {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    margin-bottom: 5rem;
+}
+
+.doctor-visual {
+    flex: 1;
+}
+
+.consultant-img {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    display: block;
+}
+
+.form-container {
+    flex: 1.2;
+    padding-top: 1rem;
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.form-subtitle {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    margin-bottom: 2rem;
+}
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(148, 163, 184, 0.12);
+    /* Subtle adaptive gray backdrop tint */
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--accent-color);
+    background-color: var(--bg-color);
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+/* Captcha and Submit Row alignment */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.captcha-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.captcha-math {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.captcha-input {
+    width: 50px;
+    padding: 0.5rem;
+    background-color: rgba(148, 163, 184, 0.12);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 4px;
+    color: var(--text-color);
+    text-align: center;
+    outline: none;
+}
+
+.captcha-input:focus {
+    border-color: var(--accent-color);
+}
+
+.submit-btn {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 0.6rem 2.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* --- 2. BOTTOM SECTION: 4-COLUMN BLUE BAR --- */
+.quick-actions-bar {
+    background-color: #1a8ccb;
+    /* The exact diagnostic blue backdrop */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    color: #ffffff;
+    border-radius: 4px 4px 0 0;
+    overflow: hidden;
+}
+
+.action-column {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
+
+/* Create the fine white dividing lines between items */
+.action-column:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.action-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.action-column h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+    height: 32px;
+    /* Enforces clean multi-line title alignment symmetry */
+    display: flex;
+    align-items: center;
+}
+
+.action-column p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* Action button outlines matching image links */
+.action-btn {
+    display: inline-block;
+    margin-top: auto;
+    /* Pushes button directly down to align perfectly */
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.action-btn:hover {
+    background-color: #ffffff;
+    color: #1a8ccb;
+}
+
+/* --- 3. RESPONSIVE COMPACT MEDIA VIEWPORTS --- */
+/* @media (max-width: 992px) {
+    .quick-actions-bar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .action-column:nth-child(2)::after {
+        display: none;
+        /* Hide border on column grid break points */
+    }
+} */

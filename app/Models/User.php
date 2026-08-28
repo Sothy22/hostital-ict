@@ -25,7 +25,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
         'role',
+        'permissions',
     ];
 
     protected $hidden = [
@@ -38,12 +40,17 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'permissions' => 'array',
         ];
     }
 
-    public function tokens()
-    {
-        return $this->hasMany(PersonalAccessToken::class, 'tokenable_id');
+    // public function tokens()
+    // {
+    //     return $this->hasMany(PersonalAccessToken::class, 'tokenable_id');
+    // }
+
+    public function hasPermission(string $permission): bool{
+        return in_array($permission, $this->permissions ?? []);
     }
 
     public function isAdmin(): bool
