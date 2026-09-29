@@ -210,4 +210,5 @@ input:focus {
 
 .forgot-password a:hover {
     text-decoration: underline;
+    cursor: pointer;
 }

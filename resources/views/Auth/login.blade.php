@@ -11,6 +11,11 @@
 </head>
 <body>
     <div class="login-card">
+      @if (session('status'))
+        <div class="alert alert-success" style="margin-bottom: 16px;">
+          {{ session('status') }}
+        </div>
+      @endif
       <!-- Header Logo & Title -->
       <div class="brand">
         <div class="brand-logo">
@@ -60,7 +65,7 @@
 
       <!-- Forgot Password Link -->
       <div class="forgot-password">
-        <a href="./forgetpass">Forgot Password?</a>
+        <a href="{{ route('forgetpass') }}">Forgot Password?</a>
       </div>
     </div>
 

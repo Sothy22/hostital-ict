@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\PersonalAccessToken;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -53,11 +49,6 @@ class User extends Authenticatable
         return in_array($permission, $this->permissions ?? []);
     }
 
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
     public function isDoctor(): bool
     {
         return $this->role === 'doctor';
@@ -76,6 +67,27 @@ class User extends Authenticatable
     public function isPharmacy(): bool
     {
         return $this->role === 'pharmacy';
+    }
+
+    public function appointment ()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+
+     public function medical_record () {
+        return $this->hasMany(MedicalRecord::class, 'staff_id');
+    }
+
+    public function medicalHistory () {
+        return $this->hasMany(MedicalHistory::class, 'patient_id');
+    }
+
+    public function labTest () {
+        return $this->hasMany(LabTest::class, 'staff_id');
+    }
+
+    public function vitalSign () {
+        return $this->hasMany(VitalSign::class, 'staff_id');
     }
 }
 

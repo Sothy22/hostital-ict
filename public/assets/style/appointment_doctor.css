@@ -1,186 +1,4 @@
 :root {
-  --bg-main: #f8fafc;
-  --card-bg: #ffffff;
-  --border-color: #e2e8f0;
-  --accent-blue: #3b82f6;
-  --accent-orange: #f97316;
-  --accent-green: #22c55e;
-
-  --confirmed-bg: #dcfce7;
-  --confirmed-text: #15803d;
-  --pending-bg: #fef3c7;
-  --pending-text: #b45309;
-  --bg-color: #121212;
-}
-
-body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #f5f5f5;
-  --accent-color: #60a5fa;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-  margin: 0;
-}
-
-.container {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-}
-
-.main {
-  flex-grow: 1;
-  /* padding-left: 240px; */
-  background-color: #f8fafc;
-  box-sizing: border-box;
-  min-width: 0;
-  transition: margin-left 0.3s ease;
-}
-
-.page-content {
-  padding: 20px 40px;
-}
-
-.page-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.page-title h2 {
-  font-size: 28px;
-  margin-bottom: 5px;
-}
-
-.page-title p {
-  color: #777;
-  font-size: 15px;
-}
-
-.add-btn {
-  background: #4361ee;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.add-btn:hover {
-  background: #3151e0;
-}
-
-.filter-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  gap: 15px;
-}
-
-.filter-bar input,
-.filter-bar select {
-  width: 220px;
-  height: 45px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 0 15px;
-  outline: none;
-  background: white;
-}
-
-.table-card {
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-thead {
-  background: #f7f8fc;
-}
-
-th {
-  padding: 15px;
-  text-align: left;
-  color: #555;
-  font-size: 15px;
-}
-
-td {
-  padding: 16px 15px;
-  border-top: 1px solid #eee;
-  color: #555;
-}
-
-.patient {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.action-btn:hover {
-  background: #4361ee;
-  color: white;
-}
-
-tbody tr {
-  transition: 0.3s;
-}
-
-tbody tr:hover {
-  background: #f8faff;
-}
-
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.pagination p {
-  color: #777;
-  font-size: 14px;
-}
-
-.page-number {
-  display: flex;
-  gap: 8px;
-}
-
-.page-number button {
-  width: 35px;
-  height: 35px;
-  border: none;
-  background: #f5f5f5;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.page-number button.active {
-  background: #4361ee;
-  color: white;
-}
-
-@media (max-width: 767.99px) {
-  :root {
     --bg-main: #f8fafc;
     --card-bg: #ffffff;
     --border-color: #e2e8f0;
@@ -193,29 +11,311 @@ tbody tr:hover {
     --pending-bg: #fef3c7;
     --pending-text: #b45309;
     --bg-color: #121212;
-  }
+}
 
-  body.dark-mode {
+body.dark-mode {
     --bg-color: #121212;
     --text-color: #f5f5f5;
     --accent-color: #60a5fa;
-  }
+}
 
-  body {
-    display: flex;
-    justify-content: center;
+body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-    min-height: 100dvh;
+        background-color 0.3s ease,
+        color 0.3s ease;
     margin: 0;
-  }
+}
 
-  .main {
-    min-height: 100dvh;
+.main {
+    flex-grow: 1;
+    padding-left: 240px;
+    background-color: var(--card-bg);
+    box-sizing: border-box;
+    min-height: 0;
+    transition: margin-left 0.3s ease;
+}
+
+.title-contain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.title {
+    display: flex;
+    gap: 20px;
+}
+
+.title > h4 {
+    color: grey;
+}
+
+.btn-add-appointment {
+    margin-right: 30px;
+}
+
+.btn-add-appointment > button {
+    padding: 12px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: white;
+    background-color: var(--accent-blue);
+    font-size: 18px;
+}
+
+.filter {
+    display: flex;
+    gap: 30px;
+    padding-left: 30px;
+}
+
+.search-appoint {
+    width: 230px;
+    height: 40px;
+    /* border: 1px solid #3b82f6; */
+    border-radius: 20px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(187, 228, 238);
+}
+
+.search-appoint > input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    min-width: 0;
+    color: #555;
+}
+
+.date-filter {
+    width: 230px;
+    height: 40px;
+    border: 1px solid #3b82f6;
+    border-radius: 20px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.date-filter > input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    min-width: 0;
+    color: #555;
+}
+
+.date-filter > i {
+    color: #3b82f6;
+}
+
+/* =========================
+   TABLE CONTAINER
+========================= */
+
+.table {
     width: 100%;
-    padding: 16px;
-  }
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.table > table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.table thead {
+    background-color: #f8fafc;
+}
+
+/* Horizontal & vertical alignment for headers and cells */
+.table th,
+.table td {
+    padding: 16px 18px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table th {
+    color: #252525;
+}
+
+.table td {
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px solid #edf0f3;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Header sort layout centered */
+.time-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.sort-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 7px;
+}
+
+.sort-arrows i {
+    font-size: 9px;
+}
+
+.sort-arrows .fa-caret-up {
+    color: #52606d;
+}
+
+.sort-arrows .fa-caret-down {
+    color: #d5d9dd;
+}
+
+/* Patient Avatar & Name layout centered */
+.avata-user {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.avata-user > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avata-user h5 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #222;
+}
+
+/* Specific Column Styling */
+.table td:nth-child(6) {
+    color: #22a06b;
+    font-weight: 500;
+}
+
+/* USER ACTION */
+.table td:last-child {
+    color: #7362a3;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* =========================
+  RESPONSIVE
+========================= */
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .title-contain {
+        padding-left: 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .filter {
+        padding-left: 20px;
+        gap: 15px;
+    }
+
+    .search-appoint,
+    .date-filter {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 767.99px) {
+    body {
+        background-color: var(--card-bg);
+    }
+
+    .main {
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .title-contain {
+        margin-top: 100px;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 16px 0 16px;
+    }
+
+    .title {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .title > h4 {
+        margin: 0;
+        font-size: 12px;
+    }
+
+    .btn-add-appointment {
+        width: 150px;
+        margin-right: 0;
+    }
+
+    .btn-add-appointment > button {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 12px;
+    }
+
+    .filter {
+        flex-direction: column;
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .search-appoint,
+    .date-filter {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .table {
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+
+    .avata-user > img {
+        width: 30px;
+        height: 30px;
+    }
 }

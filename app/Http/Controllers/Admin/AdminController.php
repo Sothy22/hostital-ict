@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -29,7 +30,7 @@ class AdminController extends Controller
             "email" => "required|string|email|max:255|unique:users,email",
             "password" => "required|string|min:8|confirmed",
             "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048",
-            "role" => "required|string|in:doctor,pharmacy,account,reception",
+            "role" => "required|string|in:doctor,pharmacy,accountant,receptionist",
             "permissions" => "required|string",
             // "permissions.*" => "string",
         ]);
@@ -99,7 +100,7 @@ class AdminController extends Controller
             "name" => "sometimes|required|string|max:255",
             "email" => "sometimes|required|string|email|max:255|unique:users,email," . $user->id,
             "password" => "sometimes|required|string|min:8|confirmed",
-            "role" => "sometimes|required|string|in:doctor,pharmacy,account,reception",
+            "role" => "sometimes|required|string|in:doctor,pharmacy,accountant,receptionist",
             "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048",
             "permissions" => "sometimes|required|array",
             "permissions.*" => "string",
@@ -119,12 +120,6 @@ class AdminController extends Controller
    public function destroy($id)
     {
         $user = User::findOrFail($id);
-
-        if ($user->role === 'admin') {
-            return response()->json([
-                'message' => "Admin users cannot be deleted."
-            ], 403);
-        }
 
         if ($user->image) {
             $oldPath = str_replace('/storage', '', $user->image);

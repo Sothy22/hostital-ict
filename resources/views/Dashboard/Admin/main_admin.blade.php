@@ -208,9 +208,8 @@
             </main>
         </div>
 
-        {{-- <script src="../assets/script/script.js" type="module"></script>
-        <script src="../assets/script/main_admin.js"></script>
+        <script src="../assets/script/dark_mode.js" type="module"></script>
         <script src="../assets/script/menu_dashboard.js"></script>
-        <script src="./assets/script/dropdown_dashboard.js"></script> --}}
+        <script src="./assets/script/dropdown_dashboard.js"></script>
     </body>
 </html>

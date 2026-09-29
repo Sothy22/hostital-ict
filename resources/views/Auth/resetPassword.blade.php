@@ -27,8 +27,33 @@
         </p>
       </div>
 
+      @if (session('error'))
+        <div class="alert alert-danger" style="margin-bottom: 16px;">
+          {{ session('error') }}
+        </div>
+      @endif
+
       <!-- Login Form -->
-      <form id="loginForm">
+      <form id="loginForm" method="POST" action="{{ route('password.update') }}">
+        @csrf
+        <input type="hidden" name="token" value="{{ $token ?? '' }}">
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrapper">
+            <i class="fa-regular fa-envelope"></i>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              value="{{ old('email') }}"
+              required
+            />
+          </div>
+        </div>
+
         <!-- New Password Field -->
         <div class="form-group">
           <label for="password">New Password</label>
@@ -36,6 +61,7 @@
             <i data-lucide="lock" class="input-icon"></i>
             <input
               type="password"
+              name="password"
               id="password"
               placeholder="Min. 8 characters"
               required
@@ -45,12 +71,13 @@
 
         <!-- Confirm Password Field -->
         <div class="form-group">
-          <label for="password">Comfirm New Password</label>
+          <label for="password_confirmation">Confirm New Password</label>
           <div class="input-wrapper">
             <i data-lucide="lock" class="input-icon"></i>
             <input
               type="password"
-              id="password"
+              name="password_confirmation"
+              id="password_confirmation"
               placeholder="Re-enter new password"
               required
             />
@@ -73,7 +100,8 @@
 
       <!-- Forgot Password Link -->
       <div class="forgot-password">
-        <a href="./login"><- Back to Login</a>
+        {{-- <a href="./login"><- Back to Login</a> --}}
+        {{-- <a action="{{ route('login') }}"><- Back to Login</a> --}}
       </div>
     </div>
 

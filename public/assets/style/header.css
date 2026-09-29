@@ -1,135 +1,304 @@
+/* --- 1. LIGHT MODE VARIABLES --- */
 :root {
-  --bg-color: #ffffff;
-  --text-color: #1a1a1a;
-  --accent-color: #3b82f6;
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --accent-color: #3b82f6;
+    --border-color: #e2e8f0;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
 }
 
 /* --- 2. DARK MODE VARIABLES --- */
 body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #f5f5f5;
-  --accent-color: #60a5fa;
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+    --accent-color: #60a5fa;
+    --border-color: #2a2a2a;
+    --card-bg: #1e1e1e;
+    --card-shadow: rgba(0, 0, 0, 0.5);
 }
 
-/* --- 3. APPLY VARIABLES TO YOUR STYLES --- */
+/* --- 3. BASE STYLES --- */
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  /* Smooth fading transition when changing modes */
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-  margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+    margin: 0;
+    font-family: "Times New Roman", Times, serif;
 }
 
 header {
-  width: 100%;
-  height: 100px;
+    width: 100%;
 }
 
 .head {
-  margin-inline: 15%;
-  /* background-color: blueviolet; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    padding: 12px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
 }
 
+/* --- 4. LOGO STYLES --- */
 .head-logo {
-  width: 100px;
-  height: 100px;
-  /* background-color: aquamarine; */
+    display: flex;
+    align-items: center;
+}
+
+.head-logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-color);
+    outline-offset: 4px;
+}
+
+.head-logo > a h1 {
+    font-size: 20px;
+    margin: 0;
 }
 
 .head-logo img {
-  width: 100%;
-  padding: 2px;
-  object-fit: cover;
+    height: 50px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
 }
 
-.menu-btn {
-  display: none;
-  font-size: 30px;
-  cursor: pointer;
-  color: black;
-  user-select: none;
-}
-
+/* --- 5. NAVIGATION MENU --- */
+.menu-btn,
 .close-btn {
-  display: none;
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--text-color);
+    user-select: none;
 }
 
 .head-page {
-  display: none;
-}
-
-.head-page {
-  /* background-color: aqua; */
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  list-style: none;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .head-page a {
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 20px;
-  color: black;
-  transition: all 0.3s ease;
-  border: 1px solid #f5efef;
-  border-radius: 8px;
-  padding: 8px;
-  display: inline-block;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode .head-page a {
-  color: #f5f5f5;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 16px;
+    display: inline-block;
+    box-shadow: 0px 4px 6px var(--card-shadow);
+    background-color: var(--card-bg);
 }
 
 .head-page a:hover,
 .head-page a.active {
-  background-color: #3b82f6;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px var(--card-shadow);
 }
 
+/* --- 6. SEARCH & ICONS --- */
 .nav-icons {
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .search {
-  display: flex;
-  align-items: center;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  padding: 4px 10px;
-  width: 40px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  /* color: #121212; */
-  right: -50px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 6px 12px;
+    width: 32px;
+    overflow: hidden;
+    transition:
+        width 0.3s ease,
+        border-color 0.3s ease;
+    background-color: var(--card-bg);
 }
 
 .search:hover,
 .search:focus-within {
-  width: 200px;
-  border-color: #ccc;
+    width: 180px;
+    border-color: var(--accent-color);
 }
 
 .search input {
-  border: none;
-  outline: none;
-  margin-left: 25px;
-  width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-color);
+    margin-left: 8px;
+    width: 100%;
+    font-size: 14px;
 }
 
-/* @media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    header {
+        margin-top: 20px;
+    }
 
-} */
+    .head {
+        margin-inline: 1%;
+        display: flex;
+        align-items: center;
+    }
+
+    .head-logo {
+        width: 80px;
+    }
+
+    .head-page {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        list-style: none;
+        cursor: pointer;
+    }
+
+    .head-page a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+        border: 1px solid var(--border-color, #f5efef);
+        border-radius: 8px;
+        padding: 8px;
+        display: inline-block;
+        box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-icons {
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .search {
+        display: flex;
+        align-items: center;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 4px 10px;
+        width: 40px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .search:hover,
+    .search:focus-within {
+        width: 100px;
+        border-color: #ccc;
+    }
+}
+
+/* --- 7. RESPONSIVE BREAKPOINT --- */
+@media screen and (max-width: 768px) {
+    .head {
+        margin-inline: 5%;
+    }
+
+    .head-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .menu-btn {
+        display: block;
+        font-size: 30px;
+        cursor: pointer;
+        color: var(--text-color, #0f172a);
+        user-select: none;
+        z-index: 1001;
+    }
+
+    .head-page {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 260px;
+        height: 100vh;
+        background-color: var(--bg-color, #ffffff);
+        color: var(--text-color, #1a1a1a);
+        padding-top: 90px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        transition: right 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    .head-page.show {
+        right: 0;
+    }
+
+    .close-btn {
+        display: block;
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        font-size: 28px;
+        color: var(--text-color, #000000);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .close-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .nav-icons {
+        position: absolute;
+        top: 26px;
+        right: 24px;
+    }
+
+    .nav-icons #theme-toggle {
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-color) !important;
+    }
+
+    .head-page a {
+        width: 90%;
+        text-align: center;
+        padding: 12px;
+        color: var(--text-color) !important;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    #menu-btn.hidden {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .search {
+        display: none;
+    }
+}

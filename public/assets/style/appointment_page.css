@@ -1,0 +1,346 @@
+/* --- 1. ROOT & DARK MODE VARIABLES --- */
+:root {
+    --bg-color: #ffffff;
+    --bg-section: #f8fafc;
+    --bg-card: #f5f5f5;
+    /* --text-color: #ae3f3f; */
+    --text-muted: #717182;
+    --accent-color: #3b82f6;
+    --accent-hover: #1d4ed8;
+    --border-color: #e2e8f0;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --shadow-hover: rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --bg-section: #1c1c1c;
+    --bg-card: #1e1e1e;
+    --text-color: #f5f5f5;
+    --text-muted: #a1a1aa;
+    --accent-color: #60a5fa;
+    --accent-hover: #3b82f6;
+    --border-color: #334155;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --shadow-hover: rgba(0, 0, 0, 0.6);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    margin: 0;
+    padding: 0;
+}
+
+.appointment-conten {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.image {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 450px;
+}
+
+.bg-appoint {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e4efff;
+    border-radius: 48% 52% 40% 60% / 45% 45% 55% 55%;
+    z-index: 1;
+}
+
+.image > img {
+    position: relative;
+    z-index: 2;
+    max-width: 90%;
+    height: auto;
+    object-fit: contain;
+}
+
+.appointment-title {
+    flex: 1;
+    max-width: 500px;
+}
+
+.appointment-title h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #000;
+    margin-bottom: 24px;
+}
+
+body.dark-mode .appointment-title h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-color);
+    margin-bottom: 24px;
+}
+
+.appointment-title p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin: 0;
+}
+
+.booking-info {
+    /* width: 500px; */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+
+.booking-info > h1 {
+    font-size: 40px;
+}
+
+.booking-info > h1,
+.booking-info > h3 {
+    color: black;
+}
+
+body.dark-mode .booking-info > h1,
+body.dark-mode .booking-info > h3 {
+    color: var(--text-color);
+}
+
+.booking-appoint {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-title {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.booking-title-bar {
+    display: inline-flex;
+    background-color: #e8e5f2;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.booking-title-bar > button {
+    border: none;
+    background: transparent;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.booking-title-bar button.active {
+    background: linear-gradient(135deg, #887bc2 0%, #7362a3 100%);
+    color: #ffffff;
+    border-top-left-radius: 12px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.booking-title-bar button:not(.active):hover {
+    background-color: #dfdbed;
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-avata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-avata > input {
+    width: calc(50% - 10px);
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+}
+
+.form-address {
+    width: 100%;
+}
+
+.form-address > input {
+    width: 100%;
+    height: 110px;
+    border: 1px solid var(--border-color);
+}
+
+.form {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.gender {
+    width: 400px;
+    border: 1px solid var(--border-color);
+    padding: 0 40px 0 14px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.password-box {
+    position: relative;
+    width: 400px;
+}
+
+.password-box input {
+    width: 100%;
+    height: 36px;
+    padding: 0 40px 0 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.password-box input::placeholder {
+    color: #999;
+}
+
+.password-box button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #111;
+}
+
+.btn-register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #887bc2 0%, #7362a3 100%);
+    padding: 14px 60px;
+    border-radius: 5px;
+    margin: 0 auto 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .appointment-conten {
+        padding: 40px 50px;
+        gap: 20px;
+    }
+
+    .appointment-title h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.15;
+        color: #000;
+        margin-bottom: 24px;
+    }
+
+    .booking-info {
+        padding: 40px 50px;
+    }
+
+    .booking-info > h1 {
+        font-size: 2rem;
+    }
+
+    .booking-appoint {
+        width: 800px;
+        margin: 0 auto;
+        padding: 40px 50px;
+    }
+
+    .booking-title-bar > button {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 767.99px) {
+    .appointment-conten {
+        display: grid;
+    }
+
+    /* .appointment-title {
+    display: none;
+  } */
+
+    .image {
+        display: none;
+    }
+
+    .booking-appoint {
+        width: 90%;
+    }
+
+    .form-avata {
+        display: grid;
+    }
+
+    .form-avata > input {
+        width: 100%;
+    }
+
+    .booking-title-bar > button {
+        font-size: 11px;
+    }
+
+    .form {
+        display: grid;
+    }
+
+    .gender {
+        width: 445px;
+        border: 1px solid var(--border-color);
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    .password-box {
+        position: relative;
+        width: 445px;
+    }
+
+    .btn-register {
+        font-size: 14px;
+    }
+}

@@ -13,6 +13,11 @@
   </head>
   <body>
     <div class="login-card">
+      @if (session('status') || session('success') || session('error'))
+        <div class="alert {{ session('error') ? 'alert-danger' : 'alert-success' }}" style="margin-bottom: 16px;">
+          {{ session('status') ?? session('success') ?? session('error') }}
+        </div>
+      @endif
       <!-- Header Logo & Title -->
       <div class="brand">
         <div class="brand-logo">
@@ -26,7 +31,8 @@
       </div>
 
       <!-- Login Form -->
-      <form id="loginForm">
+      <form id="loginForm" method="post" action="{{ route('password.email') }}">
+        @csrf
         <!-- Username/ID Field -->
         <div class="form-group">
           <label for="staffId">Username or Staff ID</label>
