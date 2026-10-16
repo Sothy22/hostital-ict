@@ -98,13 +98,13 @@ class AuthController extends Controller
 
         $request->session()->invalidate();
 
-        // $request->session()->regenerateToken(); // for page in web
+        $request->session()->regenerateToken(); // for page in web
 
-        // return redirect()->route('login');
+        return redirect()->route('login');
 
-        return response()->json([
-            'message' => 'Logout Successfully'
-        ], 200);
+        // return response()->json([
+        //     'message' => 'Logout Successfully'
+        // ], 200);
     }
 
     public function apiLogout(Request $request)

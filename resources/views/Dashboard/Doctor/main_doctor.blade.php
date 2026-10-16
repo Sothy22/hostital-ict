@@ -154,7 +154,7 @@
 
               <div class="stat-info">
                 <p>Total Patients</p>
-                <h2>1,280</h2>
+                <h2>{{ number_format($totalPatients) }}</h2>
               </div>
             </div>
 

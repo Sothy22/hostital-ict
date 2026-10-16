@@ -80,8 +80,26 @@
         </div>
 
         <div class="dep-grid" id="departmentsGrid">
+        @forelse ($departments as $department)
+            <div class="dep-card">
+                <div class="department">
+                    <div class="dep-img">
+                        <img class="managerImage" src="{{ asset('storage/' . $department->image) }}" alt="{{ $department->name }}">
+                        <h4 class="managerName">{{ $department->name }}</h4>
+                    </div>
 
-        <div class="dep-card" id="depCard">
+                    <div class="dep-title">
+                    <p class="departmentTitle">{{ optional($department->department)->name }}</p>
+                    <p class="dep-des">{{ optional($department->department)->description }}</p>
+
+                        <button class="departmentBtn">View Doctors -></button>
+                    </div>
+                </div>
+            </div>
+        @empty
+              <p class="empty-departments">No departments are available right now.</p>
+        @endforelse
+        {{-- <div class="dep-card" id="depCard">
             <div class="department">
               <div class="dep-img">
                 <img class="managerImage" src="" alt="">
@@ -95,7 +113,7 @@
                 <button class="departmentBtn"></button>
               </div>
             </div>
-        </div>
+        </div> --}}
 
           <!-- card 1 -->
           {{-- <div class="dep-card">

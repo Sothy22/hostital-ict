@@ -13,4 +13,19 @@ class Role extends Model
         'description',
         'status'
     ];
+
+     public function rolePermissions()
+    {
+        return $this->hasMany(RolePermission::class, 'role_id');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(
+            Permission::class,
+            'role_permissions',
+            'role_id',
+            'permission_id'
+        );
+    }
 }

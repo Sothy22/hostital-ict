@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Layout;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -29,11 +30,15 @@ class HomeController extends Controller
     }
     public function department()
     {
-        return view('department');
+        $departments = User::with('department')->where('role', 'department_head')->get();
+
+        return view('department', compact('departments'));
     }
     public function doctor()
     {
-        return view('doctors');
+        $doctors = User::with('department')->where('role', 'doctor')->get();
+
+        return view('doctors', compact('doctors'));
     }
     public function storeContact(Request $request)
     {

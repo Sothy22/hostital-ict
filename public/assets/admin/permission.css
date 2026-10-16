@@ -1,0 +1,508 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --accent-color: #3b82f6;
+
+    --border-color: #aaaaaa;
+    --placeholder-color: #999999;
+    --card-color: #ffffff;
+}
+
+.per-head {
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    margin: 10px 15px;
+    border-radius: 10px;
+}
+
+.head-left p,
+.head-right a {
+    color: #60708a;
+    text-decoration: none;
+}
+
+.head-right ul {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+li {
+    list-style: none;
+}
+
+.contain {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px 25px;
+    margin: 10px 15px;
+}
+
+.contain-left {
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 8px;
+    width: 30%;
+    padding: 0 5px;
+}
+
+.per-search {
+    border: 1px solid gray;
+    border-radius: 8px;
+    width: 80%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #60708a;
+    margin-bottom: 8px;
+}
+
+.per-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.staff-fillter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    transition: opacity 0.2s ease;
+}
+
+.staff-fillter:hover {
+    opacity: 0.8;
+    border-radius: 5px;
+    background-color: var(--border-color);
+}
+
+.per-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.per-avata {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.per-avata img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avata-info h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.avata-info p {
+    margin: 2px 0 0 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.staff-role {
+    border: 1px solid rgb(181, 179, 179);
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.contain-right {
+    width: 70%;
+}
+
+/* Main Container */
+.permission-container {
+    max-width: 100%;
+    margin: auto;
+}
+
+/* =========================
+           STAFF INFORMATION
+        ========================= */
+
+.staff-information {
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #172b4d;
+    margin-bottom: 18px;
+}
+
+.staff-info-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.staff-profile {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.staff-image {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e2e8f0;
+}
+
+.staff-details h2 {
+    font-size: 18px;
+    color: #172b4d;
+    margin-bottom: 5px;
+}
+
+.staff-email {
+    color: #60708a;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.staff-meta {
+    display: flex;
+    gap: 25px;
+    font-size: 13px;
+    color: #60708a;
+}
+
+.staff-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Role */
+
+.role-box {
+    width: 145px;
+}
+
+.role-box label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #172b4d;
+    margin-bottom: 7px;
+}
+
+.role-box select {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #dbe3ee;
+    border-radius: 6px;
+    padding: 0 10px;
+    color: #344563;
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+}
+
+.role-box select:focus {
+    border-color: #2878e8;
+}
+
+/* =========================
+           PERMISSIONS
+        ========================= */
+
+.permissions-section {
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Information Alert */
+
+.permission-alert {
+    background: #eef7ff;
+    border: 1px solid #cfe7ff;
+    color: #2563a6;
+    padding: 11px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-bottom: 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-icon {
+    width: 18px;
+    height: 18px;
+    background: #2878e8;
+    color: white;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* Permission Grid */
+
+.permission-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.permission-card {
+    border: 1px solid #e1e7ef;
+    border-radius: 6px;
+    padding: 15px;
+    background: #fff;
+}
+
+.permission-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.permission-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    background: #eaf3ff;
+    color: #2478e5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+}
+
+.permission-card-header h3 {
+    font-size: 18px;
+    color: #172b4d;
+    margin-bottom: 4px;
+}
+
+.permission-card-header p {
+    font-size: 14px;
+    color: #8a98aa;
+}
+
+/* Checkbox */
+
+.permission-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.permission-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    color: #506176;
+    cursor: pointer;
+}
+
+.permission-item input {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #bdc8d6;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+}
+
+.permission-item input:checked {
+    background: #2878e8;
+    border-color: #2878e8;
+}
+
+.permission-item input:checked::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    left: 2px;
+    top: -1px;
+}
+
+/* =========================
+           BUTTONS
+        ========================= */
+
+.permission-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background: #f4f7fa;
+    color: #596b82;
+    border: 1px solid #e0e6ee;
+}
+
+.btn-save {
+    background: #2878e8;
+    color: white;
+}
+
+.btn-save:hover {
+    background: #1769d2;
+}
+
+/* 1. Tablet & Mobile Layout Fixes (max-width: 992px) */
+@media (max-width: 992px) {
+    .contain {
+        flex-direction: column;
+        /* margin: 10px 0; */
+        padding: 0px;
+        margin: 10px 15px;
+    }
+
+    .contain-left {
+        padding: 0px;
+    }
+
+    .select-staff {
+        margin: 10px;
+    }
+
+    .contain-left,
+    .contain-right {
+        width: 100%;
+    }
+
+    .per-search {
+        width: 90%;
+        box-sizing: border-box;
+    }
+}
+
+/* 2. Tablet & Mobile Header & Grid Fixes (max-width: 768px) */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    /* Header / Breadcrumb adjustments */
+    .per-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 15px;
+        margin: 10px 0;
+    }
+
+    .head-right ul {
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
+    }
+
+    .contain {
+        padding: 0px;
+        margin: 10px 0px;
+    }
+
+    /* Staff Information Section */
+    .staff-info-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .role-box {
+        width: 100%;
+    }
+
+    /* Grid layout to single column */
+    .permission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .staff-profile {
+        align-items: flex-start;
+    }
+
+    .staff-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* 3. Small Mobile Screen Fixes (max-width: 480px) */
+@media (max-width: 480px) {
+    .per-head,
+    .staff-information,
+    .permissions-section {
+        padding: 15px;
+    }
+
+    .staff-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .staff-meta {
+        align-items: center;
+    }
+
+    .staff-filter {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .permission-footer {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

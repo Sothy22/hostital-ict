@@ -81,44 +81,58 @@
         </div>
 
         <div class="doctors-grid" id="doctorsGrid">
-
-          <div class="doctor-card" id="doctorCard">
-            <div class="doctor-avatar">
-              <img class="doctorImage" src="" alt="">
-            </div>
-
-            <div class="doctor-info">
-              <h3 class="doctorName"></h3>
-              <p class="doctorDepartment"></p>
-            </div>
-
-            <div class="doctor-rating">
-              <i class="fa-solid fa-star"></i>
-              <div class="rating">
-                <span class="doctorRating"></span>
-              </div>
-            </div>
-
-            <div class="doctor-meta">
-              <div class="meta">
-                <span>Experience</span>
-                <span class="doctorExperience"></span>
+          @forelse ($doctors as $doctor)
+            <div class="doctor-card">
+              <div class="doctor-avatar">
+                @if ($doctor->image)
+                  <img class="doctorImage" src="{{ asset('storage/' . $doctor->image) }}" alt="{{ $doctor->name }}">
+                @endif
               </div>
 
-              <div class="meta">
-                <span>Available</span>
-                <span class="doctorAvailable"></span>
+              <div class="doctor-info">
+                <h3 class="doctorName">{{ $doctor->name }}</h3>
+                <p class="doctorDepartment">{{ optional($doctor->department)->name ?? 'Department' }}</p>
               </div>
+
+              @if (isset($doctor->rating))
+                <div class="doctor-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <div class="rating">
+                    <span class="doctorRating">{{ $doctor->rating }}</span>
+                  </div>
+                </div>
+              @endif
+
+              <div class="doctor-meta">
+                <div class="meta">
+                  <span>Experience</span>
+                  <span class="doctorExperience">{{ $doctor->experience ?? 'Not specified' }}</span>
+                </div>
+
+                <div class="meta">
+                  <span>Available</span>
+                  <span class="doctorAvailable">
+                    @if (isset($doctor->available))
+                      {{ $doctor->available ? 'Available' : 'Unavailable' }}
+                    @else
+                      Contact us
+                    @endif
+                  </span>
+                </div>
+              </div>
+
+              <button class="book-btn" type="button">
+                <a href="{{ route('contact') }}">
+                  <i class="fas">&#xf0b1;</i>
+                  <span>Book Appointment</span>
+                </a>
+              </button>
             </div>
+          @empty
+            <p>No doctors are listed yet.</p>
+          @endforelse
 
-            <button class="book-btn">
-              <a href="{{ route('contact') }}">
-                <i class="fas">&#xf0b1;</i>
-                <span>Book Appointment</span>
-              </a>
-            </button>
-
-          </div>
+        </div>
 
 
           <!-- card 1 -->

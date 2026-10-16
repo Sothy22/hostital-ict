@@ -48,6 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  aside.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      aside.classList.remove('active');
+      document.body.classList.remove('sidebar-open');
+
+      if (icon) {
+        icon.classList.replace('fa-xmark', 'fa-bars');
+      }
+    });
+  });
+
   document.addEventListener('click', (e) => {
     if (!aside.contains(e.target) && !menuToggle.contains(e.target)) {
       aside.classList.remove('active');

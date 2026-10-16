@@ -13,7 +13,7 @@ class AdminController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        $users =User::all();
+        $users = User::with('department')->get();
         return response()->json([
             'data' => $users,
             'message' => "Users Retrieved Successfully"
@@ -26,10 +26,12 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            "department_id" => "required|exists:departments,id",
             "name" => "required|string|max:255",
             "email" => "required|string|email|max:255|unique:users,email",
             "password" => "required|string|min:8|confirmed",
-            "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048",
+            "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg,webp|max:2048",
+            "phone" => "required|number|max:8|min:10",
             "role" => "required|string|in:doctor,pharmacy,accountant,receptionist",
             "permissions" => "required|string",
             // "permissions.*" => "string",
@@ -55,8 +57,12 @@ class AdminController extends Controller
             "password" => $request->password,
             "image" => $imagePath,
             "role" => $request->role,
+            "phone" => $request->phone,
+            "department_id" => $request->department_id,
             "permissions" => $permissions,
         ]);
+
+        $user->load('department');
 
         return response()->json([
             "data" => $user,
@@ -69,7 +75,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::with('department')->find($id);
 
         if (!$user) {
             return response()->json([
@@ -96,17 +102,31 @@ class AdminController extends Controller
             ], 404);
         }
 
-        $request->validate([
+        $data = $request->validate([
+            "department_id" => "sometimes|required|exists:departments,id",
             "name" => "sometimes|required|string|max:255",
             "email" => "sometimes|required|string|email|max:255|unique:users,email," . $user->id,
             "password" => "sometimes|required|string|min:8|confirmed",
             "role" => "sometimes|required|string|in:doctor,pharmacy,accountant,receptionist",
-            "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048",
+            "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg,webp|max:2048",
+            "phone" => "required|number|max:8|min:10",
             "permissions" => "sometimes|required|array",
-            "permissions.*" => "string",
         ]);
 
-        $user->update($request->all());
+        unset($data['image']);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('users', 'public');
+
+            if ($user->image) {
+                Storage::disk('public')->delete($user->image);
+            }
+
+            $data['image'] = $imagePath;
+        }
+
+        $user->update($data);
+        $user->load('department');
 
         return response()->json([
             'data' => $user,

@@ -8,13 +8,9 @@
     />
     <link rel="stylesheet" href="{{ asset("assets/style/main_doctor.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/aside.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/style/appointment_doctor.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/style/patient_doctor.css") }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <title>Document</title>
+    <title>Doctor Dashboard</title>
   </head>
 
   <body>
@@ -31,7 +27,7 @@
 
         <div class="aside-head">
           <div class="upper-head">
-            <a href={{ route("main_doctor") }}>
+           <a href={{ route("main_doctor") }}>
               <i class="fa-solid fa-house"></i>
               Dashboard
             </a>
@@ -62,8 +58,8 @@
             </a>
 
             <a href="settings.html">
-              <i class="fa-regular fa-clipboard"></i>
-              Reports
+              <i class="fa-solid fa-gear"></i>
+              Settings
             </a>
           </div>
 
@@ -134,120 +130,70 @@
           </div>
         </div>
 
-        <!-- container -->
-        <section class="title-contain">
-          <div class="title">
-            <h4>NEW APPOINTMENT</h4>
-            <h4>COMPLETED APPOINTMENTS</h4>
+        <section class="stats-grid">
+          <div class="stat-card">
+            <i class="fa-solid fa-user stat-icon"></i>
+            <div>
+              <p>View all Patient</p>
+              <h3>85</h3>
+            </div>
           </div>
-          <div class="btn-add-appointment">
-            <button>+ New Appointment</button>
+
+          <div class="stat-card">
+            <div class="stat-icon">✚</div>
+            <div>
+              <p>Patients Status</p>
+              <h3>85</h3>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <i class="fa-solid fa-user-group stat-icon"></i>
+            <div>
+              <p>Follow-up Patients Status</p>
+              <h3>85</h3>
+            </div>
           </div>
         </section>
 
-        <section class="filter">
-          <div class="search-appoint">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Search" />
+        <!-- Upcoming Appointments -->
+        <section class="appointments-card">
+          <h2>Upcoming Appointments</h2>
+
+          <div class="appointment-list">
+            <div class="appointment-item">
+              <div class="patient-avatar blue">JS</div>
+              <div class="patient-info">
+                <strong>John Smith</strong>
+                <span>Consultation - Dr. Evans</span>
+              </div>
+              <time>10:00 AM</time>
+            </div>
+
+            <div class="appointment-item">
+              <div class="patient-avatar green">AL</div>
+              <div class="patient-info">
+                <strong>Alice Lee</strong>
+                <span>Follow-up - Dr. Sarah</span>
+              </div>
+              <time>11:30 AM</time>
+            </div>
+
+            <div class="appointment-item">
+              <div class="patient-avatar purple">RW</div>
+              <div class="patient-info">
+                <strong>Robert White</strong>
+                <span>MRI Scan - Radiology</span>
+              </div>
+              <time>01:00 PM</time>
+            </div>
           </div>
 
-          <div class="date-filter">
-            <input type="text" placeholder="Filter by Date" />
-            <i class="fa-regular fa-calendar"></i>
-          </div>
+          <button class="schedule-btn">View Schedule</button>
         </section>
 
-        <form action="" class="table">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <div class="time-header">
-                    Time
-                    <span class="sort-arrows">
-                      <i class="fa-solid fa-caret-up"></i>
-                      <i class="fa-solid fa-caret-down"></i>
-                    </span>
-                  </div>
-                </th>
-                <th>
-                  <div class="time-header">
-                    Date
-                    <span class="sort-arrows">
-                      <i class="fa-solid fa-caret-up"></i>
-                      <i class="fa-solid fa-caret-down"></i>
-                    </span>
-                  </div>
-                </th>
-                <th>
-                  <div class="time-header">
-                    Patient Name
-                    <span class="sort-arrows">
-                      <i class="fa-solid fa-caret-up"></i>
-                      <i class="fa-solid fa-caret-down"></i>
-                    </span>
-                  </div>
-                </th>
-                <th>
-                  <div class="time-header">
-                    Patient Age
-                    <span class="sort-arrows">
-                      <i class="fa-solid fa-caret-up"></i>
-                      <i class="fa-solid fa-caret-down"></i>
-                    </span>
-                  </div>
-                </th>
-                <th>
-                  <div class="time-header">
-                    Doctor
-                    <span class="sort-arrows">
-                      <i class="fa-solid fa-caret-up"></i>
-                      <i class="fa-solid fa-caret-down"></i>
-                    </span>
-                  </div>
-                </th>
-                <th>
-                  <div class="time-header">
-                    Fee Status
-                    <span class="sort-arrows">
-                      <i class="fa-solid fa-caret-up"></i>
-                      <i class="fa-solid fa-caret-down"></i>
-                    </span>
-                  </div>
-                </th>
-                <th>
-                  <div class="time-header">
-                    User Action
-                    <span class="sort-arrows">
-                      <i class="fa-solid fa-caret-up"></i>
-                      <i class="fa-solid fa-caret-down"></i>
-                    </span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>9:00 AM</td>
-                <td>5/11/2023</td>
-                <td>
-                  <div class="avata-user">
-                    <img
-                      src="./assets/images/dr-png-hero-section-683x1024.webp"
-                      alt=""
-                    />
-                    <h5>Jonh</h5>
-                  </div>
-                </td>
-                <td>32</td>
-                <td>Dr.Heang</td>
-                <td>Paid</td>
-                <td>Request Fee</td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+        <!-- Bottom Empty Area -->
+        <div class="dashboard-bottom"></div>
       </main>
     </div>
 

@@ -203,149 +203,76 @@ document.addEventListener("DOMContentLoaded", () => {
     stats.forEach((stat) => observer.observe(stat));
 });
 
-// ==================== ALL DOCTOR SECTION ====================
-document.addEventListener("DOMContentLoaded", () => {
-    const grid = document.getElementById("doctorsGrid");
-    const firstCard = document.getElementById("doctorCard");
-    const viewAllBtn = document.querySelector(".btn button");
-
-    // ប្រសិនបើរកមិនឃើញ Element សំខាន់ៗទេ មិនបាច់រត់កូដខាងក្រោមឡើយ (ការពារ Error)
-    if (!grid || !firstCard) return;
-
-    let visibleCount = 6;
-
-    function renderDoctors() {
-        grid.querySelectorAll(".doctor-card:not(#doctorCard)").forEach((card) =>
-            card.remove(),
-        );
-
-        // ត្រូវប្រាកដថាមានទិន្នន័យ doctorData ជាមុនសិន
-        if (typeof doctorData === "undefined") return;
-
-        const items = doctorData.slice(0, visibleCount);
-
-        items.forEach((doctor, index) => {
-            let card;
-
-            if (index === 0) {
-                card = firstCard;
-            } else {
-                card = firstCard.cloneNode(true);
-                grid.appendChild(card);
-            }
-
-            // បង្ការការគាំងករណីរកមិនឃើញ class ខាងក្នុង Card
-            const img = card.querySelector(".doctorImage");
-            if (img) {
-                img.src = doctor.image;
-                img.alt = doctor.name;
-            }
-
-            if (card.querySelector(".doctorName"))
-                card.querySelector(".doctorName").textContent = doctor.name;
-            if (card.querySelector(".doctorDepartment"))
-                card.querySelector(".doctorDepartment").textContent =
-                    doctor.department;
-            if (card.querySelector(".doctorRating"))
-                card.querySelector(".doctorRating").textContent = doctor.rating;
-            if (card.querySelector(".doctorExperience"))
-                card.querySelector(".doctorExperience").textContent =
-                    doctor.experience;
-            if (card.querySelector(".doctorAvailable")) {
-                card.querySelector(".doctorAvailable").textContent =
-                    doctor.available ? "Available" : "Unavailable";
-            }
-        });
-
-        if (viewAllBtn) {
-            if (visibleCount >= doctorData.length) {
-                viewAllBtn.style.display = "none";
-            } else {
-                viewAllBtn.style.display = "block";
-            }
-        }
-    }
-
-    renderDoctors();
-
-    if (viewAllBtn) {
-        viewAllBtn.addEventListener("click", () => {
-            visibleCount += 6;
-            renderDoctors();
-        });
-    }
-});
-
 // ==================== ALL DEPARTMENTS SECTION ====================
-document.addEventListener("DOMContentLoaded", () => {
-    const departmentsGrid = document.getElementById("departmentsGrid");
-    const firstCard = document.getElementById("depCard");
-    const viewAllBtn = document.getElementById("viewAllBtn");
+// document.addEventListener("DOMContentLoaded", () => {
+//     const departmentsGrid = document.getElementById("departmentsGrid");
+//     const firstCard = document.getElementById("depCard");
+//     const viewAllBtn = document.getElementById("viewAllBtn");
 
-    // 👉 ការពារ Error: បើគ្មានប្លុក Departments ក្នុងទំព័រនេះទេ ឱ្យវារំលងតែម្តង
-    if (!departmentsGrid || !firstCard) {
-        console.log(
-            "រកមិនឃើញ departmentsGrid ឬ depCard ឡើយ។ រំលងការ Render ទិន្នន័យនេះ។",
-        );
-        return;
-    }
+//     // 👉 ការពារ Error: បើគ្មានប្លុក Departments ក្នុងទំព័រនេះទេ ឱ្យវារំលងតែម្តង
+//     if (!departmentsGrid || !firstCard) {
+//         console.log(
+//             "រកមិនឃើញ departmentsGrid ឬ depCard ឡើយ។ រំលងការ Render ទិន្នន័យនេះ។",
+//         );
+//         return;
+//     }
 
-    let visibleCount = 6;
+//     let visibleCount = 6;
 
-    function renderDepartments() {
-        // ប្រើប្រាស់ដោយសុវត្ថិភាព
-        departmentsGrid
-            .querySelectorAll(".dep-card:not(#depCard)")
-            .forEach((card) => card.remove());
+//     function renderDepartments() {
+//         // ប្រើប្រាស់ដោយសុវត្ថិភាព
+//         departmentsGrid
+//             .querySelectorAll(".dep-card:not(#depCard)")
+//             .forEach((card) => card.remove());
 
-        // ត្រូវប្រាកដថាមានទិន្នន័យ departmentData
-        if (typeof departmentData === "undefined") return;
+//         // ត្រូវប្រាកដថាមានទិន្នន័យ departmentData
+//         if (typeof departmentData === "undefined") return;
 
-        const items = departmentData.slice(0, visibleCount);
+//         const items = departmentData.slice(0, visibleCount);
 
-        items.forEach((dep, index) => {
-            let card;
+//         items.forEach((dep, index) => {
+//             let card;
 
-            if (index === 0) {
-                card = firstCard;
-            } else {
-                card = firstCard.cloneNode(true);
-                departmentsGrid.appendChild(card);
-            }
+//             if (index === 0) {
+//                 card = firstCard;
+//             } else {
+//                 card = firstCard.cloneNode(true);
+//                 departmentsGrid.appendChild(card);
+//             }
 
-            // បង្ការការគាំងករណីរកមិនឃើញ class ខាងក្នុង Card
-            const managerImg = card.querySelector(".managerImage");
-            if (managerImg) {
-                managerImg.src = dep.managerImage;
-                managerImg.alt = dep.managerName;
-            }
+//             // បង្ការការគាំងករណីរកមិនឃើញ class ខាងក្នុង Card
+//             const managerImg = card.querySelector(".managerImage");
+//             if (managerImg) {
+//                 managerImg.src = dep.managerImage;
+//                 managerImg.alt = dep.managerName;
+//             }
 
-            if (card.querySelector(".managerName"))
-                card.querySelector(".managerName").textContent =
-                    dep.managerName;
-            if (card.querySelector(".departmentTitle"))
-                card.querySelector(".departmentTitle").textContent = dep.title;
-            if (card.querySelector(".dep-des"))
-                card.querySelector(".dep-des").textContent = dep.description;
-            if (card.querySelector(".departmentBtn"))
-                card.querySelector(".departmentBtn").textContent = dep.linkText;
-        });
+//             if (card.querySelector(".managerName"))
+//                 card.querySelector(".managerName").textContent =
+//                     dep.managerName;
+//             if (card.querySelector(".departmentTitle"))
+//                 card.querySelector(".departmentTitle").textContent = dep.title;
+//             if (card.querySelector(".dep-des"))
+//                 card.querySelector(".dep-des").textContent = dep.description;
+//             if (card.querySelector(".departmentBtn"))
+//                 card.querySelector(".departmentBtn").textContent = dep.linkText;
+//         });
 
-        if (viewAllBtn) {
-            if (visibleCount >= departmentData.length) {
-                viewAllBtn.style.display = "none";
-            } else {
-                viewAllBtn.style.display = "block";
-            }
-        }
-    }
+//         if (viewAllBtn) {
+//             if (visibleCount >= departmentData.length) {
+//                 viewAllBtn.style.display = "none";
+//             } else {
+//                 viewAllBtn.style.display = "block";
+//             }
+//         }
+//     }
 
-    renderDepartments();
+//     renderDepartments();
 
-    if (viewAllBtn) {
-        viewAllBtn.addEventListener("click", () => {
-            visibleCount += 6;
-            renderDepartments();
-        });
-    }
-});
+//     if (viewAllBtn) {
+//         viewAllBtn.addEventListener("click", () => {
+//             visibleCount += 6;
+//             renderDepartments();
+//         });
+//     }
+// });

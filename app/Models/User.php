@@ -19,16 +19,25 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
+        'gender',
         'email',
+        'mobile',
+        'address',
+        'nic',
+        'date_of_birth',
         'password',
         'image',
         'role',
+        'department_id',
         'permissions',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'department_id',
     ];
 
     protected function casts(): array
@@ -69,7 +78,12 @@ class User extends Authenticatable
         return $this->role === 'pharmacy';
     }
 
-    public function appointment ()
+     public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function appointment()
     {
         return $this->hasMany(Appointment::class, 'doctor_id');
     }

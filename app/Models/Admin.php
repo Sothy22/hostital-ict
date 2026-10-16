@@ -15,10 +15,13 @@ class Admin extends Authenticatable
     protected $collection = 'admins';
 
     protected $fillable = [
+        'department_id',
         'name',
         'email',
         'password',
         'image',
+        'role',
+        'phone',
         'permissions',
     ];
 
@@ -38,5 +41,10 @@ class Admin extends Authenticatable
     public function hasPermission(string $permission): bool
     {
         return in_array($permission, $this->permissions ?? [], true);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 }
