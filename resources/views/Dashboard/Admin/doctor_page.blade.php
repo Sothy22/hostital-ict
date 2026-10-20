@@ -149,7 +149,7 @@
             </div>
           </section>
 
-          <form action="" class="table">
+          <div action="" class="table">
             <table>
               <thead>
                 <tr>
@@ -216,9 +216,18 @@
                       </span>
                     </div>
                   </th>
-                  <th>
+                  {{-- <th>
                     <div class="time-header">
                       NIC
+                      <span class="sort-arrows">
+                        <i class="fa-solid fa-caret-up"></i>
+                        <i class="fa-solid fa-caret-down"></i>
+                      </span>
+                    </div>
+                  </th> --}}
+                  <th>
+                    <div class="time-header">
+                      DOB
                       <span class="sort-arrows">
                         <i class="fa-solid fa-caret-up"></i>
                         <i class="fa-solid fa-caret-down"></i>
@@ -227,7 +236,7 @@
                   </th>
                   <th>
                     <div class="time-header">
-                      DOB
+                      Status
                       <span class="sort-arrows">
                         <i class="fa-solid fa-caret-up"></i>
                         <i class="fa-solid fa-caret-down"></i>
@@ -253,31 +262,50 @@
                     <td>
                       <div class="avata-user">
                         <img
-                          src="{{ $doctor->image ? asset('storage/' . $doctor->image) : asset('assets/images/top-doctor2.jpg') }}"
+                          src="{{ $doctor->image ? asset('storage/' . $doctor->image) : ""}}"
                           alt="{{ trim(($doctor->first_name ?? '') . ' ' . ($doctor->last_name ?? '')) ?: ($doctor->name ?? 'Doctor') }}"
                         />
                         <h5>{{ trim(($doctor->first_name ?? '') . ' ' . ($doctor->last_name ?? '')) ?: ($doctor->name ?? 'Doctor') }}</h5>
                       </div>
-                    </td>\
+                    </td>
                     <td>{{ optional($doctor->department)->name ?? '—' }}</td>
                     <td>{{ $doctor->gender ?? '—' }}</td>
-                    <td>{{ $doctor->email }}</td>
+                    <td>{{ $doctor->email ?? '_' }}</td>
                     <td>{{ $doctor->mobile ?? '—' }}</td>
                     <td>{{ $doctor->address ?? '—' }}</td>
-                    <td>{{ $doctor->nic ?? '—' }}</td>
+                    {{-- <td>{{ $doctor->nic ?? '—' }}</td> --}}
                     <td>{{ $doctor->date_of_birth ?? '—' }}</td>
+                    <td>{{ $doctor->status ?? '—' }}</td>
                     <td>
                         <div class="action">
                             <button
                                 type="button"
                                 data-open-staff-modal
+                                data-edit-staff
+                                data-staff-id="{{ $doctor->id }}"
+                                data-first-name="{{ $doctor->first_name ?? '' }}"
+                                data-last-name="{{ $doctor->last_name ?? '' }}"
+                                data-role="{{ $doctor->role ?? '' }}"
+                                data-gender="{{ $doctor->gender ?? '' }}"
+                                data-email="{{ $doctor->email ?? '' }}"
+                                data-mobile="{{ $doctor->mobile ?? '' }}"
+                                data-address="{{ $doctor->address ?? '' }}"
+                                data-nic="{{ $doctor->nic ?? '' }}"
+                                data-date-of-birth="{{ $doctor->date_of_birth ?? '' }}"
+                                data-status="{{ $doctor->status ?? '' }}"
+                                data-department-id="{{ $doctor->department_id ?? '' }}"
+                                aria-label="Edit {{ trim(($doctor->first_name ?? '') . ' ' . ($doctor->last_name ?? '')) ?: ($doctor->name ?? 'staff member') }}"
                                 class="edit-user"
                             >
                                 Edit
                             </button>
                             <form
-                                action=""
+                                action="{{ route('delete.staff', $doctor->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure want to delete this user.')"
                             >
+                                @csrf
+                                @method('DELETE')
                                 <button
                                     type="submit"
                                     class="btn-danger"
@@ -295,7 +323,7 @@
                 @endforelse
               </tbody>
             </table>
-          </form>
+          </div>
         </main>
         @include('Dashboard.Admin._staff_modal')
     </div>

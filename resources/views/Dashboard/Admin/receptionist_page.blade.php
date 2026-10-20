@@ -21,96 +21,78 @@
     <div class="container">
       <!-- aside -->
         <aside class="aside">
-                <div class="title-head">
-                    <i class="fa-solid fa-heart-pulse"></i>
-                    <div class="title">
-                        <span>CarePlus</span>
-                        <span>Admin Portal</span>
-                    </div>
+            <div class="title-head">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <div class="title">
+                    <span>CarePlus</span>
+                    <span>Admin Portal</span>
                 </div>
-
-                <div class="aside-head">
-                    <div class="upper-head">
-                        <a href="{{ route('main_admin') }}" class="active">
-                            <i class="fa-solid fa-house"></i>
-                            Dashboard
-                        </a>
-
-                        {{-- <a href="#appointments">
-                            <i class="fa-solid fa-calendar-check"></i>
-                            Appointments
-                        </a>
-
-                        <a href="#patients">
-                            <i class="fa-solid fa-hospital-user"></i>
-                            Patients
-                        </a> --}}
-
-                        <div class="dropdown">
-                            <button class="dropbtn">
+            </div>
+            <div class="aside-head">
+                <div class="upper-head">
+                    <a href="{{ route('main_admin') }}" class="active">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
+                    {{-- <a href="#appointments">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Appointments
+                    </a>
+                    <a href="#patients">
+                        <i class="fa-solid fa-hospital-user"></i>
+                        Patients
+                    </a> --}}
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            <i class="fa-solid fa-users"></i>
+                            Staff
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="{{ route('admin_doctor') }}">
+                                <i class="fa-solid fa-user-doctor"></i>
+                                Doctors
+                            </a>
+                            <a href="{{ route('admin_receptionist') }}">
                                 <i class="fa-solid fa-users"></i>
-                                Staff
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </button>
-
-                            <div class="dropdown-content">
-                                <a href="{{ route('admin_doctor') }}">
-                                    <i class="fa-solid fa-user-doctor"></i>
-                                    Doctors
-                                </a>
-
-                                <a href="{{ route('admin_receptionist') }}">
-                                    <i class="fa-solid fa-users"></i>
-                                    Receptionists
-                                </a>
-
-                                <a href="{{ route('admin_accountant') }}">
-                                    <i class="fa-solid fa-user-pen"></i>
-                                    Accountants
-                                </a>
-
-                                <a href="{{ route('admin_pharmacy') }}">
-                                    <i class="fa-solid fa-user-tag"></i>
-                                    Pharmacy
-                                </a>
-
-                                <a href="{{ route('add_staff') }}">
-                                    <i class="fa-solid fa-building-user"></i>
-                                    Add Staff
-                                </a>
-                            </div>
+                                Receptionists
+                            </a>
+                            <a href="{{ route('admin_accountant') }}">
+                                <i class="fa-solid fa-user-pen"></i>
+                                Accountants
+                            </a>
+                            <a href="{{ route('admin_pharmacy') }}">
+                                <i class="fa-solid fa-user-tag"></i>
+                                Pharmacy
+                            </a>
                         </div>
-
-                        <a href="{{ route('permission_page') }}">
-                            <i class="fa-solid fa-shield-dog"></i>
-                            Permissions
-                        </a>
                     </div>
-
-                    <div class="under-head">
-                        <div class="avatar-user">
-                            <div class="avatar-user-photo admin-initial">
-                                {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
-                            </div>
-                            <p>{{ auth('admin')->user()->name ?? 'Administrator' }}</p>
-                        </div>
-
-                        <a href="{{ route('contact') }}">
-                            <i class="fa-regular fa-circle-question"></i>
-                            Support
-                        </a>
-
-                        <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-
-                            <button type="submit" class="logout-btn">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                    Log Out
-                            </button>
-                        </form>
-                    </div>
+                    <a href="{{ route('permission_page') }}">
+                        <i class="fa-solid fa-shield-dog"></i>
+                        Permissions
+                    </a>
                 </div>
-            </aside>
+                <div class="under-head">
+                    <div class="avatar-user">
+                        <div class="avatar-user-photo admin-initial">
+                            {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
+                        </div>
+                        <p>{{ auth('admin')->user()->name ?? 'Administrator' }}</p>
+                    </div>
+                    <a href="{{ route('contact') }}">
+                        <i class="fa-regular fa-circle-question"></i>
+                        Support
+                    </a>
+                    <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                        <button type="submit" class="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                                Log Out
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </aside>
 
         <main class="main">
           <!-- Header -->
@@ -167,7 +149,7 @@
             </div>
           </section>
 
-          <form action="" class="table">
+          <div action="" class="table">
             <table>
               <thead>
                 <tr>
@@ -183,6 +165,15 @@
                   <th>
                     <div class="time-header">
                       Full Name
+                      <span class="sort-arrows">
+                        <i class="fa-solid fa-caret-up"></i>
+                        <i class="fa-solid fa-caret-down"></i>
+                      </span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="time-header">
+                      Department
                       <span class="sort-arrows">
                         <i class="fa-solid fa-caret-up"></i>
                         <i class="fa-solid fa-caret-down"></i>
@@ -225,6 +216,24 @@
                       </span>
                     </div>
                   </th>
+                  {{-- <th>
+                    <div class="time-header">
+                      NIC
+                      <span class="sort-arrows">
+                        <i class="fa-solid fa-caret-up"></i>
+                        <i class="fa-solid fa-caret-down"></i>
+                      </span>
+                    </div>
+                  </th> --}}
+                  <th>
+                    <div class="time-header">
+                      DOB
+                      <span class="sort-arrows">
+                        <i class="fa-solid fa-caret-up"></i>
+                        <i class="fa-solid fa-caret-down"></i>
+                      </span>
+                    </div>
+                  </th>
                   <th>
                     <div class="time-header">
                       Status
@@ -247,26 +256,74 @@
               </thead>
 
               <tbody>
-                <tr>
-                  <td>9:00 AM</td>
-                  <td>5/11/2023</td>
-                  <td>
-                    <div class="avata-user">
-                      <img
-                        src="./assets/images/dr-png-hero-section-683x1024.webp"
-                        alt=""
-                      />
-                      <h5>Jonh</h5>
-                    </div>
-                  </td>
-                  <td>32</td>
-                  <td>Dr.Heang</td>
-                  <td>Paid</td>
-                  <td>Request Fee</td>
-                </tr>
+                @forelse ($receptionists as $receptionist)
+                  <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                      <div class="avata-user">
+                        <img
+                          src="{{ $receptionist->image ? asset('storage/' . $receptionist->image) : "" }}"
+                          alt="{{ trim(($receptionist->first_name ?? '') . ' ' . ($receptionist->last_name ?? '')) ?: ($receptionist->name ?? 'Receptionist') }}"
+                        />
+                        <h5>{{ trim(($receptionist->first_name ?? '') . ' ' . ($receptionist->last_name ?? '')) ?: ($receptionist->name ?? 'Receptionist') }}</h5>
+                      </div>
+                    </td>
+                    <td>{{ optional($receptionist->department)->name ?? '—' }}</td>
+                    <td>{{ $receptionist->gender ?? '—' }}</td>
+                    <td>{{ $receptionist->email }}</td>
+                    <td>{{ $receptionist->mobile ?? '—' }}</td>
+                    <td>{{ $receptionist->address ?? '—' }}</td>
+                    {{-- <td>{{ $receptionist->nic ?? '—' }}</td> --}}
+                    <td>{{ $receptionist->date_of_birth ?? '—' }}</td>
+                    <td>{{ $receptionist->status ?? '—' }}</td>
+                    <td>
+                        <div class="action">
+                            <button
+                                type="button"
+                                data-open-staff-modal
+                                data-edit-staff
+                                data-staff-id="{{ $receptionist->id }}"
+                                data-first-name="{{ $receptionist->first_name ?? '' }}"
+                                data-last-name="{{ $receptionist->last_name ?? '' }}"
+                                data-role="{{ $receptionist->role ?? '' }}"
+                                data-gender="{{ $receptionist->gender ?? '' }}"
+                                data-email="{{ $receptionist->email ?? '' }}"
+                                data-mobile="{{ $receptionist->mobile ?? '' }}"
+                                data-address="{{ $receptionist->address ?? '' }}"
+                                data-nic="{{ $receptionist->nic ?? '' }}"
+                                data-date-of-birth="{{ $receptionist->date_of_birth ?? '' }}"
+                                data-status="{{ $receptionist->status ?? '' }}"
+                                data-department-id="{{ $receptionist->department_id ?? '' }}"
+                                aria-label="Edit {{ trim(($receptionist->first_name ?? '') . ' ' . ($receptionist->last_name ?? '')) ?: ($doctor->name ?? 'staff member') }}"
+                                class="edit-user"
+                            >
+                                Edit
+                            </button>
+                            <form
+                                action="{{ route('delete.staff', $receptionist->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure want to delete this user.')"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button
+                                    type="submit"
+                                    class="btn-danger"
+                                >
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                  </tr>
+                @empty
+                  <tr>
+                    <td colspan="9">No receptionists found.</td>
+                  </tr>
+                @endforelse
               </tbody>
             </table>
-          </form>
+          </div>
         </main>
         @include('Dashboard.Admin._staff_modal')
     </div>

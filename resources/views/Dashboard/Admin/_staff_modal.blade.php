@@ -29,22 +29,35 @@
 
         <form class="staff-form"
               action="{{ route('staff.store') }}"
+              data-store-url="{{ route('staff.store') }}"
+              data-update-url-template="{{ route('update.staff', ['id' => '__staff_id__']) }}"
               method="POST"
               enctype="multipart/form-data">
             @include('Dashboard.Admin._staff_form_fields')
+            <input type="hidden" name="staff_id" value="{{ old('staff_id') }}" data-staff-id>
+            <input type="hidden" name="_method" value="PUT" data-method-override disabled>
 
             <div class="form-buttons">
-                <button class="staff-modal__cancel"
-                        type="button"
-                        data-close-staff-modal>
-                    Cancel
+                <button
+                    class="staff-modal__cancel"
+                    type="button"
+                    data-close-staff-modal
+                >
+                        Cancel
                 </button>
-                <button class="staff-modal__cancel"
-                        type="button"
-                        data-close-staff-modal>
-                    Edit
+                <button
+                    class="staff-modal__edit"
+                    type="submit"
+                    data-save-staff
+                    hidden
+                >
+                        Edit
                 </button>
-                <button type="submit" class="btn btn-register">
+                <button
+                    type="submit"
+                    class="btn btn-register"
+                    data-add-staff
+                >
                     <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
                     Add Employee
                 </button>

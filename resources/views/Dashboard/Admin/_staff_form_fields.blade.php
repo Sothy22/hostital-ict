@@ -48,8 +48,13 @@
 <textarea name="address" placeholder="Address" required>{{ old('address') }}</textarea>
 
 <div class="form-row">
-    <input type="text" name="nic" placeholder="NIC"
-           value="{{ old('nic') }}" required>
+    {{-- <input type="text" name="nic" placeholder="NIC"
+           value="{{ old('nic') }}" required> --}}
+    <select name="status" required>
+        <option value="">Status</option>
+        <option value="Active" @selected(old('status') === 'Active')>Active</option>
+        <option value="Reject" @selected(old('status') === 'Reject')>Reject</option>
+    </select>
 
     <input type="date" name="date_of_birth"
            value="{{ old('date_of_birth') }}" required>
@@ -57,12 +62,12 @@
 
 <div class="form-row">
     <div class="password-field">
-        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="password" placeholder="Password" required data-password>
     </div>
 
     <div class="password-field">
         <input type="password" name="password_confirmation"
-               placeholder="Confirm Password" required>
+               placeholder="Confirm Password" required data-password-confirmation>
     </div>
 </div>
 

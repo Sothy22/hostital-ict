@@ -62,9 +62,11 @@ Route::middleware(['auth:admin'])->group(function() {
 
     Route::get('/add_staff', [StaffController::class, 'create'])->name('add_staff');
     Route::post('/add_staff', [StaffController::class, 'store'])->name('staff.store');
+    Route::put('update_staff/{id}', [StaffController::class, 'update'])->name('update.staff');
+    Route::delete('delete_staff/{id}', [StaffController::class, 'destroy'])->name('delete.staff');
 
     Route::get('/admin', function () {
-        return view('Dashboard.Admin.main_admin', [
+        return view('dashboard.admin.main_admin', [
             'totalPatients' => Patient::count(),
             'totalDoctors' => User::where('role', 'doctor')->count(),
             'totalAppointments' => Appointment::count(),
@@ -80,7 +82,7 @@ Route::middleware(['auth:admin'])->group(function() {
     })->name('main_admin');
 
     Route::get('/admin_doctor', function () {
-        return view('Dashboard.Admin.doctor_page', [
+        return view('dashboard.admin.doctor_page', [
             'doctors' => User::with('department')
                 ->where('role', 'doctor')
                 ->get(),
@@ -90,31 +92,40 @@ Route::middleware(['auth:admin'])->group(function() {
     })->name('admin_doctor');
 
     Route::get('/admin_accountant', function () {
-        return view('Dashboard.Admin.accountant_page', [
+        return view('dashboard.admin.accountant_page', [
+            'accountants' => User::with('department')
+                ->where('role', 'accountant')
+                ->get(),
             'roles' => Role::all(),
             'departments' => Department::all(),
         ]);
     })->name('admin_accountant');
 
     Route::get('/admin_pharmacy', function () {
-        return view('Dashboard.Admin.pharmacy_page', [
+        return view('dashboard.admin.pharmacy_page', [
+            'pharmacys' => User::with('department')
+                ->where('role', 'accountant')
+                ->get(),
             'roles' => Role::all(),
             'departments' => Department::all(),
         ]);
     })->name('admin_pharmacy');
 
     Route::get('/admin_receptionist', function () {
-        return view('Dashboard.Admin.receptionist_page', [
+        return view('dashboard.admin.receptionist_page', [
+            'receptionists' => User::with('department')
+                ->where('role', 'receptionist')
+                ->get(),
             'roles' => Role::all(),
             'departments' => Department::all(),
         ]);
     })->name('admin_receptionist');
-    // Route::get('/add_staff', function () {
-    //     return view('Dashboard.Admin.add_staff_page');
-    // })->name('add_staff');
 
     Route::get('/permission_page', function () {
-        return view('Dashboard.Admin.permission');
+        return view('dashboard.admin.permission', [
+            'staffs' => User::with('department')
+                ->get(),
+        ]);
     })->name('permission_page');
 
 });
@@ -125,15 +136,15 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/doctor', function () {
             $totalPatients = Patient::count();
 
-            return view('Dashboard.Doctor.main_doctor', compact('totalPatients'));
+            return view('dashboard.doctor.main_doctor', compact('totalPatients'));
         })->name('main_doctor');
 
         Route::get('/appointment_doctor', function () {
-            return view('Dashboard.Doctor.appointment_doctor');
+            return view('dashboard.doctor.appointment_doctor');
         })->name('appointment_doctor');
 
          Route::get('/patient_doctor', function () {
-            return view('Dashboard.Doctor.patient_doctor');
+            return view('dashboard.doctor.patient_doctor');
         })->name('patient_doctor');
 
     });

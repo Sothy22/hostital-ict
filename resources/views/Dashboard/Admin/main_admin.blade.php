@@ -71,10 +71,10 @@
                                     Pharmacy
                                 </a>
 
-                                <a href="{{ route('add_staff') }}">
+                                {{-- <a href="{{ route('add_staff') }}">
                                     <i class="fa-solid fa-building-user"></i>
                                     Add Staff
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
 
@@ -153,7 +153,7 @@
                     <div>
                         <p class="eyebrow">ADMIN OVERVIEW</p>
                         <h1>Welcome back, {{ auth('admin')->user()->name ?? 'Administrator' }}</h1>
-                        <p>Here’s what’s happening across your hospital today.</p>
+                        <p>Her's what's happening across your hospital today.</p>
                     </div>
                     <div class="welcome-date">
                         <i class="fa-regular fa-calendar"></i>

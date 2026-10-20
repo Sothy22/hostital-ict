@@ -9,7 +9,7 @@
 }
 
 .per-head {
-    background: #ffffff;
+    background: var(--accent-color);
     border: 1px solid #e5eaf1;
     border-radius: 8px;
     display: flex;
@@ -22,8 +22,12 @@
 
 .head-left p,
 .head-right a {
-    color: #60708a;
+    color: #ffffff;
     text-decoration: none;
+}
+
+.head-left h1 {
+    color: #ffffff;
 }
 
 .head-right ul {
@@ -41,7 +45,6 @@ li {
     flex-direction: row;
     gap: 20px;
     padding: 20px 25px;
-    margin: 10px 15px;
 }
 
 .contain-left {
@@ -72,20 +75,31 @@ li {
 }
 
 .staff-fillter {
+    flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 15px;
+    gap: 15px;
     transition: opacity 0.2s ease;
 }
 
-.staff-fillter:hover {
+.per-info:hover {
     opacity: 0.8;
     border-radius: 5px;
     background-color: var(--border-color);
 }
 
 .per-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.col-search {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -107,7 +121,7 @@ li {
 
 .avata-info h4 {
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: #1e293b;
 }
@@ -147,7 +161,7 @@ li {
 }
 
 .section-title {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
     color: #172b4d;
     margin-bottom: 18px;
@@ -207,7 +221,7 @@ li {
 
 .role-box label {
     display: block;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 600;
     color: #172b4d;
     margin-bottom: 7px;

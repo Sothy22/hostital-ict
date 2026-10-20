@@ -9,15 +9,30 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->enum('gender', ['Male', 'Female']);
             $table->string('email')->unique();
+            $table->string('mobile', 30);
+            $table->text('address');
+            $table->string('nic', 50);
+            $table->enum('status', ['Active', 'Reject']);
+            $table->date('date_of_birth');
+            $table->string('image')->nullable();
+
             $table->string('role')->default('user');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
+
             $table->string('password');
+            $table->json('permissions')->nullable();
+
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -37,6 +52,7 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -533,6 +533,7 @@ body.dark-mode .staff-form-errors {
 }
 
 .staff-modal .btn-register,
+.staff-modal__edit,
 .staff-modal__cancel {
     display: inline-flex;
     justify-content: center;
@@ -567,6 +568,10 @@ body.dark-mode .staff-form-errors {
     color: var(--text-color);
     background: var(--card-bg);
     border-color: var(--border-color);
+}
+
+.staff-modal__edit {
+    background-color: rgb(2, 255, 2);
 }
 
 .staff-modal__cancel:hover {

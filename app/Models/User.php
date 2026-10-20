@@ -27,6 +27,7 @@ class User extends Authenticatable
         'address',
         'nic',
         'date_of_birth',
+        'status',
         'password',
         'image',
         'role',

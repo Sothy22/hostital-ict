@@ -8,7 +8,7 @@
     />
     <link rel="stylesheet" href="{{ asset("assets/style/main_doctor.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/aside.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/style/appointment_doctor.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/style/list_page.css") }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"

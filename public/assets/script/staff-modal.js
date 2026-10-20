@@ -1,11 +1,90 @@
 const modal = document.querySelector("[data-staff-modal]");
+const staffSearch = document.getElementById("staffSearch");
+
+if (staffSearch) {
+    staffSearch.addEventListener("input", function () {
+        const query = staffSearch.value.trim().toLowerCase();
+
+        document.querySelectorAll(".staff-item").forEach(function (staff) {
+            const name = (staff.dataset.name || "").toLowerCase();
+            const email = (staff.dataset.email || "").toLowerCase();
+
+            staff.hidden = !name.includes(query) && !email.includes(query);
+        });
+    });
+}
+
+document.querySelectorAll("[data-staff-select]").forEach((staff) => {
+    staff.addEventListener("click", () => {
+        document.getElementById("selectedStaffName").textContent =
+            staff.dataset.name || "Staff member";
+        document.getElementById("selectedStaffEmail").textContent =
+            staff.dataset.email || "";
+        document.getElementById("selectedStaffRole").textContent =
+            staff.dataset.role || "";
+        document.getElementById("selectedStaffDepartment").textContent =
+            staff.dataset.department || "Not assigned";
+
+        const image = document.getElementById("selectedStaffImage");
+        const imageUrl = staff.dataset.image || "";
+
+        image.hidden = !imageUrl;
+        if (imageUrl) {
+            image.src = imageUrl;
+            image.alt = staff.dataset.name || "Staff member";
+        } else {
+            image.removeAttribute("src");
+        }
+    });
+});
 
 if (modal) {
     const dialog = modal.querySelector(".staff-modal__dialog");
     const openButtons = document.querySelectorAll("[data-open-staff-modal]");
+    const editButtons = document.querySelectorAll("[data-edit-staff]");
     const closeButtons = modal.querySelectorAll("[data-close-staff-modal]");
+    const form = modal.querySelector(".staff-form");
+    const staffId = form.elements.namedItem("staff_id");
+    const methodOverride = form.elements.namedItem("_method");
+    const addButton = form.querySelector("[data-add-staff]");
+    const saveButton = form.querySelector("[data-save-staff]");
+    const password = form.querySelector("[data-password]");
+    const passwordConfirmation = form.querySelector(
+        "[data-password-confirmation]",
+    );
     let previouslyFocusedElement = null;
     let previousBodyOverflow = "";
+
+    const setEditMode = (id) => {
+        form.action = form.dataset.updateUrlTemplate.replace(
+            "__staff_id__",
+            encodeURIComponent(id),
+        );
+        staffId.value = id;
+        methodOverride.disabled = false;
+        addButton.hidden = true;
+        saveButton.hidden = false;
+        password.required = false;
+        passwordConfirmation.required = false;
+        password.placeholder = "Leave blank to keep current password";
+        passwordConfirmation.placeholder = "Confirm new password";
+        dialog.querySelector("#staff-modal-title").textContent =
+            "Edit Employee";
+    };
+
+    const setAddMode = () => {
+        form.reset();
+        form.action = form.dataset.storeUrl;
+        staffId.value = "";
+        methodOverride.disabled = true;
+        addButton.hidden = false;
+        saveButton.hidden = true;
+        password.required = true;
+        passwordConfirmation.required = true;
+        password.placeholder = "Password";
+        passwordConfirmation.placeholder = "Confirm Password";
+        dialog.querySelector("#staff-modal-title").textContent = "Add Employee";
+    };
 
     const focusForm = () => {
         const firstField = dialog.querySelector(
@@ -32,11 +111,46 @@ if (modal) {
     };
 
     openButtons.forEach((button) => {
-        button.addEventListener("click", openModal);
+        button.addEventListener("click", () => {
+            if (button.dataset.staffId) {
+                setEditMode(button.dataset.staffId);
+            } else {
+                setAddMode();
+            }
+            openModal();
+        });
     });
 
     closeButtons.forEach((button) => {
         button.addEventListener("click", closeModal);
+    });
+
+    editButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const fields = [
+                "first_name",
+                "last_name",
+                "role",
+                "gender",
+                "email",
+                "mobile",
+                "address",
+                "nic",
+                "date_of_birth",
+                "status",
+                "department_id",
+            ];
+
+            fields.forEach((name) => {
+                const field = form.elements.namedItem(name);
+                if (field) {
+                    const dataName = name.replace(/_([a-z])/g, (_, letter) =>
+                        letter.toUpperCase(),
+                    );
+                    field.value = button.dataset[dataName] ?? "";
+                }
+            });
+        });
     });
 
     document.addEventListener("keydown", (event) => {
@@ -57,7 +171,9 @@ if (modal) {
             dialog.querySelectorAll(
                 "button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex='-1'])",
             ),
-        ).filter((element) => element instanceof HTMLElement && element.offsetParent);
+        ).filter(
+            (element) => element instanceof HTMLElement && element.offsetParent,
+        );
 
         if (focusableElements.length === 0) {
             event.preventDefault();
@@ -76,6 +192,12 @@ if (modal) {
             firstElement.focus();
         }
     });
+
+    if (staffId.value) {
+        setEditMode(staffId.value);
+    } else if (!modal.hidden) {
+        setAddMode();
+    }
 
     if (!modal.hidden) {
         previousBodyOverflow = document.body.style.overflow;
