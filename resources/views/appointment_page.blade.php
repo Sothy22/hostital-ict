@@ -110,10 +110,24 @@
                         <div class="form-avata">
                             <input type="text" placeholder="First Name" />
                             <input type="text" placeholder="Last Name" />
-                            <input type="email" placeholder="Email Name" />
+                            <input type="email" placeholder="Email" />
                             <input type="number" placeholder="Mobile Number" />
-                            <input type="text" placeholder="NIC" />
                             <input type="date" placeholder="Date of Birth" />
+                            <input type="time" placeholder="Time Meeting" />
+                            <select name="Gender" class="gender">
+                                <option value="">Gender</option>
+                                <option value="">Male</option>
+                                <option value="">Female</option>
+                            </select>
+                            <select name="department" class="gender">
+                                <option value="">Departments</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->getKey() }}"
+                                        @selected((string) old('department_id') === (string) $department->getKey())>
+                                        {{ $department->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-address">
@@ -121,12 +135,7 @@
                         </div>
 
                         <div class="form">
-                            <select name="Gender" class="gender">
-                                <option value="">Gender</option>
-                                <option value="">Male</option>
-                                <option value="">Female</option>
-                            </select>
-
+{{--
                             <div class="password-box">
                                 <input
                                     type="password"
@@ -136,18 +145,18 @@
                                 <button type="button" id="togglePassword">
                                     <i class="fa-solid fa-eye-slash"></i>
                                 </button>
-                            </div>
+                            </div> --}}
 
-                            <div class="password-box">
+                            {{-- <div class="password-box">
                                 <input
                                     type="password"
                                     id="confirm-password"
                                     placeholder="Confirm Password"
                                 />
-                                <button type="button" id="togglePassword">
+                                <button type="bdutton" id="togglePassword">
                                     <i class="fa-solid fa-eye-slash"></i>
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </section>

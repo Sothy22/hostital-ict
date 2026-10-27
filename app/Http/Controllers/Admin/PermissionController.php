@@ -5,9 +5,33 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Models\Permission;
+use App\Models\User;
 
 class PermissionController extends Controller
 {
+    public function assign(StorePermissionRequest $request)
+    {
+        $validated = $request->validated();
+
+        $staff = User::whereIn('role', [
+            'doctor',
+            'accountant',
+            'pharmacy',
+            'receptionist',
+        ])->find($validated['staff_id']);
+
+        if (!$staff) {
+            abort(404, 'Staff member not found.');
+        }
+
+        $staff->permissions = $validated['permissions'] ?? [];
+        $staff->save();
+
+        return redirect()
+            ->route('permission_page', ['staff_id' => $staff->getKey()])
+            ->with('success', 'Permissions saved successfully.');
+    }
+
     public function index() {
         $permissions = Permission::all();
 

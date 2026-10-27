@@ -175,25 +175,13 @@
                             >
                         </div>
 
-                        {{-- <div class="staff-fillter">
-                            <div class="per-info">
-                                <div class="per-avata">
-                                    <img src="./assets/images/top-doctor2.jpg" alt="">
-                                </div>
-                                <div class="avata-info">
-                                    <h4>Dr. James</h4>
-                                    <p>james@gmail.com</p>
-                                </div>
-                            </div>
-                            <div class="staff-role">
-                                Doctor
-                            </div>
-                        </div> --}}
                         <div class="staff-fillter">
                             @forelse ($staffs as $staff)
                                 <div
                                     class="per-info staff-item"
                                     data-staff-select
+                                    data-staff-id="{{ $staff->getKey() }}"
+                                    data-permissions="{{ implode(',', $staff->permissions ?? []) }}"
                                     data-name="{{ trim(($staff->first_name ?? ''). '' . ($staff->last_name ?? '')) ?: ($staff->name ?? '')}}"
                                     data-email="{{ $staff->email ?? '' }}"
                                     data-role="{{ $staff->role ?? '' }}"
@@ -232,25 +220,6 @@
                             <div class="section-title">Staff Information</div>
 
                             <div class="staff-info-content">
-                                {{-- <div class="staff-profile">
-                                    <img
-                                        src="https://randomuser.me/api/portraits/men/32.jpg"
-                                        class="staff-image"
-                                        alt="Staff"
-                                    />
-
-                                    <div class="staff-details">
-                                        <h2>Dr. James Carter</h2>
-
-                                        <div class="staff-email">james@hospital.com</div>
-
-                                        <div class="staff-meta">
-                                            <span> 👤 Position: Doctor </span>
-
-                                            <span> 🏥 Department: Cardiology </span>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="staff-profile">
                                     <img id="selectedStaffImage" class="staff-image" alt="Staff" />
 
@@ -264,17 +233,14 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                {{-- <div class="role-box">
-                                    <label for="role"> Update Role </label>
-
-                                    <select id="role">
+                                {{-- <div class="role-editor">
+                                    <label for="staff-role">Update Role</label>
+                                    <span>Role</span>
+                                    <select id="staff-role">
                                         <option>Doctor</option>
-                                        <option>Nurse</option>
-                                        <option>Pharmacist</option>
-                                        <option>Receptionist</option>
-                                        <option>Accountant</option>
-                                        <option>Admin</option>
+                                        <option>Reception</option>
+                                        <option>Pharmacy</option>
+                                        <option>Account</option>
                                     </select>
                                 </div> --}}
                             </div>
@@ -282,7 +248,7 @@
 
                         <!-- ================= PERMISSIONS ================= -->
 
-                        <div class="permissions-section">
+                        {{-- <div class="permissions-section">
                             <div class="section-title">Permissions</div>
 
                             <div class="permission-alert">
@@ -513,7 +479,75 @@
 
                                 <button class="btn btn-save"><i class="fa-solid fa-floppy-disk"></i> Save Permissions</button>
                             </div>
-                        </div>
+                        </div> --}}
+
+                        <form id="permissionForm" action="{{ route('permissions.assign') }}" method="POST">
+                            @csrf
+
+                            <input
+                                type="hidden"
+                                name="staff_id"
+                                value="{{ $selectedStaff ? $selectedStaff->getKey() : '' }}"
+                            >
+
+                            <div class="permissions-section">
+                                <div class="section-title">Permissions</div>
+
+                                @if (session('success'))
+                                    <div class="permission-alert">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+                                <div class="permission-alert">
+                                    <span class="info-icon">i</span>
+                                    <span>Select the permissions you want to assign to this staff member.</span>
+                                </div>
+
+                                <div class="permission-grid">
+                                    @foreach ($permissionGroups as $module => $permissions)
+                                        <div class="permission-card">
+                                            <div class="permission-card-header">
+                                                <div class="permission-icon">⚙</div>
+                                                <div>
+                                                    <h3>{{ ucwords(str_replace('_', ' ', $module)) }} Management</h3>
+                                                    <p>Manage {{ str_replace('_', ' ', $module) }} information</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="permission-list">
+                                                @foreach ($permissions as $permission)
+                                                    <label class="permission-item">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="permissions[]"
+                                                            value="{{ $permission }}"
+                                                            @checked(in_array($permission, $selectedPermissions ?? [], true))
+                                                        >
+                                                        {{ ucwords(str_replace('_', ' ', $permission)) }}
+                                                    </label>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="permission-footer">
+                                    <button type="button" class="btn btn-cancel" data-reset-permissions>
+                                        Cancel
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-save"
+                                        {{ $selectedStaff ? '' : 'disabled' }}
+                                    >
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                        Save Permissions
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -522,6 +556,6 @@
     <script src="../assets/script/dark_mode.js" type="module"></script>
     <script src="../assets/script/menu_dashboard.js"></script>
     <script src="./assets/script/dropdown_dashboard.js"></script>
-    <script src="../assets/script/staff-modal.js"></script>
+    <script src="{{ asset('assets/script/permission.js') }}" defer></script>
 </body>
 </html>

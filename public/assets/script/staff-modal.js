@@ -1,42 +1,4 @@
 const modal = document.querySelector("[data-staff-modal]");
-const staffSearch = document.getElementById("staffSearch");
-
-if (staffSearch) {
-    staffSearch.addEventListener("input", function () {
-        const query = staffSearch.value.trim().toLowerCase();
-
-        document.querySelectorAll(".staff-item").forEach(function (staff) {
-            const name = (staff.dataset.name || "").toLowerCase();
-            const email = (staff.dataset.email || "").toLowerCase();
-
-            staff.hidden = !name.includes(query) && !email.includes(query);
-        });
-    });
-}
-
-document.querySelectorAll("[data-staff-select]").forEach((staff) => {
-    staff.addEventListener("click", () => {
-        document.getElementById("selectedStaffName").textContent =
-            staff.dataset.name || "Staff member";
-        document.getElementById("selectedStaffEmail").textContent =
-            staff.dataset.email || "";
-        document.getElementById("selectedStaffRole").textContent =
-            staff.dataset.role || "";
-        document.getElementById("selectedStaffDepartment").textContent =
-            staff.dataset.department || "Not assigned";
-
-        const image = document.getElementById("selectedStaffImage");
-        const imageUrl = staff.dataset.image || "";
-
-        image.hidden = !imageUrl;
-        if (imageUrl) {
-            image.src = imageUrl;
-            image.alt = staff.dataset.name || "Staff member";
-        } else {
-            image.removeAttribute("src");
-        }
-    });
-});
 
 if (modal) {
     const dialog = modal.querySelector(".staff-modal__dialog");

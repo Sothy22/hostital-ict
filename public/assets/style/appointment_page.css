@@ -187,7 +187,8 @@ body.dark-mode .booking-info > h3 {
     gap: 20px;
 }
 
-.form-avata > input {
+.form-avata > input,
+.form-avata > select {
     width: calc(50% - 10px);
     padding: 12px;
     border: 1px solid var(--border-color);

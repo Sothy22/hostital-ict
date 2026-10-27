@@ -148,14 +148,14 @@
           <!-- Statistics -->
           <div class="stats-container">
             <div class="stat-card">
-              <div class="stat-icon blue">
-                <i class="fa-solid fa-hospital-user"></i>
-              </div>
+                <div class="stat-icon blue">
+                    <i class="fa-solid fa-hospital-user"></i>
+                </div>
 
-              <div class="stat-info">
-                <p>Total Patients</p>
-                <h2>{{ number_format($totalPatients) }}</h2>
-              </div>
+                <div class="stat-info">
+                    <p>Total Patients</p>
+                    <h2>{{ number_format($totalPatients) ?? 0 }}</h2>
+                </div>
             </div>
 
             <div class="stat-card">
@@ -176,7 +176,8 @@
 
               <div class="stat-info">
                 <p>Today's Appointments</p>
-                <h2>42</h2>
+                <h2>{{ number_format($totalAppointment ?? 0) }}</h2>
+                {{-- <h2>45</h2> --}}
               </div>
             </div>
 
@@ -267,18 +268,34 @@
               </button>
             </div>
 
-            <div class="appointment-item">
-              <div class="avatar blue-avatar">JS</div>
+            @if ($canReadAppointments)
+                @forelse ($appointments as $appointment)
+                    <div class="appointment-item">
+                        <div class="avatar blue-avatar">
+                            {{ strtoupper(substr($appointment->patient->full_name ?? 'P', 0, 2)) }}
+                        </div>
 
-              <div class="appointment-info">
-                <h4>John Smith</h4>
-                <p>Consultation - Dr. Evans</p>
-              </div>
+                        <div class="appointment-info">
+                            <h4>{{ $appointment->patient->full_name ?? 'Patient' }}</h4>
+                            <p>{{ $appointment->purpose ?? 'Appointment' }}</p>
+                        </div>
 
-              <span class="appointment-time"> 10:00 AM </span>
-            </div>
+                        <span class="appointment-time">
+                            @if ($appointment->appointment_date)
+                                {{ \Illuminate\Support\Carbon::parse($appointment->appointment_date)->format('M j, g:i A') }}
+                            @else
+                                Date not set
+                            @endif
+                        </span>
+                    </div>
+                @empty
+                    <p>No appointments found.</p>
+                @endforelse
+            @else
+                <p>You do not have permission to read appointments.</p>
+            @endif
 
-            <div class="appointment-item">
+            {{-- <div class="appointment-item">
               <div class="avatar green-avatar">AL</div>
 
               <div class="appointment-info">
@@ -287,9 +304,9 @@
               </div>
 
               <span class="appointment-time"> 11:30 AM </span>
-            </div>
+            </div> --}}
 
-            <div class="appointment-item">
+            {{-- <div class="appointment-item">
               <div class="avatar purple-avatar">RW</div>
 
               <div class="appointment-info">
@@ -298,7 +315,7 @@
               </div>
 
               <span class="appointment-time"> 01:00 PM </span>
-            </div>
+            </div> --}}
 
             <button class="view-schedule">View Schedule</button>
           </div>

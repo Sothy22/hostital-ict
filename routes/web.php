@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -122,30 +123,103 @@ Route::middleware(['auth:admin'])->group(function() {
     })->name('admin_receptionist');
 
     Route::get('/permission_page', function () {
+        $staffRoles = ['doctor', 'accountant', 'pharmacy', 'receptionist'];
+
+        $staffs = User::with('department')
+            ->whereIn('role', $staffRoles)
+            ->get();
+
+        $selectedStaffId = (string) request()->query('staff_id', '');
+
+        $selectedStaff = $staffs->first(
+            fn (User $staff) => (string) $staff->getKey() === $selectedStaffId
+        );
+
         return view('dashboard.admin.permission', [
-            'staffs' => User::with('department')
-                ->get(),
+            'staffs' => $staffs,
+            'permissionGroups' => config('permissions'),
+            'selectedStaff' => $selectedStaff,
+            'selectedPermissions' => $selectedStaff
+                ? ($selectedStaff->permissions ?? [])
+                : [],
         ]);
     })->name('permission_page');
+
+    Route::post('/assign_permissions', [
+        PermissionController::class,
+        'assign'
+    ])->name('permissions.assign');
 
 });
 
  // ============= Doctor =============
 Route::middleware(['auth'])->group(function() {
     Route::middleware(['role:doctor'])->group(function () {
-        Route::get('/doctor', function () {
-            $totalPatients = Patient::count();
 
-            return view('dashboard.doctor.main_doctor', compact('totalPatients'));
-        })->name('main_doctor');
+Route::get('/appointment_doctor', function () {
+    return view('dashboard.doctor.appointment_doctor');
+})->middleware('permission:read_appointment')->name('appointment_doctor');
+        // Route::get('/doctor', function () {
+        //     $user = auth()->user();
+
+        //     $totalPatients = $user->hasPermission('read_patient')
+        //         ? Patient::count()
+        //         : null;
+
+        //     $appointments = $user->hasPermission('read_appointment')
+        //     ? $user->appointment()
+        //         ->with('patient')
+        //         ->latest('appointment_date')
+        //         ->take(5)
+        //         ->get()
+        //     : collect();
+
+        //     $totalAppointment = $user->hasPermission('read_appointment')
+        //         ? $user->appointment()->count()
+        //         : 0;
+
+        //     return view('dashboard.doctor.main_doctor', compact(
+        //         'totalPatients',
+        //         'totalAppointment',
+        //         'appointments'
+        //     ));
+        // })->name('main_doctor');
+
+Route::get('/doctor', function () {
+    $user = auth('web')->user();
+    $canReadAppointments = $user->hasPermission('read_appointment');
+
+    $appointments = $canReadAppointments
+        ? $user->appointment()
+            ->with('patient')
+            ->orderBy('appointment_date', 'asc')
+            ->take(5)
+            ->get()
+        : collect();
+
+    $totalPatients = $user->hasPermission('read_patient')
+        ? Patient::count()
+        : null;
+
+    $totalAppointment = $canReadAppointments
+        ? $user->appointment()->count()
+        : 0;
+
+    return view('dashboard.doctor.main_doctor', compact(
+        'totalPatients',
+        'totalAppointment',
+        'appointments',
+        'canReadAppointments'
+    ));
+})->name('main_doctor');
 
         Route::get('/appointment_doctor', function () {
             return view('dashboard.doctor.appointment_doctor');
         })->name('appointment_doctor');
 
-         Route::get('/patient_doctor', function () {
+        Route::get('/patient_doctor', function () {
             return view('dashboard.doctor.patient_doctor');
-        })->name('patient_doctor');
+        })->middleware('permission:read_patient')->name('patient_doctor');
 
     });
 

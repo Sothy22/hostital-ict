@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePermissionRequest extends FormRequest
 {
@@ -20,11 +21,55 @@ class StorePermissionRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
+    // public function rules(): array
+    // {
+    //     return [
+    //         'permission_key' => 'required|string|unique:permissions,permission_key',
+    //         'description' => 'nullable|string',
+    //     ];
+    // }
     public function rules(): array
     {
+        $allPermissions = collect(config('permissions'))
+            ->flatten()
+            ->unique()
+            ->values()
+            ->all();
+
+        // return [
+        //     'role' => [
+        //         'required',
+        //         'string',
+        //         Rule::in([
+        //             'doctor',
+        //             'accountant',
+        //             'pharmacy',
+        //             'receptionist',
+        //         ]),
+        //     ],
+
+        //     'permissions' => [
+        //         'required',
+        //         'array',
+        //         'min:1',
+        //     ],
+
+        //     'permissions.*' => [
+        //         'required',
+        //         'string',
+        //         'distinct',
+        //         Rule::in($allPermissions),
+        //     ],
+        // ];
         return [
-            'permission_key' => 'required|string|unique:permissions,permission_key',
-            'description' => 'nullable|string',
+            'staff_id' => ['required', 'string'],
+            'permissions' => ['sometimes', 'array'],
+            'permissions.*' => [
+                'required',
+                'string',
+                'distinct',
+                Rule::in($allPermissions),
+            ],
         ];
     }
 }

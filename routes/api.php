@@ -78,7 +78,7 @@ Route::prefix("department")->group(function () {
 
 
 // ============= Patient =============
-Route::prefix("patient")->group(function () {
+Route::middleware('auth:sanctum')->prefix("patient")->group(function () {
     Route::get("/", [PatientController::class, "index"]);
     Route::post("/", [PatientController::class, "store"]);
     Route::put("/{id}", [PatientController::class, "update"]);

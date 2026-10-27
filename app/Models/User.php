@@ -50,6 +50,7 @@ class User extends Authenticatable
         ];
     }
 
+
     // public function tokens()
     // {
     //     return $this->hasMany(PersonalAccessToken::class, 'tokenable_id');
@@ -86,7 +87,7 @@ class User extends Authenticatable
 
     public function appointment()
     {
-        return $this->hasMany(Appointment::class, 'doctor_id');
+        return $this->hasMany(Appointment::class, 'staff_id' ,'_id');
     }
 
      public function medical_record () {
@@ -105,4 +106,3 @@ class User extends Authenticatable
         return $this->hasMany(VitalSign::class, 'staff_id');
     }
 }
-

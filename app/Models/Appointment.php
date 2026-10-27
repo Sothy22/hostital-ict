@@ -29,6 +29,6 @@ class Appointment extends Model
 
     public function staff()
     {
-        return $this->belongsTo(User::class, 'doctor_id');
+        return $this->belongsTo(User::class, 'staff_id', '_id');
     }
 }
