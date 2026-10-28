@@ -18,6 +18,18 @@
   </head>
 
   <body>
+    @php
+      $doctor = auth('web')->user();
+      $doctorName = trim(($doctor->name ?? '') !== ''
+        ? $doctor->name
+        : trim(($doctor->first_name ?? '') . ' ' . ($doctor->last_name ?? ''))
+      );
+      $doctorName = $doctorName ?: 'Doctor';
+      $doctorImage = $doctor && $doctor->image
+        ? asset('storage/' . ltrim(str_replace('/storage/', '', $doctor->image), '/'))
+        : asset('assets/images/top-doctor2.jpg');
+    @endphp
+
     <div class="container">
       <!-- aside -->
       <aside class="aside">
@@ -71,9 +83,9 @@
             @csrf
             <div class="avatar-user">
               <div class="avatar-user-photo">
-                <img src="./assets/images/top-doctor2.jpg" alt="" />
+                <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
               </div>
-              <p>Dr. Jonh</p>
+              <p>{{ $doctorName }}</p>
             </div>
 
             <a href="http://">
@@ -128,8 +140,7 @@
             </div>
 
             <div class="avata">
-              <img src="https://i.pravatar.cc/100" />
-              <!-- <h5>Dr. Sarah Johnson</h5> -->
+              <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
             </div>
           </div>
         </div>

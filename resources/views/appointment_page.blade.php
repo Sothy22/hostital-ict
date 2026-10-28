@@ -119,13 +119,10 @@
                                 <option value="">Male</option>
                                 <option value="">Female</option>
                             </select>
-                            <select name="department" class="gender">
+                            <select name="department_id" class="gender">
                                 <option value="">Departments</option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->getKey() }}"
-                                        @selected((string) old('department_id') === (string) $department->getKey())>
-                                        {{ $department->name }}
-                                    </option>
+                                    <option value="{{ $department->getKey() }}">{{ $department->name }}</option>
                                 @endforeach
                             </select>
                         </div>

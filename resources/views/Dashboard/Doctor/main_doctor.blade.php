@@ -14,6 +14,18 @@
   </head>
 
   <body>
+    @php
+      $doctor = auth('web')->user();
+      $doctorName = trim(($doctor->name ?? '') !== ''
+        ? $doctor->name
+        : trim(($doctor->first_name ?? '') . ' ' . ($doctor->last_name ?? ''))
+      );
+      $doctorName = $doctorName ?: 'Doctor';
+      $doctorImage = $doctor && $doctor->image
+        ? asset('storage/' . ltrim(str_replace('/storage/', '', $doctor->image), '/'))
+        : asset('assets/images/top-doctor2.jpg');
+    @endphp
+
     <div class="container">
       <aside class="aside">
         <div class="title-head">
@@ -66,9 +78,9 @@
             @csrf
             <div class="avatar-user">
               <div class="avatar-user-photo">
-                <img src="./assets/images/top-doctor2.jpg" alt="" />
+                <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
               </div>
-              <p>Dr. Jonh</p>
+              <p>{{ $doctorName }}</p>
             </div>
 
             <a href="http://">
@@ -124,8 +136,7 @@
             </div>
 
             <div class="avata">
-              <img src="https://i.pravatar.cc/100" />
-              <!-- <h5>Dr. Sarah Johnson</h5> -->
+              <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
             </div>
           </div>
         </div>
@@ -135,13 +146,13 @@
           <!-- Welcome -->
           <div class="dashboard-header">
             <div class="welcome">
-              <h1>Welcome back, Dr. Sarah</h1>
+              <h1>Welcome back, Dr. {{ $doctorName }}</h1>
               <p>Here is the latest hospital overview.</p>
             </div>
 
             <div class="date">
-              <h4>Tuesday, Oct 24, 2023</h4>
-              <p id="currentTime">09:41 AM</p>
+              <h4>{{ now()->format('l, M d, Y') }}</h4>
+              <p id="currentTime">{{ now()->format('h:i A') }}</p>
             </div>
           </div>
 
@@ -300,7 +311,7 @@
 
               <div class="appointment-info">
                 <h4>Alice Lee</h4>
-                <p>Follow-up - Dr. Sarah</p>
+                <p>Follow-up - Dr. {{ $doctorName }}</p>
               </div>
 
               <span class="appointment-time"> 11:30 AM </span>

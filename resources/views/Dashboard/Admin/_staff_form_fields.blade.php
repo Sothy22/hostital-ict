@@ -20,12 +20,19 @@
 </div>
 
 <div class="form-row">
+    @php
+        $selectedRole = old('role', $defaultRole ?? '');
+    @endphp
+
     <select name="role" required>
-        <option value="">Role</option>
+        @if ($selectedRole === '')
+            <option value="">Select Role</option>
+        @endif
+
         @foreach ($roles as $role)
             <option value="{{ $role->name }}"
-                @selected(old('role') === $role->name)>
-                {{ $role->name }}
+                @selected((string) $selectedRole === (string) $role->name)>
+                {{ ucfirst($role->name) }}
             </option>
         @endforeach
     </select>

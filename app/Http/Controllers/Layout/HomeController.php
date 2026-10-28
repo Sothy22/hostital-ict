@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Layout;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class HomeController extends Controller
     }
     public function appointment_page()
     {
-        return view('appointment_page');
+        $departments = Department::all();
+
+        return view('appointment_page', compact('departments'));
     }
     public function about()
     {

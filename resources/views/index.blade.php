@@ -379,11 +379,7 @@
                         <!-- <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086123456789!2d-122.419415484681!3d37.7749297797596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c5b5b5b5b%3A0x123456789abcdef0!2sCity%20Hospital!5e0!3m2!1sen!2sus!4v1600000000000"
                             width="900" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
-                        <iframe
-                            class="map-iframe"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086123456789!2d-122.419415484681!3d37.7749297797596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c5b5b5b5b%3A0x123456789abcdef0!2sCity%20Hospital!5e0!3m2!1sen!2sus!4v1600000000000"
-                            allowfullscreen="" loading="lazy">
-                        </iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1828.2925763943583!2d104.89170945324838!3d11.564745019371513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951a0f6be0819%3A0xcfdd9af0f4755b00!2sCambodia-China%20Friendship%20Preah%20Kossamak%20Hospital!5e0!3m2!1sen!2skh!4v1793190638767!5m2!1sen!2skh" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                     </div>
                 </div>
 
