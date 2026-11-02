@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset("assets/style/main_doctor.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/aside.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/list_page.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/style/admin_theme.css") }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -17,7 +18,7 @@
     <title>Document</title>
   </head>
 
-  <body>
+  <body class="admin-dashboard">
     <div class="container">
       <!-- aside -->
         <aside class="aside">

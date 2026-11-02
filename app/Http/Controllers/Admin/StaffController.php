@@ -12,6 +12,78 @@ use Illuminate\Validation\Rule;
 
 class StaffController extends Controller
 {
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'full_name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                function ($attribute, $value, $fail) use ($user) {
+                    if (User::where('email', $value)
+                        ->where('_id', '!=', $user->getKey())
+                        ->exists()) {
+                        $fail('This email is already in use.');
+                    }
+                },
+            ],
+            'mobile' => ['nullable', 'string', 'max:30'],
+            'gender' => ['nullable', Rule::in(['Male', 'Female'])],
+            'date_of_birth' => ['nullable', 'date', 'before:today'],
+            'address' => ['nullable', 'string', 'max:2000'],
+            'doctor_id' => ['nullable', 'string', 'max:50'],
+            'specialization' => ['nullable', 'string', 'max:255'],
+            'department_id' => ['nullable', 'string', 'max:100'],
+            'experience' => ['nullable', 'integer', 'min:0', 'max:80'],
+            'qualification' => ['nullable', 'string', 'max:255'],
+            'biography' => ['nullable', 'string', 'max:5000'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        ]);
+
+        $nameParts = preg_split('/\s+/', trim($validated['full_name']), 2);
+        $firstName = $nameParts[0] ?? '';
+        $lastName = $nameParts[1] ?? '';
+
+        $data = [
+            'name' => trim($validated['full_name']),
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $validated['email'],
+            'mobile' => $validated['mobile'] ?? null,
+            'gender' => $validated['gender'] ?? null,
+            'date_of_birth' => $validated['date_of_birth'] ?? null,
+            'address' => $validated['address'] ?? null,
+            'doctor_id' => $validated['doctor_id'] ?? null,
+            'specialization' => $validated['specialization'] ?? null,
+            'experience' => $validated['experience'] ?? null,
+            'qualification' => $validated['qualification'] ?? null,
+            'biography' => $validated['biography'] ?? null,
+        ];
+
+        if (!empty($validated['department_id'])) {
+            $department = Department::find($validated['department_id']);
+            if ($department) {
+                $data['department_id'] = $department->getKey();
+            }
+        }
+
+        $oldImagePath = $user->image;
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('staff', 'public');
+        }
+
+        $user->update($data);
+
+        if (isset($data['image']) && $oldImagePath && $oldImagePath !== $data['image']) {
+            Storage::disk('public')->delete($oldImagePath);
+        }
+
+        return back()->with('success', 'Profile updated successfully.');
+    }
+
     // public function create()
     // {
     //     return view('dashboard.admin.add_staff_page', [

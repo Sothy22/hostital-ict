@@ -8,9 +8,59 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Patient;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'phone' => ['required', 'string', 'max:30'],
+            'date_of_birth' => ['required', 'date', 'before:today'],
+            'gender' => ['required', 'in:Male,Female,Other'],
+            'address' => ['nullable', 'string', 'max:500'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $nameParts = preg_split('/\s+/', trim($validated['name']), 2);
+        $firstName = $nameParts[0];
+        $lastName = $nameParts[1] ?? '';
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'gender' => $validated['gender'] === 'Other' ? 'Female' : $validated['gender'],
+            'email' => $validated['email'],
+            'mobile' => $validated['phone'],
+            'address' => $validated['address'] ?? '',
+            'nic' => '',
+            'date_of_birth' => $validated['date_of_birth'],
+            'status' => 'Active',
+            'password' => Hash::make($validated['password']),
+            'role' => 'patient',
+            'permissions' => [],
+        ]);
+
+        Patient::create([
+            'full_name' => $validated['name'],
+            'dob' => $validated['date_of_birth'],
+            'gender' => $validated['gender'],
+            'phone' => $validated['phone'],
+            'address' => $validated['address'] ?? '',
+            'user_id' => $user->_id,
+        ]);
+
+        Auth::guard('web')->login($user);
+        $request->session()->regenerate();
+
+        $intendedUrl = $request->session()->pull('url.intended');
+        return redirect()->to($intendedUrl ?: route('home'))
+            ->with('success', 'Your patient account has been created successfully.');
+    }
+
     public function apiLogin(Request $request)
     {
         $request->validate([
@@ -76,6 +126,11 @@ class AuthController extends Controller
 
         if ($user->role === 'doctor') {
             return redirect()->route('main_doctor');
+        }
+
+        if ($user->role === 'patient') {
+            $intendedUrl = $request->session()->pull('url.intended');
+            return redirect()->to($intendedUrl ?: route('home'));
         }
 
         Auth::guard('web')->logout();

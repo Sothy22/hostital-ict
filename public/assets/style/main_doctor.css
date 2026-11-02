@@ -256,6 +256,13 @@ body.dark-mode .header {
     margin: 0;
 }
 
+.avata {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
 /* ===============================
    WELCOME + STATISTICS SECTION
 ================================ */
@@ -808,5 +815,211 @@ td:first-child {
 
     .welcome h1 {
         font-size: 24px;
+    }
+}
+
+.doctor-profile-modal[hidden] {
+    display: none;
+}
+
+.doctor-profile-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.doctor-profile-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 10, 25, 0.72);
+}
+
+.doctor-profile-panel {
+    position: relative;
+    width: min(760px, calc(100% - 32px));
+    max-height: calc(100vh - 32px);
+    margin-top: 16px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #1e293b;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+.doctor-profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.doctor-profile-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.doctor-profile-photo {
+    position: relative;
+    flex: 0 0 auto;
+    cursor: pointer;
+}
+
+.doctor-profile-photo img {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.doctor-profile-photo span {
+    position: absolute;
+    right: -6px;
+    bottom: -6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #2563eb;
+    color: white;
+    font-size: 12px;
+}
+
+.doctor-profile-heading h2 {
+    margin: 0 0 5px;
+    font-size: 18px;
+}
+
+.doctor-profile-heading p {
+    margin: 0 0 3px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.doctor-photo-link {
+    color: #4f7cff;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.doctor-profile-close {
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.doctor-profile-body {
+    padding: 20px 24px;
+}
+
+.doctor-profile-body h3 {
+    margin: 0 0 14px;
+    font-size: 15px;
+}
+
+.doctor-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 16px;
+    margin-bottom: 22px;
+}
+
+.doctor-profile-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.doctor-profile-grid input,
+.doctor-profile-grid select,
+.doctor-profile-grid textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #1e293b;
+    padding: 11px 12px;
+    outline: none;
+}
+
+.doctor-profile-grid input:focus,
+.doctor-profile-grid select:focus,
+.doctor-profile-grid textarea:focus {
+    border-color: #4f7cff;
+    box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.12);
+}
+
+.doctor-profile-wide {
+    grid-column: 1 / -1;
+}
+
+.doctor-profile-errors {
+    margin: 14px 24px 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.12);
+    color: #fca5a5;
+    font-size: 13px;
+}
+
+.doctor-profile-errors span {
+    display: block;
+}
+
+.doctor-profile-footer {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 24px;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.doctor-profile-footer button {
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.doctor-profile-cancel {
+    border: 1px solid #cbd5e1;
+    background: transparent;
+    color: #334155;
+}
+
+.doctor-profile-save {
+    border: 0;
+    background: #2563eb;
+    color: white;
+    font-weight: 700;
+}
+
+@media (max-width: 640px) {
+    .doctor-profile-panel {
+        width: calc(100% - 16px);
+        max-height: calc(100vh - 16px);
+        margin-top: 8px;
+    }
+
+    .doctor-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .doctor-profile-wide {
+        grid-column: auto;
     }
 }

@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="{{ asset('assets/style/main_admin.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/style/aside.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/permission.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/style/admin_theme.css') }}" />
     <title>Permission</title>
 </head>
-<body>
+<body class="admin-dashboard">
     <div class="container">
         <!-- Sidebar -->
         <aside class="aside">

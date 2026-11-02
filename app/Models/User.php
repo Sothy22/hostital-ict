@@ -33,6 +33,11 @@ class User extends Authenticatable
         'role',
         'department_id',
         'permissions',
+        'doctor_id',
+        'specialization',
+        'experience',
+        'qualification',
+        'biography',
     ];
 
     protected $hidden = [

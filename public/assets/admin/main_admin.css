@@ -1,0 +1,1561 @@
+:root {
+    --admin-primary: #0866b7;
+    --admin-primary-dark: #074f90;
+    --admin-cyan: #2dc6b8;
+    --admin-orange: #f59e0b;
+    --admin-blue: #2f80ed;
+    --admin-page: #eef4f8;
+    --admin-border: #e2eaf1;
+}
+
+.admin-dashboard {
+    margin: 0;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    color: #334155;
+    background: var(--admin-page);
+}
+
+.admin-dashboard .aside {
+    width: 220px;
+    padding: 18px 14px;
+    background: var(--admin-primary);
+    border-right: 0;
+}
+
+.admin-dashboard .title-head {
+    width: 100%;
+    height: 46px;
+    margin-bottom: 16px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.admin-dashboard .title-head i {
+    color: #fff;
+}
+
+.admin-dashboard .title-head .title span:first-child {
+    color: #fff;
+}
+
+.admin-dashboard .title-head .title span:last-child {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.admin-dashboard .aside-head {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+
+.admin-dashboard .upper-head {
+    gap: 4px;
+}
+
+.admin-dashboard .upper-head a,
+.admin-dashboard .dropbtn {
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    padding: 0 12px;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.admin-dashboard .upper-head a.active,
+.admin-dashboard .upper-head a:hover,
+.admin-dashboard .dropbtn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+}
+
+.admin-dashboard .dropdown-content {
+    margin-left: 12px;
+}
+
+.admin-dashboard .dropdown-content a {
+    height: 38px;
+}
+
+.admin-dashboard .avatar-user {
+    width: 100%;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.admin-dashboard .avatar-user-photo {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.admin-dashboard .avatar-user p,
+.admin-dashboard .under-head a,
+.admin-dashboard .logout-btn {
+}
+
+.admin-dashboard .under-head a,
+.admin-dashboard .logout-btn {
+    width: 100%;
+    height: 38px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    padding-left: 12px;
+}
+
+.admin-dashboard .main {
+    flex-grow: 1;
+    width: auto;
+    margin-left: 220px;
+    padding-left: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background: var(--admin-page);
+}
+
+.admin-dashboard .header {
+    height: 64px;
+    padding: 0 24px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--admin-border);
+    background: #fff;
+}
+
+.admin-dashboard .search-box {
+    height: 38px;
+    width: min(430px, 45%);
+    margin-left: 0;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.admin-dashboard .search-box i {
+    color: #94a3b8;
+}
+
+.admin-dashboard .search-box input {
+    color: #334155;
+}
+
+.admin-dashboard .mode-icon,
+.admin-dashboard .notification {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f4f7fa;
+}
+
+.admin-dashboard .mode-icon i,
+.admin-dashboard .notification i {
+    color: #64748b;
+}
+
+.admin-dashboard .notification .dot {
+    width: 7px;
+    height: 7px;
+    border: 1px solid #fff;
+    background: var(--admin-primary);
+}
+
+.admin-dashboard .profile {
+    margin-right: 0;
+}
+
+.admin-dashboard .profile-initial,
+.admin-dashboard .avata img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.admin-dashboard .profile-initial {
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(135deg, var(--admin-primary), #64b5f6);
+}
+
+.admin-dashboard .info-name h4 {
+    color: #334155;
+}
+
+.admin-dashboard .title-contain,
+.admin-dashboard .per-head {
+    min-height: 104px;
+    margin: 20px 24px 16px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 12px;
+    color: #fff;
+    background: linear-gradient(105deg, #075f9f 0%, #087ac0 100%);
+    box-shadow: 0 8px 24px rgba(8, 102, 183, 0.16);
+}
+
+.admin-dashboard .title-contain {
+    padding: 22px 26px;
+}
+
+.admin-dashboard .title-contain h1,
+.admin-dashboard .per-head h1 {
+    margin: 0;
+    color: #fff;
+}
+
+.admin-dashboard .btn-add-appointment button {
+    border-radius: 8px;
+    background: #fff;
+    color: var(--admin-primary);
+    box-shadow: none;
+}
+
+.admin-dashboard .filter {
+    margin: 0 24px 16px;
+}
+
+.admin-dashboard .search-appoint {
+    height: 40px;
+    border-radius: 8px;
+    border-color: var(--admin-border);
+    background: #fff;
+}
+
+.admin-dashboard .table {
+    margin: 0 24px 24px;
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(31, 66, 99, 0.05);
+}
+
+.admin-dashboard .table th {
+    color: #94a3b8;
+    border-bottom: 1px solid var(--admin-border);
+    background: #f8fafc;
+}
+
+.admin-dashboard .table td {
+    color: #475569;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.admin-dashboard .per-head {
+    padding: 22px 26px;
+}
+
+.admin-dashboard .per-head p {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.admin-dashboard .contain {
+    padding: 0 24px 24px;
+}
+
+.admin-dashboard .contain-left,
+.admin-dashboard .staff-information,
+.admin-dashboard .permissions-card {
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(31, 66, 99, 0.05);
+}
+
+.admin-dashboard .section-title {
+    color: #334155;
+}
+
+.admin-dashboard .per-search {
+    border-color: var(--admin-border);
+    border-radius: 8px;
+}
+
+.admin-dashboard .staff-role,
+.admin-dashboard .role-box {
+    border-color: var(--admin-border);
+}
+
+.admin-dashboard .welcome {
+    min-height: 58px;
+    margin: 14px 24px 10px;
+    box-sizing: border-box;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0;
+    color: #334155;
+    background: transparent;
+    box-shadow: none;
+}
+
+.admin-dashboard .welcome h1 {
+    margin: 0 0 3px;
+    color: #334155;
+}
+
+.admin-dashboard .welcome p {
+    margin: 0;
+    color: #94a3b8;
+}
+
+.admin-dashboard .welcome .eyebrow {
+    letter-spacing: 1.4px;
+    font-weight: 700;
+}
+
+.admin-dashboard .welcome-date {
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.admin-dashboard .cards {
+    margin: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.admin-dashboard .stat-card {
+    min-height: 122px;
+    box-sizing: border-box;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 12px;
+    align-items: center;
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    color: inherit;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(31, 66, 99, 0.06);
+    text-decoration: none;
+}
+
+.admin-dashboard .stat-card .stat-icon {
+    grid-row: 1 / 4;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: #eaf5fc;
+}
+
+.admin-dashboard .stat-card h4 {
+    margin: 0;
+    color: #64748b;
+}
+
+.admin-dashboard .stat-card h2 {
+    margin: 2px 0;
+    color: #1e293b;
+}
+
+.admin-dashboard .stat-card .stat-content {
+    grid-column: 2;
+    grid-row: 2 / 4;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.admin-dashboard .stat-card .stat-content h2,
+.admin-dashboard .stat-card .stat-content h4 {
+    margin: 0;
+}
+
+.admin-dashboard .stat-card .stat-content h4 {
+    margin-top: 2px;
+    color: #94a3b8;
+}
+
+.admin-dashboard .card-caption {
+    display: none;
+}
+
+.admin-dashboard .stat-change {
+    grid-column: 2;
+    color: #0a9e6b;
+}
+
+.admin-dashboard .analytics-grid {
+    margin: 16px 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(260px, 0.82fr);
+    gap: 14px;
+}
+
+.admin-dashboard .chart-card,
+.admin-dashboard .overview-card,
+.admin-dashboard .table-card {
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(31, 66, 99, 0.05);
+}
+
+.admin-dashboard .chart-card,
+.admin-dashboard .overview-card {
+    height: 260px;
+    margin: 0;
+    padding: 18px;
+    box-sizing: border-box;
+}
+
+.admin-dashboard .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-dashboard .section-heading h2 {
+    margin: 2px 0 0;
+    color: #334155;
+}
+
+.admin-dashboard .section-heading .eyebrow {
+    margin: 0;
+    color: #94a3b8;
+    letter-spacing: 1px;
+}
+
+.admin-dashboard .period-button {
+    padding: 7px 10px;
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    color: #64748b;
+    background: #fff;
+}
+
+.admin-dashboard .chart-legend {
+    margin-top: 12px;
+    display: flex;
+    gap: 16px;
+    color: #64748b;
+}
+
+.admin-dashboard .legend-dot {
+    width: 7px;
+    height: 7px;
+    display: inline-block;
+    margin-right: 4px;
+    border-radius: 50%;
+}
+
+.admin-dashboard .legend-dot.confirmed {
+    background: var(--admin-primary);
+}
+.admin-dashboard .legend-dot.pending {
+    background: var(--admin-cyan);
+}
+
+.admin-dashboard .bar-chart {
+    height: 160px;
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: end;
+    gap: 8px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.admin-dashboard .bar-group {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+}
+
+.admin-dashboard .bars {
+    height: 140px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.admin-dashboard .bar {
+    width: 7px;
+    min-height: 12px;
+    border-radius: 4px 4px 0 0;
+}
+
+.admin-dashboard .confirmed-bar {
+    background: var(--admin-primary);
+}
+.admin-dashboard .pending-bar {
+    background: var(--admin-cyan);
+}
+.admin-dashboard .bar-group small {
+    color: #94a3b8;
+}
+
+.admin-dashboard .overview-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-dashboard .overview-row {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #edf2f7;
+    color: #64748b;
+}
+
+.admin-dashboard .overview-row:last-child {
+    border-bottom: 0;
+}
+.admin-dashboard .overview-row strong {
+    color: #334155;
+}
+
+.admin-dashboard .overview-icon {
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    margin-right: 7px;
+    border-radius: 50%;
+}
+
+.admin-dashboard .overview-icon.green {
+    background: #20b486;
+}
+.admin-dashboard .overview-icon.blue {
+    background: #4b7bec;
+}
+.admin-dashboard .overview-icon.orange {
+    background: var(--admin-orange);
+}
+
+.admin-dashboard .table-card {
+    margin: 16px 24px;
+    padding: 18px;
+}
+
+.admin-dashboard .table-card {
+    overflow: hidden;
+}
+
+.admin-dashboard .table-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-dashboard .table-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-dashboard .table-card th,
+.admin-dashboard .table-card td {
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.admin-dashboard .table-card th {
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-dashboard .table-card td {
+    border-bottom: 1px solid #edf2f7;
+}
+
+.admin-dashboard .table-card tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.admin-dashboard .section-count {
+    padding: 6px 10px;
+    border-radius: 20px;
+    color: var(--admin-primary);
+    background: #edf6fc;
+    text-decoration: none;
+}
+
+.admin-dashboard table th {
+    color: #94a3b8;
+    border-bottom: 1px solid var(--admin-border);
+    text-transform: uppercase;
+}
+
+.admin-dashboard table td {
+    color: #475569;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.admin-dashboard .table-person {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-dashboard .person-avatar {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--admin-primary);
+    background: #eaf5fc;
+    font-weight: 700;
+}
+
+.admin-dashboard .status-badge {
+    padding: 5px 9px;
+    border-radius: 20px;
+    color: #168a62;
+    background: #e9f7f1;
+}
+
+.admin-dashboard .status-confirmed,
+.admin-dashboard .status-scheduled {
+    color: #168a62;
+    background: #dff4eb;
+}
+
+.admin-dashboard .status-pending {
+    color: #b7791f;
+    background: #fff3cd;
+}
+
+.admin-dashboard .status-cancelled {
+    color: #dc2626;
+    background: #fee2e2;
+}
+
+.admin-dashboard .stat-card {
+    min-height: 88px;
+    padding: 12px 14px;
+}
+
+.admin-dashboard .stat-card .stat-icon {
+    width: 38px;
+    height: 38px;
+}
+
+.admin-dashboard .stat-change {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    padding: 3px 6px;
+    border-radius: 10px;
+    background: #eaf9f2;
+}
+
+.admin-dashboard .stat-card {
+    position: relative;
+}
+
+.admin-dashboard .analytics-grid {
+    grid-template-columns: minmax(0, 2.05fr) minmax(260px, 0.95fr);
+}
+
+.admin-dashboard .chart-card,
+.admin-dashboard .overview-card {
+    height: 230px;
+}
+
+.admin-dashboard .bar-chart {
+    height: 132px;
+}
+
+.admin-dashboard .bars {
+    height: 112px;
+}
+
+.admin-dashboard .doctors-section {
+    margin: 16px 24px 0;
+}
+
+.admin-dashboard .doctors-section {
+    min-height: 282px;
+    box-sizing: border-box;
+    padding: 22px 20px 20px;
+    border: 1px solid var(--admin-border);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(31, 66, 99, 0.05);
+}
+
+.admin-dashboard .doctor-card-grid,
+.admin-dashboard .insight-grid {
+    clear: both;
+}
+
+.admin-dashboard .doctors-heading {
+    height: 58px;
+    margin: 0 0 18px;
+    align-items: center;
+}
+
+.admin-dashboard .doctors-heading h2 {
+    margin: 0;
+}
+
+.admin-dashboard .doctors-heading .period-button {
+    height: 42px;
+    min-width: 108px;
+    text-align: left;
+}
+
+.admin-dashboard .doctor-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.admin-dashboard .doctor-card {
+    min-height: 154px;
+    box-sizing: border-box;
+    padding: 24px 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+    background: #fff;
+}
+
+.admin-dashboard .doctor-avatar {
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--admin-primary);
+    background: #edf6fc;
+}
+
+.admin-dashboard .doctor-avatar i {
+    opacity: 0.9;
+}
+
+.admin-dashboard .doctor-card > div {
+    align-self: stretch;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    align-content: start;
+}
+
+.admin-dashboard .doctor-card h3 {
+    margin: 0 0 3px;
+    color: #334155;
+    white-space: nowrap;
+}
+
+.admin-dashboard .doctor-card p {
+    margin: 0 0 7px;
+    color: #94a3b8;
+}
+
+.admin-dashboard .doctor-card strong {
+    align-self: end;
+    color: #475569;
+}
+
+.admin-dashboard .doctor-card small {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.admin-dashboard .insight-grid {
+    margin: 16px 24px 0;
+    display: grid;
+    grid-template-columns: 0.9fr 1.05fr 1fr;
+    gap: 14px;
+}
+
+.admin-dashboard .insight-card {
+    height: 190px;
+    box-sizing: border-box;
+    padding: 14px;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.admin-dashboard .insight-card h2 {
+    margin: 0;
+    color: #334155;
+}
+
+.admin-dashboard .insight-card .period-button {
+    padding: 5px 8px;
+}
+
+.admin-dashboard .donut-content {
+    height: 145px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.admin-dashboard .donut-chart {
+    width: 112px;
+    height: 112px;
+    flex: 0 0 112px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: conic-gradient(
+        #0866b7 0 18%,
+        #2dc6b8 18% 42%,
+        #f59e0b 42% 100%
+    );
+}
+
+.admin-dashboard .donut-chart::before {
+    content: "";
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.admin-dashboard .donut-chart span {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.admin-dashboard .donut-chart strong,
+.admin-dashboard .donut-chart small {
+    display: block;
+}
+
+.admin-dashboard .donut-chart strong {
+    color: #334155;
+}
+
+.admin-dashboard .donut-chart small {
+    color: #94a3b8;
+}
+
+.admin-dashboard .donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #64748b;
+}
+
+.admin-dashboard .legend-dot.cyan {
+    background: var(--admin-cyan);
+}
+.admin-dashboard .legend-dot.orange {
+    background: var(--admin-orange);
+}
+
+.admin-dashboard .schedule-row,
+.admin-dashboard .income-row {
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #edf2f7;
+    color: #64748b;
+}
+
+.admin-dashboard .schedule-row:last-child,
+.admin-dashboard .income-row:last-child {
+    border-bottom: 0;
+}
+
+.admin-dashboard .schedule-row span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.admin-dashboard .schedule-row b {
+    color: #475569;
+}
+
+.admin-dashboard .mini-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #dbeafe, #93c5fd);
+}
+
+.admin-dashboard .schedule-row button {
+    border: 0;
+    border-radius: 12px;
+    padding: 4px 7px;
+    color: #168a62;
+    background: #dff4eb;
+}
+
+.admin-dashboard .income-row strong {
+    color: #475569;
+}
+
+/* Reference layout for the lower dashboard panels */
+.admin-dashboard .insight-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.admin-dashboard .insight-card {
+    height: 390px;
+}
+
+.admin-dashboard .insight-card .section-heading {
+    min-height: 52px;
+    align-items: flex-start;
+}
+
+.admin-dashboard .insight-card .period-button {
+    margin-top: 0;
+    text-decoration: none;
+}
+
+.admin-dashboard .donut-card {
+    position: relative;
+}
+
+.admin-dashboard .donut-content {
+    height: 260px;
+    justify-content: center;
+}
+
+.admin-dashboard .donut-chart {
+    width: 220px;
+    height: 220px;
+    flex-basis: 220px;
+    background: conic-gradient(
+        #0866b7 0 18%,
+        #f59e0b 18% 50%,
+        #8b5cf6 50% 100%
+    );
+}
+
+.admin-dashboard .donut-chart::before {
+    width: 132px;
+    height: 132px;
+}
+
+.admin-dashboard .donut-legend {
+    height: 42px;
+    margin-top: -12px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.admin-dashboard .legend-dot.blue {
+    background: #0866b7;
+}
+.admin-dashboard .legend-dot.purple {
+    background: #8b5cf6;
+}
+
+.admin-dashboard .donut-legend strong {
+    margin-right: 4px;
+    color: #334155;
+}
+
+.admin-dashboard .schedule-summary {
+    height: 72px;
+    margin-bottom: 4px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.admin-dashboard .schedule-summary div {
+    height: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #edf2f7;
+}
+
+.admin-dashboard .schedule-summary div:last-child {
+    border-right: 0;
+}
+
+.admin-dashboard .schedule-summary strong,
+.admin-dashboard .schedule-summary small {
+    display: block;
+    text-align: center;
+}
+
+.admin-dashboard .schedule-summary small {
+    color: #64748b;
+}
+
+.admin-dashboard .schedule-row {
+    min-height: 62px;
+}
+
+.admin-dashboard .schedule-row > span {
+    flex: 1;
+}
+
+.admin-dashboard .schedule-row > span > span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.admin-dashboard .schedule-row small {
+    color: #94a3b8;
+}
+
+.admin-dashboard .mini-avatar {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #0866b7;
+    background: linear-gradient(135deg, #eaf5fc, #cfe5f5);
+    font-style: normal;
+    font-weight: 700;
+}
+
+.admin-dashboard .schedule-row button {
+    min-width: 82px;
+    height: 38px;
+    border-radius: 7px;
+    color: #fff;
+    background: #0866b7;
+    cursor: pointer;
+}
+
+.admin-dashboard .treatment-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-dashboard .treatment-card .section-heading {
+    min-height: 52px;
+}
+
+.admin-dashboard .treatment-card .income-row {
+    flex: 1;
+    min-height: 52px;
+}
+
+/* Final desktop overrides: keep shared layout independent of older page styles. */
+.admin-dashboard .container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.admin-dashboard .aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+}
+
+.admin-dashboard .main {
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    margin-left: 220px;
+    padding-left: 0;
+    box-sizing: border-box;
+}
+
+.admin-dashboard .header {
+    width: 100%;
+    height: 64px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.admin-dashboard .menu-toggle {
+    display: none !important;
+}
+
+.admin-dashboard .search-box {
+    width: 430px;
+    max-width: 45%;
+    height: 38px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex: 0 1 430px;
+}
+
+.admin-dashboard .right-header {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-dashboard .profile {
+    display: flex;
+    align-items: center;
+}
+
+.admin-dashboard .welcome {
+    min-height: 58px;
+    margin-top: 12px;
+    padding: 6px 0;
+}
+
+.admin-dashboard .cards {
+    margin-top: 0;
+}
+
+.admin-dashboard .stat-card {
+    min-height: 96px;
+    height: 96px;
+}
+
+.admin-dashboard .analytics-grid {
+    min-height: 230px;
+}
+
+@media screen and (max-width: 767.99px) {
+    .admin-dashboard .aside {
+        width: 280px;
+        left: -280px;
+    }
+
+    .admin-dashboard .aside.active {
+        left: 0;
+    }
+
+    .admin-dashboard .main {
+        width: 100%;
+        margin-left: 0;
+        padding-top: 64px;
+    }
+
+    .admin-dashboard .header {
+        position: fixed;
+        width: 100%;
+        padding: 0 12px;
+    }
+
+    .admin-dashboard .menu-toggle {
+        display: flex !important;
+    }
+
+    .admin-dashboard .search-box {
+        width: 42px;
+        margin-left: auto;
+    }
+
+    .admin-dashboard .title-contain,
+    .admin-dashboard .per-head {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .admin-dashboard .filter,
+    .admin-dashboard .table {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .admin-dashboard .contain {
+        flex-direction: column;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .admin-dashboard .contain-left,
+    .admin-dashboard .contain-right {
+        width: 100%;
+    }
+
+    .admin-dashboard .welcome {
+        margin-left: 12px;
+        margin-right: 12px;
+        padding: 18px;
+    }
+
+    .admin-dashboard .welcome-date {
+        display: none;
+    }
+
+    .admin-dashboard .cards,
+    .admin-dashboard .analytics-grid {
+        margin-left: 12px;
+        margin-right: 12px;
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard .analytics-grid {
+        margin-top: 12px;
+    }
+
+    .admin-dashboard .table-card {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .admin-dashboard .overview-card {
+        height: 220px;
+    }
+
+    .admin-dashboard .bar-chart {
+        gap: 2px;
+    }
+
+    .admin-dashboard .bar {
+        width: 5px;
+    }
+
+    .admin-dashboard .doctor-card-grid,
+    .admin-dashboard .insight-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard .doctors-section,
+    .admin-dashboard .insight-grid {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .admin-dashboard .insight-card {
+        height: auto;
+        min-height: 190px;
+    }
+}
+
+/* Appointment statistics reference layout */
+.admin-dashboard .analytics-grid {
+    grid-template-columns: minmax(0, 2.05fr) minmax(300px, 0.95fr);
+    gap: 16px;
+}
+
+.admin-dashboard .chart-card,
+.admin-dashboard .overview-card {
+    height: 430px;
+}
+
+.admin-dashboard .chart-card {
+    padding: 18px 18px 14px;
+}
+
+.admin-dashboard .chart-card .section-heading,
+.admin-dashboard .overview-card .section-heading {
+    height: 42px;
+}
+
+.admin-dashboard .chart-card .section-heading h2,
+.admin-dashboard .overview-card .section-heading h2 {
+    margin: 0;
+    color: #111827;
+}
+
+.admin-dashboard .chart-card .period-button,
+.admin-dashboard .overview-card .period-button {
+    height: 42px;
+    min-width: 112px;
+    border-color: #d7dce3;
+    color: #111827;
+    text-align: left;
+}
+
+.admin-dashboard .appointment-summary {
+    height: 82px;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.admin-dashboard .appointment-summary div {
+    min-width: 0;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #e7ebf0;
+    border-radius: 8px;
+    background: #fbfcfe;
+}
+
+.admin-dashboard .appointment-summary span {
+    margin-bottom: 5px;
+    color: #667085;
+}
+
+.admin-dashboard .appointment-summary strong {
+    color: #111827;
+}
+
+.admin-dashboard .bar-chart {
+    height: 225px;
+    margin-top: 12px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+    border-bottom: 1px solid #dfe5ec;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 44px,
+        #edf1f5 44px,
+        #edf1f5 45px
+    );
+}
+
+.admin-dashboard .bar-group {
+    height: 225px;
+    gap: 8px;
+}
+
+.admin-dashboard .bars {
+    height: 195px;
+    width: 100%;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0;
+}
+
+.admin-dashboard .bar {
+    width: 16px;
+    min-height: 0;
+    border-radius: 0;
+}
+
+.admin-dashboard .confirmed-bar {
+    height: 82px !important;
+    border-radius: 4px 4px 0 0;
+    background: #3b82f6;
+}
+
+.admin-dashboard .pending-bar {
+    height: 46px !important;
+    background: #8b5cf6;
+}
+
+.admin-dashboard .reschedule-bar {
+    height: 32px !important;
+    border-radius: 4px 4px 0 0;
+    background: #397ea9;
+}
+
+.admin-dashboard .bar-group:nth-child(odd) .confirmed-bar {
+    height: 68px !important;
+}
+
+.admin-dashboard .bar-group:nth-child(3n) .confirmed-bar {
+    height: 92px !important;
+}
+
+.admin-dashboard .chart-legend {
+    height: 38px;
+    margin-top: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.admin-dashboard .legend-dot.completed {
+    background: #397ea9;
+}
+
+.admin-dashboard .legend-dot.ongoing {
+    background: #8b5cf6;
+}
+
+.admin-dashboard .legend-dot.reschedule {
+    background: #397ea9;
+}
+
+.admin-dashboard .overview-card {
+    padding: 18px 18px 14px;
+    overflow: hidden;
+}
+
+.admin-dashboard .appointment-list {
+    height: 300px;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-dashboard .appointment-item {
+    height: 70px;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #e1e5eb;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.admin-dashboard .appointment-item > div:first-child {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.admin-dashboard .appointment-item strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+.admin-dashboard .appointment-item small {
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+.admin-dashboard .appointment-avatars {
+    display: flex;
+    padding-left: 8px;
+}
+
+.admin-dashboard .appointment-avatars span {
+    width: 28px;
+    height: 28px;
+    margin-left: -7px;
+    display: grid;
+    place-items: center;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #475569;
+    background: #e9edf3;
+    font-weight: 700;
+}
+
+.admin-dashboard .appointment-avatars span:last-child {
+    background: #b8d5e8;
+}
+
+.admin-dashboard .view-appointments {
+    width: 100%;
+    height: 48px;
+    margin-top: 8px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    background: #0866b7;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 767.99px) {
+    .admin-dashboard .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard .chart-card,
+    .admin-dashboard .overview-card {
+        height: auto;
+        min-height: 430px;
+    }
+
+    .admin-dashboard .appointment-summary {
+        grid-template-columns: repeat(2, 1fr);
+        height: auto;
+    }
+
+    .admin-dashboard .bar-chart {
+        margin-top: 18px;
+        gap: 2px;
+        overflow: hidden;
+    }
+
+    .admin-dashboard .bar {
+        width: 7px;
+    }
+
+    .admin-dashboard .overview-card {
+        min-height: 470px;
+    }
+}
+
+/* Statistic card structure from the dashboard reference */
+.admin-dashboard .cards {
+    gap: 16px;
+}
+
+.admin-dashboard .stat-card {
+    height: 104px;
+    min-height: 104px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    border-color: #e1e6ed;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(31, 66, 99, 0.06);
+}
+
+.admin-dashboard .stat-card .stat-icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border-radius: 10px;
+    background: #edf1f6;
+}
+
+.admin-dashboard .stat-card .bg-patient,
+.admin-dashboard .stat-card .bg-doctor,
+.admin-dashboard .stat-card .bg-appointment {
+    color: #4c5bd4;
+}
+
+.admin-dashboard .stat-card .bg-total {
+    color: #e7b900;
+}
+
+.admin-dashboard .stat-card .stat-content {
+    min-width: 0;
+    margin-left: 12px;
+    display: block;
+}
+
+.admin-dashboard .stat-card .stat-content h2 {
+    margin: 0;
+    color: #111827;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.admin-dashboard .stat-card .stat-content h4 {
+    margin: 5px 0 0;
+    color: #8e9bb1;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.admin-dashboard .stat-change {
+    top: 16px;
+    right: 16px;
+    padding: 4px 7px;
+    border-radius: 20px;
+    color: #16b887;
+    background: #eaf9f2;
+    line-height: 1;
+}

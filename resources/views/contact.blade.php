@@ -39,7 +39,7 @@
                 </div>
 
                 <a href="{{ route('home') }}">HOME</a>
-                <a href="{{ route('appointment_page') }}">APPOINTMENT</a>
+                <a href="{{ route('doctors') }}">APPOINTMENT</a>
                 <a href="{{ route('about') }}">ABOUT US</a>
                 <a href="{{ route('department') }}">DEPARTMENT</a>
                 <a href="{{ route('contact_us') }}">CONTACT US</a>
@@ -70,14 +70,43 @@
 
         <div class="sidebar-column">
             <section class="card doctor-card">
-                <div class="avatar-circle">DMC</div>
-                <h2 class="doctor-name">Dr. Michael Chen</h2>
-                <p class="doctor-specialty">Cardiac Surgeon</p>
-                <div class="rating-row">
-                    <i class="fa-solid fa-star star-icon"></i>
-                    <span class="rating-text"><strong>4.8</strong> (189 reviews)</span>
-                </div>
-                <span class="badge">20 years experience</span>
+                @php
+                    $doctorName = trim(($doctor->name ?? '') !== ''
+                        ? $doctor->name
+                        : trim(($doctor->first_name ?? '') . ' ' . ($doctor->last_name ?? '')));
+                    $doctorName = $doctorName ?: 'Doctor';
+                    $doctorInitials = collect(preg_split('/\s+/', trim($doctorName)))
+                        ->filter()
+                        ->map(fn ($part) => strtoupper(substr($part, 0, 1)))
+                        ->take(2)
+                        ->implode('');
+                    $doctorImage = $doctor && $doctor->image
+                        ? asset('storage/' . ltrim(str_replace('/storage/', '', $doctor->image), '/'))
+                        : null;
+                @endphp
+
+                @if ($doctorImage)
+                    <img class="avatar-circle doctor-avatar-image" src="{{ $doctorImage }}" alt="{{ $doctorName }}">
+                @else
+                    <div class="avatar-circle">{{ $doctorInitials ?: 'DR' }}</div>
+                @endif
+                <h2 class="doctor-name">Dr. {{ $doctorName }}</h2>
+                <p class="doctor-specialty">{{ $doctor->specialization ?? optional($doctor->department)->name ?? 'General Doctor' }}</p>
+                @if (!is_null($doctor->rating ?? null))
+                    <div class="rating-row">
+                        <i class="fa-solid fa-star star-icon"></i>
+                        <span class="rating-text"><strong>{{ $doctor->rating }}</strong> ({{ $doctor->reviews ?? 0 }} reviews)</span>
+                    </div>
+                @endif
+                <span class="badge">{{ $doctor->experience ?? 0 }} years experience</span>
+                <span class="badge history-badge">{{ $patientHistory }} patient appointments</span>
+
+                {{-- @if (!empty($doctor->biography))
+                    <div class="doctor-biography">
+                        <h3>Biography</h3>
+                        <p>{{ $doctor->biography }}</p>
+                    </div>
+                @endif --}}
             </section>
 
             <section class="card contact-card">
@@ -86,27 +115,69 @@
                     <i class="fa-solid fa-phone contact-icon"></i>
                     <div>
                         <span class="contact-label">Phone</span>
-                        <span class="contact-value">(555) 123-4567</span>
+                        <span class="contact-value">{{ $doctor->mobile ?? 'Not available' }}</span>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="fa-solid fa-envelope contact-icon"></i>
                     <div>
                         <span class="contact-label">Email</span>
-                        <span class="contact-value">info@cityhospital.com</span>
+                        <span class="contact-value">{{ $doctor->email ?? 'Not available' }}</span>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="fa-solid fa-location-dot contact-icon"></i>
                     <div>
                         <span class="contact-label">Address</span>
-                        <span class="contact-value">123 Medical Center Drive<br>City, State 12345</span>
+                        <span class="contact-value">{{ $doctor->address ?? 'Not available' }}</span>
                     </div>
                 </div>
             </section>
         </div>
 
         <div class="content-column">
+            <section class="card about-doctor-card">
+                <h3 class="card-section-title">About Doctor</h3>
+
+                @php
+                    $doctorDepartment = $doctor ? optional($doctor->department)->name : null;
+                @endphp
+
+                <div class="doctor-about-details">
+                    <div>
+                        <span>Specialization</span>
+                        <strong>{{ $doctor->specialization ?? $doctorDepartment ?? 'General Doctor' }}</strong>
+                    </div>
+                    <div>
+                        <span>Department</span>
+                        <strong>{{ $doctorDepartment ?? 'Not specified' }}</strong>
+                    </div>
+                    <div>
+                        <span>Experience</span>
+                        <strong>{{ $doctor->experience ?? 0 }} years</strong>
+                    </div>
+                    <div>
+                        <span>Qualification</span>
+                        <strong>{{ $doctor->qualification ?? 'Not specified' }}</strong>
+                    </div>
+                </div>
+
+                @if (!empty($doctor->biography))
+                    <div class="doctor-about-biography">
+                        <h4>Biography</h4>
+                        <p>{{ $doctor->biography }}</p>
+                    </div>
+                @else
+                    <p class="doctor-about-empty">Biography not available.</p>
+                @endif
+            </section>
+
+            <form class="contact-booking-form" action="{{ route('appointment.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="staff_id" value="{{ $doctor->_id ?? '' }}">
+                <input type="hidden" name="department_id" value="{{ $doctor->department_id ?? '' }}">
+                <input type="hidden" name="appointment_date" id="appointment-date" value="{{ old('appointment_date') }}">
+                <input type="hidden" name="appointment_time" id="appointment-time" value="{{ old('appointment_time') }}">
             <section class="card schedule-card">
                 <h3 class="card-section-title">Select Appointment Date & Time</h3>
                 <div class="scheduler-grid">
@@ -151,30 +222,55 @@
 
             <section class="card info-card">
                 <h3 class="card-section-title">Your Information</h3>
-                <form class="patient-form">
+                <div class="patient-form">
+                    <div class="patient-type-selector">
+                        <span class="patient-type-label">Patient Type *</span>
+                        <label>
+                            <input type="radio" name="patient_type" value="new" required @checked(old('patient_type', $patient ? 'old' : 'new') === 'new')>
+                            <span>New Patient</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="patient_type" value="old" required @checked(old('patient_type', $patient ? 'old' : 'new') === 'old')>
+                            <span>Old Patient</span>
+                        </label>
+                    </div>
+
                     <div class="form-row-2col">
                         <div class="input-group">
                             <label for="fullName">Full Name *</label>
-                            <input type="text" id="fullName" placeholder="your name" required>
+                            <input type="text" id="fullName" name="full_name" value="{{ old('full_name', $patient->full_name ?? auth('web')->user()->name ?? '') }}" placeholder="your name" required>
                         </div>
                         <div class="input-group">
                             <label for="phoneNumber">Phone Number *</label>
-                            <input type="tel" id="phoneNumber" placeholder="phone number" required>
+                            <input type="tel" id="phoneNumber" name="phone" value="{{ old('phone', $patient->phone ?? auth('web')->user()->mobile ?? '') }}" placeholder="phone number" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label for="emailAddress">Email Address *</label>
-                        <input type="email" id="emailAddress" placeholder="email" required>
+                        <input type="email" id="emailAddress" name="email" value="{{ old('email', auth('web')->user()->email ?? '') }}" placeholder="email" required>
                     </div>
                     <div class="input-group">
                         <label for="reason">Message / Reason for Visit</label>
-                        <textarea id="reason" rows="4"
+                        <textarea id="reason" name="notes" rows="4"
                             placeholder="Please describe your symptoms or reason for consultation..."></textarea>
                     </div>
-                </form>
+                </div>
             </section>
+            @if (session('success'))
+                <div class="booking-success" role="status">{{ session('success') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="doctor-profile-errors booking-errors">
+                    @foreach ($errors->all() as $error)<span>{{ $error }}</span>@endforeach
+                </div>
+            @endif
 
-            <button type="submit" class="submit-booking-btn">Book Appointment</button>
+            @auth('web')
+                <button type="submit" class="submit-booking-btn">Book Appointment</button>
+            @else
+                <a href="{{ route('login') }}" class="submit-booking-btn">Login to Book Appointment</a>
+            @endauth
+            </form>
         </div>
         <!-- </section> -->
     </main>
@@ -207,6 +303,8 @@
     </footer>
 
     <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
+    <script src="{{ asset('assets/script/script.js') }}" type="module"></script>
+    <script src="{{ asset('assets/script/layout/contact.js') }}"></script>
 
 </body>
 

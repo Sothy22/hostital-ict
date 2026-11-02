@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\StaffController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -15,13 +16,24 @@ use Illuminate\Support\Facades\Route;
 
 // ================= Authentication =================
 // page for login
-Route::get('/login', function () {
+Route::get('/login', function (Illuminate\Http\Request $request) {
+    if ($request->query('redirect') === 'appointment') {
+        session()->put('url.intended', route('appointment_page'));
+    }
+
     return view('auth.login');
 })->name('login');
 
 // login
 Route::post('/login', [AuthController::class, 'login'])
     ->name('login.submit');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::post('/register', [AuthController::class, 'register'])
+    ->name('register.submit');
 
 // ======= for logout =========
 Route::post('/logout', [AuthController::class, 'logout'])
@@ -51,7 +63,10 @@ Route::controller(ResetPasswordController::class)->group(function () {
 
 // ================= Layout =================
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/appointment_page', [HomeController::class, 'appointment_page'])->name('appointment_page');
+Route::get('/appointment_page', [HomeController::class, 'appointment_page'])
+    ->name('appointment_page');
+Route::post('/appointment_page', [HomeController::class, 'storeAppointment'])
+    ->name('appointment.store');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/contact_us', [HomeController::class, 'contact_us'])->name('contact_us');
@@ -72,12 +87,18 @@ Route::middleware(['auth:admin'])->group(function() {
             'totalDoctors' => User::where('role', 'doctor')->count(),
             'totalAppointments' => Appointment::count(),
             'totalStaff' => User::count(),
-            'appointments' => Appointment::with('patient')
+            'appointments' => Appointment::with(['patient', 'staff'])
                 ->latest('appointment_date')
                 ->take(6)
                 ->get(),
             'patients' => Patient::latest()
                 ->take(6)
+                ->get(),
+            'popularDoctors' => User::where('role', 'doctor')
+                ->take(3)
+                ->get(),
+            'scheduleDoctors' => User::where('role', 'doctor')
+                ->take(4)
                 ->get(),
         ]);
     })->name('main_admin');
@@ -160,6 +181,9 @@ Route::middleware(['auth:admin'])->group(function() {
 Route::middleware(['auth'])->group(function() {
     Route::middleware(['role:doctor'])->group(function () {
 
+        Route::put('/doctor/profile', [StaffController::class, 'updateProfile'])
+            ->name('doctor.profile.update');
+
         Route::get('/appointment_doctor', function () {
             return view('dashboard.doctor.appointment_doctor');
         })->middleware('permission:read_appointment')->name('appointment_doctor');
@@ -195,12 +219,14 @@ Route::middleware(['auth'])->group(function() {
                     })
                     ->count()
                 : 0;
+            $departments = Department::all();
 
             return view('dashboard.doctor.main_doctor', compact(
                 'totalPatients',
                 'totalAppointment',
                 'appointments',
-                'canReadAppointments'
+                'canReadAppointments',
+                'departments'
             ));
         })->name('main_doctor');
 

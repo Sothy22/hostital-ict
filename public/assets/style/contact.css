@@ -16,16 +16,12 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     /* Smooth fading transition when changing modes */
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
     margin: 0;
     min-height: 100vh;
 }
-
-/* body {
-    background-color: #f8fafc;
-    color: #1e293b;
-    min-height: 100vh;
-} */
 
 /* --- PAGE GRID STRUCTURE --- */
 .booking-container {
@@ -132,6 +128,10 @@ body.dark-mode .page-subtitle {
     margin-bottom: 16px;
 }
 
+.doctor-avatar-image {
+    object-fit: cover;
+}
+
 .doctor-name {
     font-size: 20px;
     font-weight: 600;
@@ -168,6 +168,82 @@ body.dark-mode .page-subtitle {
     font-weight: 500;
     padding: 6px 14px;
     border-radius: 20px;
+}
+
+.history-badge {
+    margin-top: 8px;
+}
+
+.doctor-biography {
+    width: 100%;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.doctor-biography h3 {
+    margin: 0 0 8px;
+    color: #0f172a;
+    font-size: 15px;
+}
+
+.doctor-biography p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.doctor-about-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.doctor-about-details div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.doctor-about-details span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.doctor-about-details strong {
+    color: #0f172a;
+    font-size: 14px;
+}
+
+.doctor-about-biography {
+    margin-top: 18px;
+}
+
+.doctor-about-biography h4 {
+    margin: 0 0 7px;
+    color: #0f172a;
+    font-size: 15px;
+}
+
+.doctor-about-biography p,
+.doctor-about-empty {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.7;
+}
+
+body.dark-mode .doctor-about-details div {
+    background: #1e293b;
+}
+
+body.dark-mode .doctor-about-details strong,
+body.dark-mode .doctor-about-biography h4 {
+    color: #f5f5f5;
 }
 
 /* --- HOSPITAL METADATA CONTACTS --- */
@@ -367,6 +443,64 @@ body.dark-mode .page-subtitle {
     border-color: #cbd5e1;
 }
 
+.patient-type-selector {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.patient-type-label {
+    width: 100%;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.patient-type-selector label {
+    flex: 1;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.patient-type-selector label span {
+    display: block;
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.patient-type-selector input {
+    position: static;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.patient-type-selector input:checked + span {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 700;
+}
+
+.input-group input[readonly] {
+    background-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
 /* --- FORM SUBMIT ACTION MAIN CTA --- */
 .submit-booking-btn {
     background-color: #7c7e8c;
@@ -378,5 +512,71 @@ body.dark-mode .page-subtitle {
     font-weight: 500;
     cursor: pointer;
     width: 100%;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
 }
 
+.booking-success {
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* Keep public-page typography consistent with the doctor and department pages. */
+.booking-container {
+    font-size: 16px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.booking-container .back-link {
+    font-size: 16px;
+}
+
+.booking-container .page-title {
+    font-size: 28px;
+}
+
+.booking-container .page-subtitle,
+.booking-container .doctor-specialty,
+.booking-container .doctor-about-empty,
+.booking-container .doctor-about-biography p {
+    font-size: 16px;
+}
+
+.booking-container .card-section-title {
+    font-size: 20px;
+}
+
+.booking-container .doctor-name {
+    font-size: 20px;
+}
+
+.booking-container .doctor-about-details span,
+.booking-container .doctor-about-details strong,
+.booking-container .doctor-about-biography h4,
+.booking-container .contact-label,
+.booking-container .contact-value,
+.booking-container .input-group label,
+.booking-container .patient-type-label,
+.booking-container .input-group input,
+.booking-container .input-group textarea,
+.booking-container .submit-booking-btn {
+    font-size: 16px;
+}
+
+.booking-container .rating-row,
+.booking-container .badge,
+.booking-container .doctor-biography h3,
+.booking-container .doctor-biography p,
+.booking-container .input-group-label,
+.booking-container .current-month-year,
+.booking-container .calendar-days,
+.booking-container .time-btn {
+    font-size: 14px;
+}
+
+.booking-container .calendar-weekdays {
+    font-size: 12px;
+}

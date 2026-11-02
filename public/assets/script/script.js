@@ -56,8 +56,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextBtn = document.getElementById("next-month");
 
     if (monthYearDisplay && daysContainer && prevBtn && nextBtn) {
-        let currentDate = new Date(2026, 5, 1);
-        let selectedDateStr = "2026-06-09";
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let currentDate = new Date(today.getFullYear(), today.getMonth(), 1);
+        let selectedDateStr = [
+            today.getFullYear(),
+            String(today.getMonth() + 1).padStart(2, "0"),
+            String(today.getDate()).padStart(2, "0"),
+        ].join("-");
+        const appointmentDate = document.getElementById("appointment-date");
+        if (appointmentDate) appointmentDate.value = selectedDateStr;
 
         const months = [
             "January",
@@ -92,9 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             for (let day = 1; day <= totalDays; day++) {
                 const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-                const isSelected =
-                    dateStr === selectedDateStr ? 'class="day-selected"' : "";
-                daysHTML += `<span ${isSelected} data-date="${dateStr}">${day}</span>`;
+                const dayDate = new Date(year, month, day);
+                const isPast = dayDate < today;
+                const className = [
+                    dateStr === selectedDateStr ? "day-selected" : "",
+                    isPast ? "day-muted" : "",
+                ].filter(Boolean).join(" ");
+                daysHTML += `<span class="${className}" data-date="${dateStr}">${day}</span>`;
             }
 
             const totalGridCells = firstDayIndex + totalDays;
@@ -119,6 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     e.target.classList.add("day-selected");
                     selectedDateStr = e.target.getAttribute("data-date");
+                    const appointmentDate = document.getElementById("appointment-date");
+                    if (appointmentDate) appointmentDate.value = selectedDateStr;
                 });
             });
         }
@@ -144,6 +158,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.classList.remove("active-slot"),
                 );
                 e.target.classList.add("active-slot");
+                const match = e.target.textContent.trim().match(/^(\d{1,2}):(\d{2})\s(AM|PM)$/);
+                if (match) {
+                    let hour = Number(match[1]);
+                    if (match[3] === "PM" && hour !== 12) hour += 12;
+                    if (match[3] === "AM" && hour === 12) hour = 0;
+                    const time = `${String(hour).padStart(2, "0")}:${match[2]}`;
+                    const appointmentTime = document.getElementById("appointment-time");
+                    if (appointmentTime) appointmentTime.value = time;
+                }
             });
         });
     }

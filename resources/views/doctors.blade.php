@@ -38,7 +38,7 @@
                 </div>
 
                 <a href="{{ route('home') }}">HOME</a>
-                <a href="{{ route('appointment_page') }}">APPOINTMENT</a>
+                <a href="{{ route('doctors') }}">APPOINTMENT</a>
                 <a href="{{ route('about') }}">ABOUT US</a>
                 <a href="{{ route('department') }}">DEPARTMENT</a>
                 <a href="{{ route('contact_us') }}">CONTACT US</a>
@@ -94,6 +94,13 @@
                 <p class="doctorDepartment">{{ optional($doctor->department)->name ?? 'Department' }}</p>
               </div>
 
+              {{-- @if (!empty($doctor->biography))
+                <div class="doctor-biography-preview">
+                  <span>Biography</span>
+                  <p>{{ $doctor->biography }}</p>
+                </div>
+              @endif --}}
+
               @if (isset($doctor->rating))
                 <div class="doctor-rating">
                   <i class="fa-solid fa-star"></i>
@@ -122,7 +129,7 @@
               </div>
 
               <button class="book-btn" type="button">
-                <a href="{{ route('contact') }}">
+                <a href="{{ route('contact', ['doctor' => $doctor->getKey()]) }}">
                   <i class="fas">&#xf0b1;</i>
                   <span>Book Appointment</span>
                 </a>

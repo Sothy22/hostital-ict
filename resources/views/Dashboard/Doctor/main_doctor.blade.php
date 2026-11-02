@@ -135,9 +135,9 @@
               <span class="dot"></span>
             </div>
 
-            <div class="avata">
+            <button class="avata" type="button" data-open-profile aria-label="Open doctor profile">
               <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
-            </div>
+            </button>
           </div>
         </div>
 
@@ -334,7 +334,151 @@
       </main>
     </div>
 
+    <div class="doctor-profile-modal" data-profile-modal hidden>
+      <div class="doctor-profile-backdrop" data-close-profile></div>
+      <section class="doctor-profile-panel" role="dialog" aria-modal="true" aria-labelledby="doctor-profile-title">
+        <form action="{{ route('doctor.profile.update') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+
+          <header class="doctor-profile-header">
+            <div class="doctor-profile-heading">
+              <label class="doctor-profile-photo" for="doctor-profile-image">
+                <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" data-profile-preview>
+                <span><i class="fa-solid fa-camera"></i></span>
+              </label>
+              <div>
+                <h2 id="doctor-profile-title">Doctor Profile</h2>
+                <p>Update your profile picture and personal information</p>
+                <span class="doctor-photo-link">Upload new photo</span>
+                <input id="doctor-profile-image" name="image" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+              </div>
+            </div>
+            <button class="doctor-profile-close" type="button" data-close-profile aria-label="Close profile form">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </header>
+
+          @if ($errors->any())
+            <div class="doctor-profile-errors">
+              @foreach ($errors->all() as $error)
+                <span>{{ $error }}</span>
+              @endforeach
+            </div>
+          @endif
+
+          @php
+            $dateOfBirth = $doctor && $doctor->date_of_birth
+              ? \Illuminate\Support\Carbon::parse($doctor->date_of_birth)->format('Y-m-d')
+              : '';
+            $currentDepartmentId = $doctor && $doctor->department_id
+              ? (string) $doctor->department_id
+              : '';
+          @endphp
+
+          <div class="doctor-profile-body">
+            <h3>Personal Information</h3>
+            <div class="doctor-profile-grid">
+              <label>Full Name
+                <input type="text" name="full_name" value="{{ old('full_name', $doctorName) }}" required>
+              </label>
+              <label>Email
+                <input type="email" name="email" value="{{ old('email', $doctor->email ?? '') }}" required>
+              </label>
+              <label>Phone
+                <input type="text" name="mobile" value="{{ old('mobile', $doctor->mobile ?? '') }}">
+              </label>
+              <label>Gender
+                <select name="gender">
+                  <option value="">Select gender</option>
+                  <option value="Male" @selected(old('gender', $doctor->gender ?? '') === 'Male')>Male</option>
+                  <option value="Female" @selected(old('gender', $doctor->gender ?? '') === 'Female')>Female</option>
+                </select>
+              </label>
+              <label>Date of Birth
+                <input type="date" name="date_of_birth" value="{{ old('date_of_birth', $dateOfBirth) }}">
+              </label>
+              <label>Address
+                <input type="text" name="address" value="{{ old('address', $doctor->address ?? '') }}" placeholder="Enter address">
+              </label>
+            </div>
+
+            <h3>Professional Information</h3>
+            <div class="doctor-profile-grid">
+              <label>Doctor ID
+                <input type="text" name="doctor_id" value="{{ old('doctor_id', $doctor->doctor_id ?? '') }}" placeholder="DOC-001">
+              </label>
+              <label>Specialization
+                <input type="text" name="specialization" value="{{ old('specialization', $doctor->specialization ?? '') }}" placeholder="Cardiology">
+              </label>
+              <label>Department
+                <select name="department_id">
+                  <option value="">Select department</option>
+                  @foreach ($departments as $department)
+                    <option value="{{ $department->getKey() }}" @selected((string) old('department_id', $currentDepartmentId) === (string) $department->getKey())>
+                      {{ $department->name }}
+                    </option>
+                  @endforeach
+                </select>
+              </label>
+              <label>Experience (Years)
+                <input type="number" min="0" max="80" name="experience" value="{{ old('experience', $doctor->experience ?? '') }}" placeholder="8">
+              </label>
+              <label class="doctor-profile-wide">Qualification
+                <input type="text" name="qualification" value="{{ old('qualification', $doctor->qualification ?? '') }}" placeholder="MD, Cardiology">
+              </label>
+              <label class="doctor-profile-wide">Biography
+                <textarea name="biography" rows="4" placeholder="Write your professional biography...">{{ old('biography', $doctor->biography ?? '') }}</textarea>
+              </label>
+            </div>
+          </div>
+
+          <footer class="doctor-profile-footer">
+            <button type="button" class="doctor-profile-cancel" data-close-profile>Cancel</button>
+            <button type="submit" class="doctor-profile-save"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+          </footer>
+        </form>
+      </section>
+    </div>
+
     <script src="{{ asset("assets/script/dark_mode.js") }}" type="module"></script>
     <script src="{{ asset("assets/script/menu_dashboard.js") }}"></script>
+    <script>
+      (() => {
+        const modal = document.querySelector("[data-profile-modal]");
+        if (!modal) return;
+
+        const openButton = document.querySelector("[data-open-profile]");
+        const closeButtons = modal.querySelectorAll("[data-close-profile]");
+        const imageInput = modal.querySelector("#doctor-profile-image");
+        const preview = modal.querySelector("[data-profile-preview]");
+
+        const openProfile = () => {
+          modal.hidden = false;
+          document.body.style.overflow = "hidden";
+          modal.querySelector("input, select, textarea, button")?.focus();
+        };
+
+        const closeProfile = () => {
+          modal.hidden = true;
+          document.body.style.overflow = "";
+          openButton?.focus();
+        };
+
+        openButton?.addEventListener("click", openProfile);
+        closeButtons.forEach((button) => button.addEventListener("click", closeProfile));
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hidden) closeProfile();
+        });
+
+        imageInput?.addEventListener("change", () => {
+          const file = imageInput.files?.[0];
+          if (file) preview.src = URL.createObjectURL(file);
+        });
+
+        if (modal.querySelector(".doctor-profile-errors")) openProfile();
+      })();
+    </script>
   </body>
 </html>

@@ -6,8 +6,9 @@
 
         <title>Hospital Dashboard</title>
 
-        <link rel="stylesheet" href="{{ asset('assets/style/main_admin.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/admin/main_admin.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/style/aside.css') }}" />
+        {{-- <link rel="stylesheet" href="{{ asset('assets/style/admin_theme.css') }}" /> --}}
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -151,46 +152,232 @@
                 <!-- Welcome -->
                 <section class="welcome">
                     <div>
-                        <p class="eyebrow">ADMIN OVERVIEW</p>
                         <h1>Welcome back, {{ auth('admin')->user()->name ?? 'Administrator' }}</h1>
-                        <p>Her's what's happening across your hospital today.</p>
-                    </div>
-                    <div class="welcome-date">
-                        <i class="fa-regular fa-calendar"></i>
-                        {{ now()->format('l, M j, Y') }}
+                        <p>Welcome to your hospital admin dashboard.</p>
                     </div>
                 </section>
 
                 <!-- Statistics Cards -->
                 <div class="cards">
                     <a class="card stat-card" href="#patients">
-                        <span class="stat-icon patients-icon"><i class="fa-solid fa-hospital-user"></i></span>
-                        <h4>Total Patients</h4>
-                        <h2>{{ number_format($totalPatients) }}</h2>
-                        <span class="card-caption">Registered in your hospital</span>
+                        <span class="stat-icon staff-icon"><i class="fa-solid fa-people-group bg-patient"></i></span>
+                        <span class="stat-content">
+                            <h2>{{ number_format($totalPatients) }}</h2>
+                            <h4>Total Patients</h4>
+                        </span>
+                        <span class="stat-change positive">+12%</span>
                     </a>
 
                     <div class="card stat-card">
-                        <span class="stat-icon doctors-icon"><i class="fa-solid fa-user-doctor"></i></span>
-                        <h4>Total Doctors</h4>
-                        <h2>{{ number_format($totalDoctors) }}</h2>
-                        <span class="card-caption">Care team members</span>
+                        <span class="stat-icon doctors-icon"><i class="fa-solid fa-user-doctor bg-doctor"></i></span>
+                        <span class="stat-content">
+                            <h2>{{ number_format($totalDoctors) }}</h2>
+                            <h4>Total Doctor</h4>
+                        </span>
+                        <span class="stat-change positive">+12%</span>
                     </div>
 
                     <a class="card stat-card" href="#appointments">
-                        <span class="stat-icon appointments-icon"><i class="fa-solid fa-calendar-check"></i></span>
-                        <h4>Appointments</h4>
-                        <h2>{{ number_format($totalAppointments) }}</h2>
-                        <span class="card-caption">Appointments on record</span>
+                        <span class="stat-icon appointments-icon"><i class="fa-solid fa-calendar-check bg-appointment"></i></span>
+                        <span class="stat-content">
+                            <h2>{{ number_format($totalAppointments) }}</h2>
+                            <h4>Total Appointments</h4>
+                        </span>
+                        <span class="stat-change positive">+18%</span>
                     </a>
 
                     <div class="card stat-card">
-                        <span class="stat-icon staff-icon"><i class="fa-solid fa-people-group"></i></span>
-                        <h4>Total Staff</h4>
-                        <h2>{{ number_format($totalStaff) }}</h2>
-                        <span class="card-caption">Across all departments</span>
+                        <span class="stat-icon staff-icon"><i class="fa-solid fa-dollar-sign bg-total"></i></span>
+                        <span class="stat-content">
+                            <h2>$55,240</h2>
+                            <h4>Appointment Statistics</h4>
+                        </span>
+                        <span class="stat-change positive">+25%</span>
                     </div>
                 </div>
+
+                <section class="analytics-grid">
+                    <div class="chart-card">
+                        <div class="section-heading">
+                            <div>
+                                <h2>Appointment Statistics</h2>
+                            </div>
+                            <button class="period-button" type="button">Monthly <i class="fa-solid fa-chevron-down"></i></button>
+                        </div>
+                        <div class="appointment-summary">
+                            <div>
+                                <span>All Appointments</span>
+                                <strong>{{ number_format($totalAppointments) }}</strong>
+                            </div>
+                            <div>
+                                <span>Cancelled</span>
+                                <strong>{{ number_format(intdiv($totalAppointments, 5)) }}</strong>
+                            </div>
+                            <div>
+                                <span>Reschedule</span>
+                                <strong>{{ number_format(intdiv($totalAppointments, 6)) }}</strong>
+                            </div>
+                            <div>
+                                <span>Completed</span>
+                                <strong>{{ number_format(intdiv($totalAppointments, 5) * 4) }}</strong>
+                            </div>
+                        </div>
+                        <div class="bar-chart" aria-label="Monthly appointment chart">
+                            @foreach ([62, 48, 68, 72, 56, 65, 82, 74, 48, 86, 92, 68] as $index => $height)
+                                <div class="bar-group">
+                                    <div class="bars">
+                                        <span class="bar confirmed-bar" style="height: {{ $height }}%"></span>
+                                        <span class="bar pending-bar" style="height: {{ max(25, $height - 16) }}%"></span>
+                                        <span class="bar reschedule-bar" style="height: {{ max(18, $height - 38) }}%"></span>
+                                    </div>
+                                    <small>{{ ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][$index] }}</small>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="chart-legend">
+                            <span><i class="legend-dot completed"></i> Completed</span>
+                            <span><i class="legend-dot ongoing"></i> Ongoing</span>
+                            <span><i class="legend-dot reschedule"></i> Reschedule</span>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <div class="section-heading">
+                            <div>
+                                <h2>Appointments</h2>
+                            </div>
+                            <button class="period-button" type="button">All Type <i class="fa-solid fa-chevron-down"></i></button>
+                        </div>
+                        <div class="appointment-list">
+                            @foreach ($appointments->take(4) as $appointment)
+                                <article class="appointment-item">
+                                    <div>
+                                        <strong>{{ $appointment->purpose ?: 'General Visit' }}</strong>
+                                        <small><i class="fa-regular fa-calendar"></i>
+                                            {{ optional($appointment->appointment_date)->format('D, M d, Y, h:i A') ?? 'Wed, 05 Apr 2025, 06:30 PM' }}
+                                        </small>
+                                    </div>
+                                    <div class="appointment-avatars">
+                                        <span>{{ strtoupper(substr($appointment->patient->full_name ?? 'P', 0, 1)) }}</span>
+                                        <span>{{ strtoupper(substr($appointment->staff->name ?? 'D', 0, 1)) }}</span>
+                                    </div>
+                                </article>
+                            @endforeach
+                            @if ($appointments->count() === 0)
+                                @for ($i = 0; $i < 4; $i++)
+                                    <article class="appointment-item">
+                                        <div>
+                                            <strong>General Visit</strong>
+                                            <small><i class="fa-regular fa-calendar"></i> Wed, 05 Apr 2025, 06:30 PM</small>
+                                        </div>
+                                        <div class="appointment-avatars"><span>J</span><span>D</span></div>
+                                    </article>
+                                @endfor
+                            @endif
+                        </div>
+                        @if ($appointments->count() > 0)
+                            <a class="view-appointments" href="#appointments">View All Appointments</a>
+                        @else
+                            <button class="view-appointments" type="button">View All Appointments</button>
+                        @endif
+                    </div>
+                </section>
+
+                <section class="doctors-section">
+                    <div class="section-heading doctors-heading">
+                        <div>
+                            <h2>Popular Doctors</h2>
+                        </div>
+                        <button class="period-button" type="button">Weekly <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    <div class="doctor-card-grid">
+                        @forelse ($popularDoctors as $doctor)
+                            <article class="doctor-card">
+                                <span class="doctor-avatar">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </span>
+                                <div>
+                                    <h3>{{ $doctor->name ?? $doctor->full_name ?? 'Doctor' }}</h3>
+                                    <p>{{ $doctor->specialization ?? 'General Physician' }}</p>
+                                    <strong>{{ number_format($doctor->appointment_count ?? 258) }} <small>Bookings</small></strong>
+                                </div>
+                            </article>
+                        @empty
+                            @for ($i = 0; $i < 3; $i++)
+                                <article class="doctor-card">
+                                    <span class="doctor-avatar"><i class="fa-solid fa-user-doctor"></i></span>
+                                    <div>
+                                        <h3>Dr. John Smith</h3>
+                                        <p>Cardiologist</p>
+                                        <strong>258 <small>Bookings</small></strong>
+                                    </div>
+                                </article>
+                            @endfor
+                        @endforelse
+                    </div>
+                </section>
+
+                <section class="insight-grid">
+                    <article class="insight-card donut-card">
+                        <div class="section-heading">
+                            <div><h2>Top 3 Departments</h2></div>
+                            <button class="period-button" type="button">Weekly <i class="fa-solid fa-chevron-down"></i></button>
+                        </div>
+                        <div class="donut-content">
+                            <div class="donut-chart">
+                                <span><strong>{{ number_format($totalPatients ?: 1203) }}</strong><small>Total Patient</small></span>
+                            </div>
+                        </div>
+                        <div class="donut-legend">
+                            <span><i class="legend-dot blue"></i><strong>214</strong> Cardiology</span>
+                            <span><i class="legend-dot orange"></i><strong>160</strong> Dental</span>
+                            <span><i class="legend-dot purple"></i><strong>230</strong> Neurology</span>
+                        </div>
+                    </article>
+
+                    <article class="insight-card schedule-card">
+                        <div class="section-heading">
+                            <div><h2>Doctors Schedule</h2></div>
+                            <a class="period-button" href="{{ route('admin_doctor') }}">View All</a>
+                        </div>
+                        <div class="schedule-summary">
+                            <div><strong>30</strong><small>Available</small></div>
+                            <div><strong>40</strong><small>Unavailable</small></div>
+                            <div><strong>12</strong><small>Leave</small></div>
+                        </div>
+                        @forelse ($scheduleDoctors as $doctor)
+                            <div class="schedule-row">
+                                <span>
+                                    <i class="mini-avatar">{{ strtoupper(substr($doctor->name ?? 'D', 0, 1)) }}</i>
+                                    <span><b>{{ $doctor->name }}</b><small>{{ $doctor->specialization ?? 'Cardiologist' }}</small></span>
+                                </span>
+                                <button type="button">Book Now</button>
+                            </div>
+                        @empty
+                            @foreach ([['Orthopedic Surgeon','Dr. Smith'], ['Pediatrician','Dr. Michael'], ['Gynecologist','Dr. Sarah'], ['Cardiologist','Dr. John']] as $item)
+                                <div class="schedule-row">
+                                    <span>
+                                        <i class="mini-avatar">{{ substr($item[1], 4, 1) }}</i>
+                                        <span><b>{{ $item[1] }}</b><small>{{ $item[0] }}</small></span>
+                                    </span>
+                                    <button type="button">Book Now</button>
+                                </div>
+                            @endforeach
+                        @endforelse
+                    </article>
+
+                    <article class="insight-card treatment-card">
+                        <div class="section-heading">
+                            <div><h2>Income by Treatment</h2></div>
+                            <button class="period-button" type="button">Weekly <i class="fa-solid fa-chevron-down"></i></button>
+                        </div>
+                        <div class="income-row"><span>Cardiology</span><strong>$5,985</strong></div>
+                        <div class="income-row"><span>Radiology</span><strong>$5,985</strong></div>
+                        <div class="income-row"><span>Dental Surgery</span><strong>$5,985</strong></div>
+                        <div class="income-row"><span>Orthopedics</span><strong>$5,985</strong></div>
+                        <div class="income-row"><span>General Medicine</span><strong>$5,985</strong></div>
+                    </article>
+                </section>
 
                 <section class="table-card" id="appointments">
                     <div class="section-heading">
@@ -198,15 +385,17 @@
                             <p class="eyebrow">SCHEDULE</p>
                             <h2>Recent appointments</h2>
                         </div>
-                        <span class="section-count">{{ $appointments->count() }} shown</span>
+                        <a class="section-count" href="#appointments">View All</a>
                     </div>
                     <div class="table-scroll">
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Doctor</th>
                                     <th>Patient</th>
                                     <th>Purpose</th>
                                     <th>Date</th>
+                                    <th>Mode</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -215,66 +404,35 @@
                                     <tr>
                                         <td>
                                             <div class="table-person">
+                                                <span class="person-avatar"><i class="fa-solid fa-user-doctor"></i></span>
+                                                <span>{{ $appointment->staff->name ?? 'Dr. Sarah Johnson' }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="table-person">
                                                 <span class="person-avatar">{{ strtoupper(substr($appointment->patient->full_name ?? 'P', 0, 1)) }}</span>
                                                 <span>{{ $appointment->patient->full_name ?? 'Patient' }}</span>
                                             </div>
                                         </td>
                                         <td>{{ $appointment->purpose ?? '—' }}</td>
-                                        <td>{{ $appointment->appointment_date ?? '—' }}</td>
+                                        <td>
+                                            {{ optional($appointment->appointment_date)->format('Y-m-d h:i A') ?? '—' }}
+                                        </td>
+                                        <td>{{ $appointment->patient_type ?? 'In Person' }}</td>
                                         <td>
                                             @php
                                                 $status = $appointment->status;
                                                 $statusLabel = is_bool($status)
                                                     ? ($status ? 'Confirmed' : 'Pending')
                                                     : ($status ?: 'Pending');
+                                                $statusClass = strtolower(str_replace(' ', '-', $statusLabel));
                                             @endphp
-                                            <span class="status-badge">{{ $statusLabel }}</span>
+                                            <span class="status-badge status-{{ $statusClass }}">{{ $statusLabel }}</span>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td class="empty-state" colspan="4">No appointments to show yet.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <section class="table-card" id="patients">
-                    <div class="section-heading">
-                        <div>
-                            <p class="eyebrow">PATIENT DIRECTORY</p>
-                            <h2>Recently added patients</h2>
-                        </div>
-                        <span class="section-count">{{ $patients->count() }} shown</span>
-                    </div>
-                    <div class="table-scroll">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Patient</th>
-                                    <th>Phone</th>
-                                    <th>Gender</th>
-                                    <th>Blood group</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($patients as $patient)
-                                    <tr>
-                                        <td>
-                                            <div class="table-person">
-                                                <span class="person-avatar">{{ strtoupper(substr($patient->full_name ?? 'P', 0, 1)) }}</span>
-                                                <span>{{ $patient->full_name ?? 'Patient' }}</span>
-                                            </div>
-                                        </td>
-                                        <td>{{ $patient->phone ?? '—' }}</td>
-                                        <td>{{ $patient->gender ?? '—' }}</td>
-                                        <td>{{ $patient->blood_group ?? '—' }}</td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td class="empty-state" colspan="4">No patients to show yet.</td>
+                                        <td class="empty-state" colspan="6">No appointments to show yet.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

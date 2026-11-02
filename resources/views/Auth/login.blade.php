@@ -11,6 +11,11 @@
 </head>
 <body>
     <div class="login-card">
+      @if (session('appointment_login_required'))
+        <div class="alert appointment-login-alert" role="alert">
+          {{ session('appointment_login_required') }}
+        </div>
+      @endif
       @if (session('status'))
         <div class="alert alert-success" style="margin-bottom: 16px;">
           {{ session('status') }}
@@ -27,15 +32,21 @@
         <p class="brand-subtitle">Hospital Management System</p>
       </div>
 
+      @if ($errors->any())
+        <div class="alert alert-danger" style="margin-bottom:16px;">
+          {{ $errors->first() }}
+        </div>
+      @endif
+
       <!-- Login Form -->
-      <form id="loginForm" method="post" action="{{ route('login') }}">
+      <form id="loginForm" method="post" action="{{ route('login.submit') }}">
         @csrf
         <!-- Username/ID Field -->
         <div class="form-group">
-          <label for="staffId">Username or Staff ID</label>
+          <label for="staffId">Email address</label>
           <div class="input-wrapper">
             <i data-lucide="user" class="input-icon"></i>
-            <input type="text" name="email" id="staffId" placeholder="Email User" required />
+            <input type="email" name="email" id="staffId" value="{{ old('email') }}" placeholder="Email address" required />
           </div>
         </div>
 
@@ -66,6 +77,9 @@
       <!-- Forgot Password Link -->
       <div class="forgot-password">
         <a href="{{ route('forgetpass') }}">Forgot Password?</a>
+      </div>
+      <div class="register-link">
+        New patient? <a href="{{ route('register') }}">Create an account</a>
       </div>
     </div>
 

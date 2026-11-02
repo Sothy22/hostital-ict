@@ -155,6 +155,28 @@ body.dark-mode .doctors-grid .doctor-card .doctor-info p {
   color: #141313;
 }
 
+.doctors-grid .doctor-card .doctor-biography-preview {
+  width: calc(100% - 48px);
+  margin: 4px 24px 12px;
+}
+
+.doctors-grid .doctor-card .doctor-biography-preview span {
+  color: #1e293b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.doctors-grid .doctor-card .doctor-biography-preview p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .doctors-grid .doctor-card .doctor-rating {
   display: flex;
   align-items: center;

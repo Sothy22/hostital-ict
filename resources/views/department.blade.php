@@ -38,7 +38,7 @@
                 </div>
 
                 <a href="{{ route('home') }}">HOME</a>
-                <a href="{{ route('appointment_page') }}">APPOINTMENT</a>
+                <a href="{{ route('doctors') }}">APPOINTMENT</a>
                 <a href="{{ route('about') }}">ABOUT US</a>
                 <a href="{{ route('department') }}">DEPARTMENT</a>
                 <a href="{{ route('contact_us') }}">CONTACT US</a>
