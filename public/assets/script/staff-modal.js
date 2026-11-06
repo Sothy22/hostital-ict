@@ -10,6 +10,7 @@ if (modal) {
     const methodOverride = form.elements.namedItem("_method");
     const addButton = form.querySelector("[data-add-staff]");
     const saveButton = form.querySelector("[data-save-staff]");
+    const employeeId = form.querySelector("[data-employee-id]");
     const password = form.querySelector("[data-password]");
     const passwordConfirmation = form.querySelector(
         "[data-password-confirmation]",
@@ -38,6 +39,9 @@ if (modal) {
         form.reset();
         form.action = form.dataset.storeUrl;
         staffId.value = "";
+        if (employeeId) {
+            employeeId.value = "";
+        }
         methodOverride.disabled = true;
         addButton.hidden = false;
         saveButton.hidden = true;
@@ -93,6 +97,7 @@ if (modal) {
                 "first_name",
                 "last_name",
                 "role",
+                "employee_id",
                 "gender",
                 "email",
                 "mobile",

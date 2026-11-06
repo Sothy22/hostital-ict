@@ -6,10 +6,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="{{ asset("assets/style/main_doctor.css") }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/main_admin.css') }}" />
     <link rel="stylesheet" href="{{ asset("assets/style/aside.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/list_page.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/style/admin_theme.css") }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -105,26 +104,28 @@
             <!-- center -->
             <div class="search-box">
               <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" placeholder="Search patients, records..." />
+              <input type="search" placeholder="Search" aria-label="Search dashboard" />
             </div>
 
             <!-- right -->
-            <div class="head-right">
-              <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
-              <!-- Dark Mode -->
+            <div class="right-header">
+              <button class="header-action" type="button" aria-label="Documents" title="Documents">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+              <button class="header-action" type="button" aria-label="Settings" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+              </button>
               <div class="mode-icon">
                 <i id="theme-toggle" class="fa-regular fa-moon"></i>
               </div>
-
-              <!-- Notification -->
               <div class="notification">
                 <i class="fa-solid fa-bell"></i>
                 <span class="dot"></span>
               </div>
-
-              <div class="avata">
-                <img src="https://i.pravatar.cc/100" />
-                <!-- <h5>Dr. Sarah Johnson</h5> -->
+              <div class="profile">
+                <span class="profile-initial">
+                  {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
+                </span>
               </div>
             </div>
           </div>
@@ -156,7 +157,7 @@
                 <tr>
                   <th>
                     <div class="time-header">
-                      No
+                      Staff ID
                       <span class="sort-arrows">
                         <i class="fa-solid fa-caret-up"></i>
                         <i class="fa-solid fa-caret-down"></i>
@@ -259,7 +260,7 @@
               <tbody>
                 @forelse ($doctors as $doctor)
                   <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $doctor->employee_id ?? $doctor->doctor_id ?? '—' }}</td>
                     <td>
                       <div class="avata-user">
                         <img
@@ -287,6 +288,7 @@
                                 data-first-name="{{ $doctor->first_name ?? '' }}"
                                 data-last-name="{{ $doctor->last_name ?? '' }}"
                                 data-role="{{ $doctor->role ?? '' }}"
+                                data-employee-id="{{ $doctor->employee_id ?? $doctor->doctor_id ?? '' }}"
                                 data-gender="{{ $doctor->gender ?? '' }}"
                                 data-email="{{ $doctor->email ?? '' }}"
                                 data-mobile="{{ $doctor->mobile ?? '' }}"

@@ -1,7 +1,12 @@
 :root {
-    --bg-color: #ffffff;
-    --text-color: #1a1a1a;
-    --accent-color: #3b82f6;
+    --bg-color: #f5f9fc;
+    --text-color: #172033;
+    --accent-color: #2563eb;
+    --accent-dark: #1d4ed8;
+    --accent-soft: #eaf2ff;
+    --card-bg: #ffffff;
+    --border-color: #dfe7ef;
+    --muted-color: #667085;
 }
 
 /* --- 2. DARK MODE VARIABLES --- */
@@ -9,6 +14,11 @@ body.dark-mode {
     --bg-color: #121212;
     --text-color: #f5f5f5;
     --accent-color: #60a5fa;
+    --accent-dark: #93c5fd;
+    --accent-soft: #172b4d;
+    --card-bg: #181818;
+    --border-color: #2d3748;
+    --muted-color: #b7c0ce;
 }
 
 /* --- 3. APPLY VARIABLES TO YOUR STYLES --- */
@@ -28,6 +38,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding-top: 40px;
+    padding-bottom: 48px;
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 28px;
@@ -37,7 +48,7 @@ body {
 .con-container {
     grid-column: 1 / -1;
     padding-bottom: 24px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 12px;
 }
 
@@ -54,7 +65,7 @@ body.dark-mode .back-link {
 
 .back-link {
     font-size: 14px;
-    color: #121212;
+    color: var(--accent-dark);
     text-decoration: none;
     font-weight: 500;
     display: inline-flex;
@@ -66,13 +77,13 @@ body.dark-mode .back-link {
 .page-title {
     font-size: 28px;
     font-weight: 600;
-    /* color: #0f172a; */
+    color: var(--text-color);
     margin: 0 0 6px 0;
 }
 
 .page-subtitle {
     font-size: 15px;
-    color: #64748b;
+    color: var(--muted-color);
     margin: 0;
 }
 
@@ -92,17 +103,17 @@ body.dark-mode .page-subtitle {
 
 /* --- GLOBAL CARD BASE LAYOUT --- */
 .card {
-    background-color: #ffffff;
-    border: 1px solid #f1f5f9;
-    border-radius: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
     padding: 32px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 10px 30px rgba(43, 74, 105, 0.07);
 }
 
 .card-section-title {
     font-size: 18px;
     font-weight: bold;
-    color: #0f172a;
+    color: var(--text-color);
     margin-bottom: 24px;
 }
 
@@ -117,7 +128,11 @@ body.dark-mode .page-subtitle {
 .avatar-circle {
     width: 72px;
     height: 72px;
-    background-color: #1e60ff;
+    background: linear-gradient(
+        145deg,
+        var(--accent-color),
+        var(--accent-dark)
+    );
     color: #ffffff;
     font-size: 20px;
     font-weight: 600;
@@ -135,13 +150,13 @@ body.dark-mode .page-subtitle {
 .doctor-name {
     font-size: 20px;
     font-weight: 600;
-    color: #0f172a;
+    color: var(--text-color);
     margin-bottom: 6px;
 }
 
 .doctor-specialty {
     font-size: 14px;
-    color: #64748b;
+    color: var(--muted-color);
     margin-bottom: 12px;
 }
 
@@ -154,7 +169,7 @@ body.dark-mode .page-subtitle {
 }
 
 .rating-text {
-    color: #0f172a;
+    color: var(--text-color);
 }
 
 .star-icon {
@@ -162,8 +177,8 @@ body.dark-mode .page-subtitle {
 }
 
 .badge {
-    background-color: #f1f5f9;
-    color: #475569;
+    background-color: var(--accent-soft);
+    color: var(--accent-dark);
     font-size: 12px;
     font-weight: 500;
     padding: 6px 14px;
@@ -178,19 +193,19 @@ body.dark-mode .page-subtitle {
     width: 100%;
     margin-top: 18px;
     padding-top: 16px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border-color);
     text-align: left;
 }
 
 .doctor-biography h3 {
     margin: 0 0 8px;
-    color: #0f172a;
+    color: var(--text-color);
     font-size: 15px;
 }
 
 .doctor-biography p {
     margin: 0;
-    color: #64748b;
+    color: var(--muted-color);
     font-size: 13px;
     line-height: 1.6;
 }
@@ -207,16 +222,17 @@ body.dark-mode .page-subtitle {
     gap: 5px;
     padding: 14px;
     border-radius: 10px;
-    background: #f8fafc;
+    background: var(--accent-soft);
+    border: 1px solid transparent;
 }
 
 .doctor-about-details span {
-    color: #64748b;
+    color: var(--muted-color);
     font-size: 13px;
 }
 
 .doctor-about-details strong {
-    color: #0f172a;
+    color: var(--text-color);
     font-size: 14px;
 }
 
@@ -226,14 +242,14 @@ body.dark-mode .page-subtitle {
 
 .doctor-about-biography h4 {
     margin: 0 0 7px;
-    color: #0f172a;
+    color: var(--text-color);
     font-size: 15px;
 }
 
 .doctor-about-biography p,
 .doctor-about-empty {
     margin: 0;
-    color: #64748b;
+    color: var(--muted-color);
     line-height: 1.7;
 }
 
@@ -244,6 +260,35 @@ body.dark-mode .doctor-about-details div {
 body.dark-mode .doctor-about-details strong,
 body.dark-mode .doctor-about-biography h4 {
     color: #f5f5f5;
+}
+
+body.dark-mode .card {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+body.dark-mode .input-group input,
+body.dark-mode .input-group textarea {
+    background: #20272f;
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-mode .input-group input:focus,
+body.dark-mode .input-group textarea:focus {
+    background: #252d36;
+    border-color: var(--accent-color);
+}
+
+body.dark-mode .patient-type-selector label span {
+    background: #20272f;
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-mode .patient-type-selector input:checked + span {
+    border-color: var(--accent-color);
+    background: var(--accent-soft);
+    color: #dbeafe;
 }
 
 /* --- HOSPITAL METADATA CONTACTS --- */
@@ -260,9 +305,14 @@ body.dark-mode .doctor-about-biography h4 {
 
 .contact-icon {
     font-size: 16px;
-    color: #0f172a;
-    margin-top: 3px;
-    width: 20px;
+    color: var(--accent-color);
+    background: var(--accent-soft);
+    border-radius: 50%;
+    margin-top: 0;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    flex: 0 0 38px;
     text-align: center;
 }
 
@@ -270,14 +320,14 @@ body.dark-mode .doctor-about-biography h4 {
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #0f172a;
+    color: var(--text-color);
     margin-bottom: 2px;
 }
 
 .contact-value {
     display: block;
     font-size: 14px;
-    color: #64748b;
+    color: var(--muted-color);
     line-height: 1.5;
 }
 
@@ -292,14 +342,15 @@ body.dark-mode .doctor-about-biography h4 {
     display: block;
     font-size: 13px;
     font-weight: 500;
-    color: #0f172a;
+    color: var(--text-color);
     margin-bottom: 12px;
 }
 
 .calendar-widget {
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     padding: 16px;
+    background: var(--card-bg);
 }
 
 .calendar-header {
@@ -311,25 +362,27 @@ body.dark-mode .doctor-about-biography h4 {
 
 .cal-nav-btn {
     background: none;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     width: 28px;
     height: 28px;
     border-radius: 6px;
     cursor: pointer;
-    color: #64748b;
+    color: var(--muted-color);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .cal-nav-btn:hover {
-    background-color: #f8fafc;
+    background-color: var(--accent-soft);
+    border-color: var(--accent-color);
+    color: var(--accent-dark);
 }
 
 .current-month-year {
     font-size: 13px;
     font-weight: 500;
-    color: #0f172a;
+    color: var(--text-color);
 }
 
 .calendar-weekdays {
@@ -338,7 +391,7 @@ body.dark-mode .doctor-about-biography h4 {
     text-align: center;
     font-size: 11px;
     font-weight: 500;
-    color: #64748b;
+    color: var(--muted-color);
     margin-bottom: 12px;
 }
 
@@ -366,13 +419,18 @@ body.dark-mode .doctor-about-biography h4 {
     border-radius: 6px;
 }
 
+.calendar-days span:hover:not(.day-muted):not(.day-selected) {
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+}
+
 .day-muted {
     color: #cbd5e1;
     cursor: not-allowed !important;
 }
 
 .day-selected {
-    background-color: #0f172a;
+    background-color: var(--accent-color);
     color: #ffffff !important;
     font-weight: 500;
 }
@@ -385,28 +443,29 @@ body.dark-mode .doctor-about-biography h4 {
 }
 
 .time-btn {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     padding: 10px 0;
     font-size: 13px;
     font-weight: 500;
-    color: #0f172a;
+    color: var(--text-color);
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
 .time-btn.active-slot {
-    background-color: #0f172a !important;
+    background-color: var(--accent-color) !important;
     color: #ffffff !important;
-    border-color: #0f172a;
+    border-color: var(--accent-color);
+    box-shadow: 0 5px 14px rgba(37, 99, 235, 0.18);
 }
 
 /* --- PATIENT DATA FORM STRUCTURES --- */
 .form-row-2col {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 20px;
 }
 
 .input-group {
@@ -423,24 +482,39 @@ body.dark-mode .doctor-about-biography h4 {
 .input-group label {
     font-size: 13px;
     font-weight: 500;
-    color: #0f172a;
+    color: var(--text-color);
 }
 
 .input-group input,
 .input-group textarea {
     width: 100%;
-    background-color: #f1f5f9;
-    border: 1px solid transparent;
-    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #f7fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     padding: 12px 14px;
     font-size: 14px;
     outline: none;
+    color: var(--text-color);
+}
+
+.input-group textarea {
+    min-height: 112px;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #98a2b3;
+    opacity: 1;
 }
 
 .input-group input:focus,
 .input-group textarea:focus {
-    background-color: #f8fafc;
-    border-color: #cbd5e1;
+    background-color: var(--card-bg);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .patient-type-selector {
@@ -453,7 +527,7 @@ body.dark-mode .doctor-about-biography h4 {
 
 .patient-type-label {
     width: 100%;
-    color: #0f172a;
+    color: var(--text-color);
     font-size: 13px;
     font-weight: 600;
 }
@@ -496,17 +570,37 @@ body.dark-mode .doctor-about-biography h4 {
     font-weight: 700;
 }
 
+.patient-form {
+    width: 100%;
+}
+
+.info-card {
+    overflow: hidden;
+}
+
+.booking-errors {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #be123c;
+}
+
 .input-group input[readonly] {
-    background-color: #e2e8f0;
+    background-color: var(--accent-soft);
     cursor: not-allowed;
 }
 
 /* --- FORM SUBMIT ACTION MAIN CTA --- */
 .submit-booking-btn {
-    background-color: #7c7e8c;
+    background-color: var(--accent-color);
     color: #ffffff;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 14px 0;
     font-size: 14px;
     font-weight: 500;
@@ -515,6 +609,21 @@ body.dark-mode .doctor-about-biography h4 {
     text-align: center;
     text-decoration: none;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    min-height: 48px;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.submit-booking-btn:hover {
+    background-color: var(--accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.22);
 }
 
 .booking-success {
@@ -554,7 +663,6 @@ body.dark-mode .doctor-about-biography h4 {
 }
 
 .booking-container .doctor-about-details span,
-.booking-container .doctor-about-details strong,
 .booking-container .doctor-about-biography h4,
 .booking-container .contact-label,
 .booking-container .contact-value,
@@ -564,6 +672,7 @@ body.dark-mode .doctor-about-biography h4 {
 .booking-container .input-group textarea,
 .booking-container .submit-booking-btn {
     font-size: 16px;
+    color: var(--accent-color);
 }
 
 .booking-container .rating-row,
@@ -579,4 +688,46 @@ body.dark-mode .doctor-about-biography h4 {
 
 .booking-container .calendar-weekdays {
     font-size: 12px;
+}
+
+/* Compact doctor contact card */
+.booking-container .contact-card {
+    padding: 18px 16px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(43, 74, 105, 0.04);
+}
+
+.booking-container .contact-card .card-section-title {
+    margin: 0 0 16px;
+    line-height: 1.2;
+}
+
+.booking-container .contact-card .contact-item {
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.booking-container .contact-card .contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.booking-container .contact-card .contact-icon {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    line-height: 32px;
+    margin: 0;
+    font-size: 15px;
+}
+
+.booking-container .contact-card .contact-label {
+    margin-bottom: 3px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.booking-container .contact-card .contact-value {
+    line-height: 1.3;
+    color: #667085;
 }

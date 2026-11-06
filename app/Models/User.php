@@ -34,6 +34,7 @@ class User extends Authenticatable
         'department_id',
         'permissions',
         'doctor_id',
+        'employee_id',
         'specialization',
         'experience',
         'qualification',

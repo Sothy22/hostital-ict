@@ -1,6 +1,3 @@
-import { doctorData } from "/assets/feth_data/doctors.js";
-import { departmentData } from "../feth_data/departments.js";
-
 // ==================== Active button header ====================
 document.addEventListener("DOMContentLoaded", () => {
     const currentPage = window.location.pathname.split("/").pop();
@@ -105,7 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const className = [
                     dateStr === selectedDateStr ? "day-selected" : "",
                     isPast ? "day-muted" : "",
-                ].filter(Boolean).join(" ");
+                ]
+                    .filter(Boolean)
+                    .join(" ");
                 daysHTML += `<span class="${className}" data-date="${dateStr}">${day}</span>`;
             }
 
@@ -131,8 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     e.target.classList.add("day-selected");
                     selectedDateStr = e.target.getAttribute("data-date");
-                    const appointmentDate = document.getElementById("appointment-date");
-                    if (appointmentDate) appointmentDate.value = selectedDateStr;
+                    const appointmentDate =
+                        document.getElementById("appointment-date");
+                    if (appointmentDate)
+                        appointmentDate.value = selectedDateStr;
                 });
             });
         }
@@ -158,13 +159,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.classList.remove("active-slot"),
                 );
                 e.target.classList.add("active-slot");
-                const match = e.target.textContent.trim().match(/^(\d{1,2}):(\d{2})\s(AM|PM)$/);
+                const match = e.target.textContent
+                    .trim()
+                    .match(/^(\d{1,2}):(\d{2})\s(AM|PM)$/);
                 if (match) {
                     let hour = Number(match[1]);
                     if (match[3] === "PM" && hour !== 12) hour += 12;
                     if (match[3] === "AM" && hour === 12) hour = 0;
                     const time = `${String(hour).padStart(2, "0")}:${match[2]}`;
-                    const appointmentTime = document.getElementById("appointment-time");
+                    const appointmentTime =
+                        document.getElementById("appointment-time");
                     if (appointmentTime) appointmentTime.value = time;
                 }
             });
@@ -177,125 +181,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const stats = document.querySelectorAll(".stat-number");
 
     const animateCounter = (element) => {
+        if (element.dataset.static === "true") return;
+
+        const configuredTarget = Number(element.dataset.target);
         const text = element.innerText.trim();
-
-        const targetNumber = parseInt(text.replace(/[^0-9]/g, ""), 10);
-
-        const suffix = text.replace(/[0-9,]/g, "");
+        const targetNumber = Number.isFinite(configuredTarget)
+            ? configuredTarget
+            : parseInt(text.replace(/[^0-9]/g, ""), 10);
+        const suffix = element.dataset.suffix ?? text.replace(/[0-9,]/g, "");
 
         if (isNaN(targetNumber)) return;
 
-        let start = 0;
-        const duration = 2000;
-        const frameRate = 1000 / 60;
-        const totalFrames = Math.round(duration / frameRate);
-        const increment = targetNumber / totalFrames;
+        const duration = targetNumber <= 10 ? 3500 : 2500;
+        element.innerText = "1" + suffix;
+        const startedAt = performance.now();
 
-        let currentFrame = 0;
+        const count = (now) => {
+            const progress = Math.min((now - startedAt) / duration, 1);
+            const easedProgress = 1 - Math.pow(1 - progress, 3);
+            const currentNumber =
+                progress >= 1
+                    ? targetNumber
+                    : Math.max(
+                          1,
+                          Math.floor(easedProgress * (targetNumber + 1)),
+                      );
 
-        element.innerText = "0" + suffix;
-
-        const counter = setInterval(() => {
-            currentFrame++;
-            start += increment;
-
-            if (currentFrame >= totalFrames) {
-                clearInterval(counter);
+            if (progress >= 1) {
                 element.innerText = text;
             } else {
-                element.innerText = Math.floor(start) + suffix;
+                element.innerText = String(currentNumber) + suffix;
+                requestAnimationFrame(count);
             }
-        }, frameRate);
+        };
+
+        requestAnimationFrame(count);
     };
 
-    const observer = new IntersectionObserver(
-        (entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    animateCounter(entry.target);
-                    observer.unobserve(entry.target);
-                }
-            });
-        },
-        {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px",
-        },
-    );
+    stats.forEach((stat, index) => {
+        const card = stat.closest(".stat-card");
+        if (card) {
+            card.classList.add("is-animated");
+            card.style.animationDelay = `${index * 100}ms`;
+        }
 
-    stats.forEach((stat) => observer.observe(stat));
+        window.setTimeout(() => animateCounter(stat), index * 100);
+    });
 });
-
-// ==================== ALL DEPARTMENTS SECTION ====================
-// document.addEventListener("DOMContentLoaded", () => {
-//     const departmentsGrid = document.getElementById("departmentsGrid");
-//     const firstCard = document.getElementById("depCard");
-//     const viewAllBtn = document.getElementById("viewAllBtn");
-
-//     // 👉 ការពារ Error: បើគ្មានប្លុក Departments ក្នុងទំព័រនេះទេ ឱ្យវារំលងតែម្តង
-//     if (!departmentsGrid || !firstCard) {
-//         console.log(
-//             "រកមិនឃើញ departmentsGrid ឬ depCard ឡើយ។ រំលងការ Render ទិន្នន័យនេះ។",
-//         );
-//         return;
-//     }
-
-//     let visibleCount = 6;
-
-//     function renderDepartments() {
-//         // ប្រើប្រាស់ដោយសុវត្ថិភាព
-//         departmentsGrid
-//             .querySelectorAll(".dep-card:not(#depCard)")
-//             .forEach((card) => card.remove());
-
-//         // ត្រូវប្រាកដថាមានទិន្នន័យ departmentData
-//         if (typeof departmentData === "undefined") return;
-
-//         const items = departmentData.slice(0, visibleCount);
-
-//         items.forEach((dep, index) => {
-//             let card;
-
-//             if (index === 0) {
-//                 card = firstCard;
-//             } else {
-//                 card = firstCard.cloneNode(true);
-//                 departmentsGrid.appendChild(card);
-//             }
-
-//             // បង្ការការគាំងករណីរកមិនឃើញ class ខាងក្នុង Card
-//             const managerImg = card.querySelector(".managerImage");
-//             if (managerImg) {
-//                 managerImg.src = dep.managerImage;
-//                 managerImg.alt = dep.managerName;
-//             }
-
-//             if (card.querySelector(".managerName"))
-//                 card.querySelector(".managerName").textContent =
-//                     dep.managerName;
-//             if (card.querySelector(".departmentTitle"))
-//                 card.querySelector(".departmentTitle").textContent = dep.title;
-//             if (card.querySelector(".dep-des"))
-//                 card.querySelector(".dep-des").textContent = dep.description;
-//             if (card.querySelector(".departmentBtn"))
-//                 card.querySelector(".departmentBtn").textContent = dep.linkText;
-//         });
-
-//         if (viewAllBtn) {
-//             if (visibleCount >= departmentData.length) {
-//                 viewAllBtn.style.display = "none";
-//             } else {
-//                 viewAllBtn.style.display = "block";
-//             }
-//         }
-//     }
-
-//     renderDepartments();
-
-//     if (viewAllBtn) {
-//         viewAllBtn.addEventListener("click", () => {
-//             visibleCount += 6;
-//             renderDepartments();
-//         });
-//     }
-// });

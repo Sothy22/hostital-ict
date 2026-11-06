@@ -7,7 +7,7 @@ use MongoDB\Laravel\Eloquent\Model;
 class Department extends Model
 {
     protected $connection = 'mongodb';
-    protected $collection = 'emergencyContact';
+    protected $collection = 'departments';
     protected $fillable = [
         'name',
         'description',

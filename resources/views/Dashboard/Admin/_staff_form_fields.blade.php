@@ -19,23 +19,33 @@
            value="{{ old('last_name') }}" required>
 </div>
 
+<input type="hidden" name="employee_id" value="{{ old('employee_id') }}" data-employee-id>
+
 <div class="form-row">
-    @php
-        $selectedRole = old('role', $defaultRole ?? '');
-    @endphp
-
-    <select name="role" required>
-        @if ($selectedRole === '')
-            <option value="">Select Role</option>
-        @endif
-
-        @foreach ($roles as $role)
-            <option value="{{ $role->name }}"
-                @selected((string) $selectedRole === (string) $role->name)>
-                {{ ucfirst($role->name) }}
+    <select name="department_id" required>
+        <option value="">Department</option>
+        @foreach ($departments as $department)
+            <option value="{{ $department->getKey() }}"
+                @selected((string) old('department_id') === (string) $department->getKey())>
+                {{ $department->name }}
             </option>
         @endforeach
     </select>
+    @if (!empty($defaultRole))
+        <input type="hidden" name="role" value="{{ old('role', $defaultRole) }}" data-role>
+    @else
+        <select name="role" required data-role>
+            <option value="">Staff Role</option>
+            @foreach ($roles ?? [] as $role)
+                @php($roleName = is_string($role->name) ? $role->name : '')
+                @if ($roleName !== '')
+                    <option value="{{ $roleName }}" @selected(old('role') === $roleName)>
+                        {{ ucfirst($roleName) }}
+                    </option>
+                @endif
+            @endforeach
+        </select>
+    @endif
 
     <select name="gender" required>
         <option value="">Gender</option>
@@ -80,14 +90,4 @@
 
 <div class="form-row">
     <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
-
-    <select name="department_id" required>
-        <option value="">Department</option>
-        @foreach ($departments as $department)
-            <option value="{{ $department->getKey() }}"
-                @selected((string) old('department_id') === (string) $department->getKey())>
-                {{ $department->name }}
-            </option>
-        @endforeach
-    </select>
 </div>

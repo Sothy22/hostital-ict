@@ -87,6 +87,8 @@ Route::middleware(['auth:admin'])->group(function() {
             'totalDoctors' => User::where('role', 'doctor')->count(),
             'totalAppointments' => Appointment::count(),
             'totalStaff' => User::count(),
+            'roles' => Role::all(),
+            'departments' => Department::all(),
             'appointments' => Appointment::with(['patient', 'staff'])
                 ->latest('appointment_date')
                 ->take(6)
@@ -109,7 +111,7 @@ Route::middleware(['auth:admin'])->group(function() {
                 ->where('role', 'doctor')
                 ->get(),
             'roles' => Role::all(),
-            'departments' => Department::all(),
+            'departments' => StaffController::departmentsForRole('doctor'),
             'defaultRole' => 'doctor',
         ]);
     })->name('admin_doctor');
@@ -120,7 +122,7 @@ Route::middleware(['auth:admin'])->group(function() {
                 ->where('role', 'accountant')
                 ->get(),
             'roles' => Role::all(),
-            'departments' => Department::all(),
+            'departments' => StaffController::departmentsForRole('accountant'),
             'defaultRole' => 'accountant',
         ]);
     })->name('admin_accountant');
@@ -128,10 +130,10 @@ Route::middleware(['auth:admin'])->group(function() {
     Route::get('/admin_pharmacy', function () {
         return view('dashboard.admin.pharmacy_page', [
             'pharmacys' => User::with('department')
-                ->where('role', 'accountant')
+                ->where('role', 'pharmacy')
                 ->get(),
             'roles' => Role::all(),
-            'departments' => Department::all(),
+            'departments' => StaffController::departmentsForRole('pharmacy'),
             'defaultRole' => 'pharmacy',
         ]);
     })->name('admin_pharmacy');
@@ -142,7 +144,7 @@ Route::middleware(['auth:admin'])->group(function() {
                 ->where('role', 'receptionist')
                 ->get(),
             'roles' => Role::all(),
-            'departments' => Department::all(),
+            'departments' => StaffController::departmentsForRole('receptionist'),
             'defaultRole' => 'receptionist',
         ]);
     })->name('admin_receptionist');

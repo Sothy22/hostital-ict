@@ -522,6 +522,10 @@ body.dark-mode .staff-form-errors {
     padding-left: 20px;
 }
 
+.staff-modal [hidden] {
+    display: none !important;
+}
+
 .staff-modal .form-buttons {
     display: flex;
     justify-content: flex-end;

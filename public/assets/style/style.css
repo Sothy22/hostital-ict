@@ -292,6 +292,33 @@ main {
     cursor: pointer;
 }
 
+.contain .stats-grid .stat-card.is-animated {
+    animation: stats-card-rise 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.contain .stats-grid .stat-card:nth-child(2).is-animated {
+    animation-delay: 100ms;
+}
+
+.contain .stats-grid .stat-card:nth-child(3).is-animated {
+    animation-delay: 200ms;
+}
+
+.contain .stats-grid .stat-card:nth-child(4).is-animated {
+    animation-delay: 300ms;
+}
+
+@keyframes stats-card-rise {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 .contain .stats-grid .stat-card:hover {
     transform: translateY(-2px);
     box-shadow: 0px 6px 16px var(--shadow-hover);
@@ -341,6 +368,7 @@ main {
     font-weight: bold;
     margin-bottom: 8px;
     color: var(--accent-color);
+    font-variant-numeric: tabular-nums;
 }
 
 .contain .stats-grid .stat-card .stat-label {
@@ -787,56 +815,6 @@ main {
 }
 
 /* ================================
-   CONTACT ITEM
-================================ */
-
-.contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
-    padding: 22px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    box-shadow: var(--shadow);
-    transition:
-        transform var(--transition),
-        box-shadow var(--transition),
-        border-color var(--transition);
-}
-
-.contact-item:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary);
-    box-shadow: 0 12px 30px rgba(15, 118, 110, 0.12);
-}
-
-/* ================================
-   ICON
-================================ */
-
-.contact-item > i {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-size: 20px;
-    transition:
-        background var(--transition),
-        color var(--transition);
-}
-
-.contact-item:hover > i {
-    background: var(--primary);
-    color: var(--accent-hover);
-}
-
-/* ================================
    CONTACT DETAILS
 ================================ */
 
@@ -888,23 +866,7 @@ main {
     background: var(--bg-section);
 }
 
-.dark .map-container,
-.dark .contact-item {
+.dark .map-container {
     background: var(--bg-card);
     border-color: var(--border);
-}
-
-.dark .contact-item:hover {
-    border-color: var(--primary);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-}
-
-.dark .contact-item > i {
-    background: var(--primary-light);
-    color: var(--primary);
-}
-
-.dark .contact-item:hover > i {
-    background: var(--primary);
-    color: #ffffff;
 }

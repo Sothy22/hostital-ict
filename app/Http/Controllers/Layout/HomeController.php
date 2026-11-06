@@ -16,7 +16,11 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('index');
+        return view('index', [
+            'happyPatients' => Patient::count(),
+            'expertDoctors' => User::where('role', 'doctor')->count(),
+            'departmentCount' => Department::count(),
+        ]);
     }
 
     public function about()
@@ -48,6 +52,34 @@ class HomeController extends Controller
 
         return view('contact', compact('doctor', 'patientHistory', 'patient'));
     }
+
+    public function doctor ()
+    {
+        $doctors = User::with('department')
+            ->where('role', 'doctor')
+            ->get();
+
+        $completedMeetings = Appointment::where('status', 'Completed')
+            ->get(['staff_id']);
+
+        $meetingCounts = $completedMeetings
+            ->groupBy(function ($appointment) {
+                return (string) $appointment->staff_id;
+            })
+            ->map(function ($appointments) {
+                return $appointments->count();
+            });
+
+        $doctors->each(function ($doctor) use ($meetingCounts) {
+            $doctor->completed_meetings_count = $meetingCounts->get(
+                (string) $doctor->_id,
+                0
+            );
+        });
+
+        return view('doctors', compact('doctors'));
+    }
+
     public function contact_us()
     {
         return view('contact_us');
@@ -58,12 +90,7 @@ class HomeController extends Controller
 
         return view('department', compact('departments'));
     }
-    public function doctor()
-    {
-        $doctors = User::with('department')->where('role', 'doctor')->get();
 
-        return view('doctors', compact('doctors'));
-    }
     public function storeAppointment(Request $request)
     {
         $user = Auth::guard('web')->user();

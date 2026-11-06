@@ -109,174 +109,174 @@
 
       <!-- main -->
       <main class="main">
-        <!-- header -->
-        <div class="header">
-          <button class="menu-toggle" id="menuToggle">
-            <i class="fa-solid fa-bars"></i>
-          </button>
+            <!-- header -->
+            <div class="header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
 
-          <!-- center -->
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search patients, records..." />
-          </div>
+                <!-- center -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search patients, records..." />
+                </div>
 
-          <!-- right -->
-          <div class="head-right">
-            <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
-            <!-- Dark Mode -->
-            <div class="mode-icon">
-              <i id="theme-toggle" class="fa-regular fa-moon"></i>
+                <!-- right -->
+                <div class="head-right">
+                    <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                    <!-- Dark Mode -->
+                    <div class="mode-icon">
+                        <i id="theme-toggle" class="fa-regular fa-moon"></i>
+                    </div>
+
+                    <!-- Notification -->
+                    <div class="notification">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="dot"></span>
+                    </div>
+
+                    <button class="avata" type="button" data-open-profile aria-label="Open doctor profile">
+                        <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
+                    </button>
+                </div>
             </div>
-
-            <!-- Notification -->
-            <div class="notification">
-              <i class="fa-solid fa-bell"></i>
-              <span class="dot"></span>
-            </div>
-
-            <button class="avata" type="button" data-open-profile aria-label="Open doctor profile">
-              <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
-            </button>
-          </div>
-        </div>
 
         <!-- Welcome + Statistics -->
         <section class="dashboard-overview">
-          <!-- Welcome -->
-          <div class="dashboard-header">
-            <div class="welcome">
-              <h1>Welcome back, Dr. {{ $doctorName }}</h1>
-              <p>Here is the latest hospital overview.</p>
-            </div>
-
-            <div class="date">
-              <h4>{{ now()->format('l, M d, Y') }}</h4>
-              <p id="currentTime">{{ now()->format('h:i A') }}</p>
-            </div>
-          </div>
-
-          <!-- Statistics -->
-          <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-icon blue">
-                    <i class="fa-solid fa-hospital-user"></i>
+            <!-- Welcome -->
+            <div class="dashboard-header">
+                <div class="welcome">
+                    <h1>Welcome back, Dr. {{ $doctorName }}</h1>
+                    <p>Here is the latest hospital overview.</p>
                 </div>
 
-                <div class="stat-info">
-                    <p>Total Patients</p>
-                    <h2>{{ number_format($totalPatients) ?? 0 }}</h2>
+                <div class="date">
+                    <h4>{{ now()->format('l, M d, Y') }}</h4>
+                    <p id="currentTime">{{ now()->format('h:i A') }}</p>
                 </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-icon green">
-                <i class="fa-solid fa-bed"></i>
-              </div>
+            <!-- Statistics -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
 
-              <div class="stat-info">
-                <p>Bed Occupancy</p>
-                <h2>85</h2>
-              </div>
+                    <div class="stat-info">
+                        <p>Total Patients</p>
+                        <h2>{{ number_format($totalPatients) ?? 0 }}</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-bed"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <p>Bed Occupancy</p>
+                        <h2>85</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                          <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+
+                    <div class="stat-info">
+                          <p>Today's Appointments</p>
+                          <h2>{{ number_format($totalAppointment ?? 0) }}</h2>
+                          {{-- <h2>45</h2> --}}
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">
+                        <i class="fa-solid fa-file-medical"></i>
+                    </div>
+
+                    <div class="stat-info">
+                        <p>Pending Reports</p>
+                        <h2>12</h2>
+                    </div>
+                </div>
             </div>
-
-            <div class="stat-card">
-              <div class="stat-icon purple">
-                <i class="fa-solid fa-calendar-days"></i>
-              </div>
-
-              <div class="stat-info">
-                <p>Today's Appointments</p>
-                <h2>{{ number_format($totalAppointment ?? 0) }}</h2>
-                {{-- <h2>45</h2> --}}
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon red">
-                <i class="fa-solid fa-file-medical"></i>
-              </div>
-
-              <div class="stat-info">
-                <p>Pending Reports</p>
-                <h2>12</h2>
-              </div>
-            </div>
-          </div>
         </section>
 
         <!-- Main Dashboard Content -->
         <section class="content">
-          <div class="left-content">
-            <!-- Patient Admission Trends -->
-            <div class="card">
-              <div class="card-header">
-                <h3>Patient Admissions Trends</h3>
-                <i class="fa-solid fa-ellipsis"></i>
+            <div class="left-content">
+              <!-- Patient Admission Trends -->
+              <div class="card">
+                  <div class="card-header">
+                      <h3>Patient Admissions Trends</h3>
+                      <i class="fa-solid fa-ellipsis"></i>
+                  </div>
+
+                  <div class="chart-box">Chart Area</div>
               </div>
 
-              <div class="chart-box">Chart Area</div>
+              <!-- Schedule -->
+              <div class="card">
+                  <div class="card-header">
+                        <h3>Schedule</h3>
+                        <a href="#">View All</a>
+                  </div>
+
+                  <div class="table-container">
+                    <table>
+                        <thead>
+                              <tr>
+                                  <th>PATIENT NAME</th>
+                                  <th>DEPARTMENT</th>
+                                  <th>STATUS</th>
+                                  <th>TIME</th>
+                              </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                              <td>Michael Chen</td>
+                              <td>Cardiology</td>
+                              <td>
+                                    <span class="badge admitted">Admitted</span>
+                              </td>
+                              <td>09:15 AM</td>
+                          </tr>
+
+                          <tr>
+                              <td>Emma Thompson</td>
+                              <td>Neurology</td>
+                              <td>
+                                    <span class="badge pending">Pending</span>
+                              </td>
+                              <td>08:45 AM</td>
+                          </tr>
+
+                          <tr>
+                              <td>David Rodriguez</td>
+                              <td>Orthopedics</td>
+                              <td>
+                                    <span class="badge discharged">Discharged</span>
+                              </td>
+                              <td>Yesterday</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+              </div>
             </div>
-
-            <!-- Schedule -->
-            <div class="card">
-              <div class="card-header">
-                <h3>Schedule</h3>
-                <a href="#">View All</a>
-              </div>
-
-              <div class="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>PATIENT NAME</th>
-                      <th>DEPARTMENT</th>
-                      <th>STATUS</th>
-                      <th>TIME</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr>
-                      <td>Michael Chen</td>
-                      <td>Cardiology</td>
-                      <td>
-                        <span class="badge admitted">Admitted</span>
-                      </td>
-                      <td>09:15 AM</td>
-                    </tr>
-
-                    <tr>
-                      <td>Emma Thompson</td>
-                      <td>Neurology</td>
-                      <td>
-                        <span class="badge pending">Pending</span>
-                      </td>
-                      <td>08:45 AM</td>
-                    </tr>
-
-                    <tr>
-                      <td>David Rodriguez</td>
-                      <td>Orthopedics</td>
-                      <td>
-                        <span class="badge discharged">Discharged</span>
-                      </td>
-                      <td>Yesterday</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
 
           <!-- Upcoming Appointments -->
           <div class="appointment-card">
             <div class="appointment-title">
-              <h3>Upcoming<br />Appointments</h3>
+                <h3>Upcoming<br />Appointments</h3>
 
-              <button class="add-btn" id="addAppointment">
-                <i class="fa-solid fa-plus"></i>
-              </button>
+                <button class="add-btn" id="addAppointment">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
             </div>
 
             @if ($canReadAppointments)
@@ -405,11 +405,15 @@
 
             <h3>Professional Information</h3>
             <div class="doctor-profile-grid">
-              <label>Doctor ID
-                <input type="text" name="doctor_id" value="{{ old('doctor_id', $doctor->doctor_id ?? '') }}" placeholder="DOC-001">
+              <label>Staff ID
+                <input type="text"
+                       name="employee_id"
+                       value="{{ old('employee_id', $doctor->employee_id ?? $doctor->doctor_id ?? '') }}"
+                       placeholder="Generated automatically"
+                       readonly>
               </label>
               <label>Specialization
-                <input type="text" name="specialization" value="{{ old('specialization', $doctor->specialization ?? '') }}" placeholder="Cardiology">
+                <input type="text" name="specialization" value="{{ old('specialization', $doctor->specialization ?? '') }}" placeholder="Specialization">
               </label>
               <label>Department
                 <select name="department_id">
@@ -422,7 +426,7 @@
                 </select>
               </label>
               <label>Experience (Years)
-                <input type="number" min="0" max="80" name="experience" value="{{ old('experience', $doctor->experience ?? '') }}" placeholder="8">
+                <input type="number" min="0" max="80" name="experience" value="{{ old('experience', $doctor->experience ?? '') }}" placeholder="0">
               </label>
               <label class="doctor-profile-wide">Qualification
                 <input type="text" name="qualification" value="{{ old('qualification', $doctor->qualification ?? '') }}" placeholder="MD, Cardiology">

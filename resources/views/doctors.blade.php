@@ -73,305 +73,60 @@
     </section>
 
     <section class="container">
-      <div class="doctor-container">
+        <div class="doctor-container">
 
-        <div class="title-dep">
-          <h1>Our Doctors</h1>
-          <p>We offer comprehensive healthcare services across multiple specialties</p>
-        </div>
+            <div class="title-dep">
+                <h1>Our Doctors</h1>
+                <p>We offer comprehensive healthcare services across multiple specialties</p>
+            </div>
 
-        <div class="doctors-grid" id="doctorsGrid">
-          @forelse ($doctors as $doctor)
-            <div class="doctor-card">
-              <div class="doctor-avatar">
-                @if ($doctor->image)
-                  <img class="doctorImage" src="{{ asset('storage/' . $doctor->image) }}" alt="{{ $doctor->name }}">
-                @endif
-              </div>
-
-              <div class="doctor-info">
-                <h3 class="doctorName">{{ $doctor->name }}</h3>
-                <p class="doctorDepartment">{{ optional($doctor->department)->name ?? 'Department' }}</p>
-              </div>
-
-              {{-- @if (!empty($doctor->biography))
-                <div class="doctor-biography-preview">
-                  <span>Biography</span>
-                  <p>{{ $doctor->biography }}</p>
-                </div>
-              @endif --}}
-
-              @if (isset($doctor->rating))
-                <div class="doctor-rating">
-                  <i class="fa-solid fa-star"></i>
-                  <div class="rating">
-                    <span class="doctorRating">{{ $doctor->rating }}</span>
-                  </div>
-                </div>
-              @endif
-
-              <div class="doctor-meta">
-                <div class="meta">
-                  <span>Experience</span>
-                  <span class="doctorExperience">{{ $doctor->experience ?? 'Not specified' }}</span>
-                </div>
-
-                <div class="meta">
-                  <span>Available</span>
-                  <span class="doctorAvailable">
-                    @if (isset($doctor->available))
-                      {{ $doctor->available ? 'Available' : 'Unavailable' }}
-                    @else
-                      Contact us
+            <div class="doctors-grid" id="doctorsGrid">
+              @forelse ($doctors as $doctor)
+                <div class="doctor-card">
+                  <div class="doctor-avatar">
+                    @if ($doctor->image)
+                        <img class="doctorImage" src="{{ asset('storage/' . $doctor->image) }}" alt="{{ $doctor->name }}">
                     @endif
-                  </span>
+                  </div>
+
+                  <div class="doctor-info">
+                        <h3 class="doctorName">{{ $doctor->name }}</h3>
+                        <p class="doctorDepartment">{{ optional($doctor->department)->name ?? 'Department' }}</p>
+                  </div>
+
+                  <div class="doctor-meta">
+                    <div class="meta">
+                        <span>Experience</span>
+                        <span class="doctorExperience">{{ $doctor->experience ?? 'Not specified' }}</span>
+                    </div>
+
+                    <div class="meta">
+                        <span>Patients</span>
+                        <span class="doctorAvailable">
+                            {{ $doctor->completed_meetings_count }}
+                            {{ Str::plural('Meeting', $doctor->completed_meetings_count) }}
+                        </span>
+                    </div>
+                  </div>
+
+                  <button class="book-btn" type="button">
+                        <a href="{{ route('contact', ['doctor' => $doctor->getKey()]) }}">
+                            <i class="fas">&#xf0b1;</i>
+                            <span>Book Appointment</span>
+                        </a>
+                  </button>
                 </div>
-              </div>
+                @empty
+                    <p>No doctors are listed yet.</p>
+                @endforelse
 
-              <button class="book-btn" type="button">
-                <a href="{{ route('contact', ['doctor' => $doctor->getKey()]) }}">
-                  <i class="fas">&#xf0b1;</i>
-                  <span>Book Appointment</span>
-                </a>
-              </button>
             </div>
-          @empty
-            <p>No doctors are listed yet.</p>
-          @endforelse
+            </div>
 
+            {{-- <div class="btn">
+              <button>View All Docotors</button>
+            </div> --}}
         </div>
-
-
-          <!-- card 1 -->
-          <!-- <div class="doctor-card">
-            <div class="doctor-avatar">
-              <img src="./assets/images/top-doctor1.jpg" alt="">
-            </div>
-
-            <div class="doctor-info">
-              <h3>Dr. Robert Anderson</h3>
-              <p>Neurologist</p>
-            </div>
-
-            <div class="doctor-rating">
-              <i class="fa-solid fa-star"></i>
-              <div class="rating">
-                4.8
-                <span>(201)</span>
-              </div>
-            </div>
-
-            <div class="doctor-meta">
-              <div class="meta">
-                <span>Experience</span>
-                <span>16 years</span>
-              </div>
-
-              <div class="meta">
-                <span>Available</span>
-                <span>Mon, Wed, Fri</span>
-              </div>
-            </div>
-
-
-            <button class="book-btn">
-              <a href="/contact.html" >
-                <i style='font-size:24px' class='fas'>&#xf0b1;</i>
-                <span>Book Appointment</span>
-              </a>
-            </button>
-          </div> -->
-
-          <!-- card 2 -->
-          <!-- <div class="doctor-card">
-            <div class="doctor-avatar">
-              <img src="./assets/images/top-doctor1.jpg" alt="">
-            </div>
-
-            <div class="doctor-info">
-              <h3>Dr. Robert Anderson</h3>
-              <p>Neurologist</p>
-            </div>
-
-            <div class="doctor-rating">
-              <i class="fa-solid fa-star"></i>
-              <div class="rating">
-                4.8
-                <span>(201)</span>
-              </div>
-            </div>
-
-            <div class="doctor-meta">
-              <div class="meta">
-                <span>Experience</span>
-                <span>16 years</span>
-              </div>
-
-              <div class="meta">
-                <span>Available</span>
-                <span>Mon, Wed, Fri</span>
-              </div>
-            </div>
-
-            <button class="book-btn">
-              <i style='font-size:24px' class='fas'>&#xf0b1;</i>
-              <span>Book Appointment</span>
-            </button>
-          </div> -->
-
-          <!-- card 3 -->
-          <!-- <div class="doctor-card">
-            <div class="doctor-avatar">
-              <img src="./assets/images/top-doctor1.jpg" alt="">
-            </div>
-
-            <div class="doctor-info">
-              <h3>Dr. Robert Anderson</h3>
-              <p>Neurologist</p>
-            </div>
-
-            <div class="doctor-rating">
-              <i class="fa-solid fa-star"></i>
-              <div class="rating">
-                4.8
-                <span>(201)</span>
-              </div>
-            </div>
-
-            <div class="doctor-meta">
-              <div class="meta">
-                <span>Experience</span>
-                <span>16 years</span>
-              </div>
-
-              <div class="meta">
-                <span>Available</span>
-                <span>Mon, Wed, Fri</span>
-              </div>
-            </div>
-
-            <button class="book-btn">
-              <i style='font-size:24px' class='fas'>&#xf0b1;</i>
-              <span>Book Appointment</span>
-            </button>
-          </div> -->
-
-          <!-- card 4 -->
-          <!-- <div class="doctor-card">
-            <div class="doctor-avatar">
-              <img src="./assets/images/top-doctor1.jpg" alt="">
-            </div>
-
-            <div class="doctor-info">
-              <h3>Dr. Robert Anderson</h3>
-              <p>Neurologist</p>
-            </div>
-
-            <div class="doctor-rating">
-              <i class="fa-solid fa-star"></i>
-              <div class="rating">
-                4.8
-                <span>(201)</span>
-              </div>
-            </div>
-
-            <div class="doctor-meta">
-              <div class="meta">
-                <span>Experience</span>
-                <span>16 years</span>
-              </div>
-
-              <div class="meta">
-                <span>Available</span>
-                <span>Mon, Wed, Fri</span>
-              </div>
-            </div>
-
-            <button class="book-btn">
-              <i style='font-size:24px' class='fas'>&#xf0b1;</i>
-              <span>Book Appointment</span>
-            </button>
-          </div> -->
-
-          <!-- card 5 -->
-          <!-- <div class="doctor-card">
-            <div class="doctor-avatar">
-              <img src="./assets/images/top-doctor1.jpg" alt="">
-            </div>
-
-            <div class="doctor-info">
-              <h3>Dr. Robert Anderson</h3>
-              <p>Neurologist</p>
-            </div>
-
-            <div class="doctor-rating">
-              <i class="fa-solid fa-star"></i>
-              <div class="rating">
-                4.8
-                <span>(201)</span>
-              </div>
-            </div>
-
-            <div class="doctor-meta">
-              <div class="meta">
-                <span>Experience</span>
-                <span>16 years</span>
-              </div>
-
-              <div class="meta">
-                <span>Available</span>
-                <span>Mon, Wed, Fri</span>
-              </div>
-            </div>
-
-            <button class="book-btn">
-              <i style='font-size:24px' class='fas'>&#xf0b1;</i>
-              <span>Book Appointment</span>
-            </button>
-          </div> -->
-
-          <!-- card 6 -->
-          <!-- <div class="doctor-card">
-            <div class="doctor-avatar">
-              <img src="./assets/images/top-doctor1.jpg" alt="">
-            </div>
-
-            <div class="doctor-info">
-              <h3>Dr. Robert Anderson</h3>
-              <p>Neurologist</p>
-            </div>
-
-            <div class="doctor-rating">
-              <i class="fa-solid fa-star"></i>
-              <div class="rating">
-                4.8
-                <span>(201)</span>
-              </div>
-            </div>
-
-            <div class="doctor-meta">
-              <div class="meta">
-                <span>Experience</span>
-                <span>16 years</span>
-              </div>
-
-              <div class="meta">
-                <span>Available</span>
-                <span>Mon, Wed, Fri</span>
-              </div>
-            </div>
-
-            <button class="book-btn">
-              <i style='font-size:24px' class='fas'>&#xf0b1;</i>
-              <span>Book Appointment</span>
-            </button>
-          </div> -->
-        </div>
-
-        <div class="btn">
-          <button>View All Docotors</button>
-        </div>
-      </div>
     </section>
   </main>
 

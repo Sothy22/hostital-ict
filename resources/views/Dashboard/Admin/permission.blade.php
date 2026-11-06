@@ -8,10 +8,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="{{ asset('assets/style/main_admin.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/main_admin.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/style/aside.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/permission.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/style/admin_theme.css') }}" />
     <title>Permission</title>
 </head>
 <body class="admin-dashboard">
@@ -107,13 +106,20 @@
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input
-                        type="text"
-                        placeholder="Search patients, records..."
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search dashboard"
                     />
                 </div>
 
                 <!-- Right -->
                 <div class="right-header">
+                    <button class="header-action" type="button" aria-label="Documents" title="Documents">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button class="header-action" type="button" aria-label="Settings" title="Settings">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
                     <!-- Dark Mode -->
                     <div class="mode-icon">
                         <i id="theme-toggle" class="fa-regular fa-moon"></i>
@@ -125,9 +131,11 @@
                     </div>
                     <!-- Profile -->
                     <div class="profile">
-                        <img src="https://i.pravatar.cc/100" alt="" />
+                        <span class="profile-initial">
+                            {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
+                        </span>
                         <div class="info-name">
-                            <h4 id="profileName">Administrator</h4>
+                            <h4>{{ auth('admin')->user()->name ?? 'Administrator' }}</h4>
                         </div>
                     </div>
                 </div>

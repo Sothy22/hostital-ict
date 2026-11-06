@@ -8,6 +8,7 @@
 
         <link rel="stylesheet" href="{{ asset('assets/admin/main_admin.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/style/aside.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/style/list_page.css') }}" />
         {{-- <link rel="stylesheet" href="{{ asset('assets/style/admin_theme.css') }}" /> --}}
         <link
             rel="stylesheet"
@@ -72,10 +73,10 @@
                                     Pharmacy
                                 </a>
 
-                                {{-- <a href="{{ route('add_staff') }}">
+                                <button type="button" data-open-staff-modal>
                                     <i class="fa-solid fa-building-user"></i>
                                     Add Staff
-                                </a> --}}
+                                </button>
                             </div>
                         </div>
 
@@ -113,19 +114,20 @@
             <!-- Main -->
             <main class="main">
                 <div class="header">
-                    <!-- Left -->
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-
-                    <!-- Center -->
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="search" placeholder="Search patients, appointments..." />
+                        <input type="search" placeholder="Search" aria-label="Search dashboard" />
                     </div>
 
-                    <!-- Right -->
                     <div class="right-header">
+                        <button class="header-action" type="button" aria-label="Documents" title="Documents">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+
+                        <button class="header-action" type="button" aria-label="Settings" title="Settings">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+
                         <!-- Dark Mode -->
                         <div class="mode-icon">
                             <i id="theme-toggle" class="fa-regular fa-moon"></i>
@@ -442,9 +444,11 @@
 
             </main>
         </div>
+        @include('Dashboard.Admin._staff_modal')
 
         <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
         <script src="{{ asset('assets/script/menu_dashboard.js') }}"></script>
         <script src="{{ asset('assets/script/dropdown_dashboard.js') }}"></script>
+        <script src="{{ asset('assets/script/staff-modal.js') }}" defer></script>
     </body>
 </html>

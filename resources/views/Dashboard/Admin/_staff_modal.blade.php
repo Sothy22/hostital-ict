@@ -59,7 +59,7 @@
                     data-add-staff
                 >
                     <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
-                    Add Employee
+                    Add Staff
                 </button>
             </div>
         </form>

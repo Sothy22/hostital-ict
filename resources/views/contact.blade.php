@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('assets/style/department.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/style/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/style/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/style/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/style/header.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/responsive/responsive.css') }}">
@@ -110,7 +108,7 @@
             </section>
 
             <section class="card contact-card">
-                <h3 class="card-section-title">Hospital Contact</h3>
+                <h3 class="card-section-title">Contact</h3>
                 <div class="contact-item">
                     <i class="fa-solid fa-phone contact-icon"></i>
                     <div>
@@ -268,7 +266,7 @@
             @auth('web')
                 <button type="submit" class="submit-booking-btn">Book Appointment</button>
             @else
-                <a href="{{ route('login') }}" class="submit-booking-btn">Login to Book Appointment</a>
+                <a href="{{ route('login') }}" class="submit-booking-btn">Book Appointment</a>
             @endauth
             </form>
         </div>

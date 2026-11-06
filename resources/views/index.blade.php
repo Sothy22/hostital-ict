@@ -128,7 +128,7 @@
                     <div class="icon-wrapper bg-blue">
                         <i class="fa-solid fa-heart-pulse"></i>
                     </div>
-                    <div class="stat-number">50K+</div>
+                    <div class="stat-number" data-target="{{ $happyPatients }}" data-suffix="+">{{ $happyPatients }}+</div>
                     <div class="stat-label">Happy Patients</div>
                 </div>
                 <!-- card2 -->
@@ -136,7 +136,7 @@
                     <div class="icon-wrapper bg-green">
                         <i class="fa-solid fa-users"></i>
                     </div>
-                    <div class="stat-number">100+</div>
+                    <div class="stat-number" data-target="{{ $expertDoctors }}" data-suffix="+">{{ $expertDoctors }}+</div>
                     <div class="stat-label">Expert Doctors</div>
                 </div>
                 <!-- card3 -->
@@ -144,7 +144,7 @@
                     <div class="icon-wrapper bg-purple">
                         <i class="fa-regular fa-heart"></i>
                     </div>
-                    <div class="stat-number">15+</div>
+                    <div class="stat-number" data-target="{{ $departmentCount }}" data-suffix="+">{{ $departmentCount }}+</div>
                     <div class="stat-label">Departments</div>
                 </div>
                 <!-- card4 -->
@@ -152,7 +152,7 @@
                     <div class="icon-wrapper bg-orange">
                         <i class="fa-regular fa-clock"></i>
                     </div>
-                    <div class="stat-number">24/7</div>
+                    <div class="stat-number" data-static="true">24/7</div>
                     <div class="stat-label">Emergency Care</div>
                 </div>
             </div>
@@ -458,8 +458,8 @@
         </div>
     </footer>
 
-    <script src="./assets/script/script.js" type="module"></script>
-    {{-- <script src="{{ asset('assets/script/script.js') }}" type="module"></script> --}}
+    {{-- <script src="./assets/script/script.js" type="module"></script> --}}
+    <script src="{{ asset('assets/script/script.js') }}" type="module"></script>
     <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
 </body>
 </html>
