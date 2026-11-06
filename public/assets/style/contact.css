@@ -668,9 +668,7 @@ body.dark-mode .patient-type-selector input:checked + span {
 .booking-container .contact-value,
 .booking-container .input-group label,
 .booking-container .patient-type-label,
-.booking-container .input-group input,
-.booking-container .input-group textarea,
-.booking-container .submit-booking-btn {
+.booking-container .input-group textarea {
     font-size: 16px;
     color: var(--accent-color);
 }

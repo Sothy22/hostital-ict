@@ -73,10 +73,6 @@
                                     Pharmacy
                                 </a>
 
-                                <button type="button" data-open-staff-modal>
-                                    <i class="fa-solid fa-building-user"></i>
-                                    Add Staff
-                                </button>
                             </div>
                         </div>
 

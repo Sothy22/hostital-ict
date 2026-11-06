@@ -286,6 +286,37 @@ body {
     font-weight: 600;
 }
 
+.action-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--table-hover);
+}
+
+.action-btn button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.action-btn button:hover {
+    opacity: 0.85;
+}
+
+.btn-comfirm {
+    background-color: rgb(3, 251, 3);
+    color: var(--muted-text);
+}
+
+.btn-reject {
+    background-color: red;
+    color: #ffffff;
+}
+
 .table td:last-child {
     color: var(--accent-blue);
     font-weight: 600;

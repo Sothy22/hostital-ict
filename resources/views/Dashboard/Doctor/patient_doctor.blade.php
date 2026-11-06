@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset("assets/style/main_doctor.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/aside.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/list_page.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/admin/main_admin.css") }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -17,7 +18,7 @@
     <title>Document</title>
   </head>
 
-  <body>
+  <body class="admin-dashboard doctor-dashboard">
     @php
       $doctor = auth('web')->user();
       $doctorName = trim(($doctor->name ?? '') !== ''
@@ -53,7 +54,7 @@
               Appointments
             </a>
 
-            <a href={{ route("patient_doctor") }}>
+            <a href="{{ route('patient_doctor') }}" class="active">
               <i class="fa-solid fa-calendar"></i>
               Patients
             </a>
@@ -228,7 +229,7 @@
                 </th>
                 <th>
                   <div class="time-header">
-                    User Action
+                    Action
                     <span class="sort-arrows">
                       <i class="fa-solid fa-caret-up"></i>
                       <i class="fa-solid fa-caret-down"></i>
@@ -254,7 +255,16 @@
                 <td>32</td>
                 <td>Dr.Heang</td>
                 <td>Paid</td>
-                <td>Request Fee</td>
+                <td>
+                    <div class="action-btn">
+                        <button class="btn-comfirm">
+                            Comfirm
+                        </button>
+                        <button class="btn-reject">
+                            Reject
+                        </button>
+                    </div>
+                </td>
               </tr>
             </tbody>
           </table>

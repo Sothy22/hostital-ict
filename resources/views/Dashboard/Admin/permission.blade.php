@@ -30,14 +30,7 @@
                         <i class="fa-solid fa-house"></i>
                         Dashboard
                     </a>
-                    {{-- <a href="#appointments">
-                        <i class="fa-solid fa-calendar-check"></i>
-                        Appointments
-                    </a>
-                    <a href="#patients">
-                        <i class="fa-solid fa-hospital-user"></i>
-                        Patients
-                    </a> --}}
+
                     <div class="dropdown">
                         <button class="dropbtn">
                             <i class="fa-solid fa-users"></i>
@@ -61,10 +54,7 @@
                                 <i class="fa-solid fa-user-tag"></i>
                                 Pharmacy
                             </a>
-                            {{-- <a href="{{ route('add_staff') }}">
-                                <i class="fa-solid fa-building-user"></i>
-                                Add Staff
-                            </a> --}}
+
                         </div>
                     </div>
                     <a href="{{ route('permission_page') }}">

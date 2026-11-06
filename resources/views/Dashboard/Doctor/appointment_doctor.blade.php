@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="{{ asset("assets/style/main_doctor.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/aside.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/patient_doctor.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/admin/main_admin.css") }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doctor Dashboard</title>
   </head>
 
-  <body>
+  <body class="admin-dashboard doctor-dashboard">
     @php
       $doctor = auth('web')->user();
       $doctorName = trim(($doctor->name ?? '') !== ''
@@ -38,12 +39,12 @@
 
         <div class="aside-head">
           <div class="upper-head">
-           <a href={{ route("main_doctor") }}>
+           <a href="{{ route('main_doctor') }}">
               <i class="fa-solid fa-house"></i>
               Dashboard
             </a>
 
-            <a href="{{ route('appointment_doctor') }}">
+            <a href="{{ route('appointment_doctor') }}" class="active">
               <i class="fa-solid fa-users"></i>
               Appointments
             </a>
