@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vital_sign_controllers', function (Blueprint $table) {
+        Schema::create('vital_signs', function (Blueprint $table) {
             $table->id('vital_id');
 
             $table->foreignId('patient_id')

@@ -7,7 +7,7 @@ use MongoDB\Laravel\Eloquent\Model;
 class Permission extends Model
 {
     protected $connection = 'mongodb';
-    protected $collection = 'premision';
+    protected $collection = 'permissions';
     protected $fillable = [
         'module',
         'permission_key',

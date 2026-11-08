@@ -8,9 +8,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="{{ asset('assets/admin/main_admin.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/style/aside.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/admin/permission.css') }}" />
+    <link rel="stylesheet" href="{{ asset("assets/style/dashboard/theme_dashboard.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/style/dashboard/aside.css") }}">
+    <link rel="stylesheet" href="{{ asset('assets/style/admin/permission.css') }}" />
     <title>Permission</title>
 </head>
 <body class="admin-dashboard">

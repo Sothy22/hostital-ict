@@ -6,8 +6,8 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class MedicalRecord extends Model
 {
-    protected $connetion = 'mongodb';
-    protected $collection = 'medicalRecords';
+    protected $connection = 'mongodb';
+    protected $collection = 'medical_records';
     protected $fillable = [
         'patient_id',
         'staff_id',

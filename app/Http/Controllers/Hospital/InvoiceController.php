@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Test;
+namespace App\Http\Controllers\Hospital;
 
 use App\Models\Invoice;
 use App\Http\Requests\StoreInvoiceRequest;

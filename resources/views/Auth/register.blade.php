@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Registration | WeCare</title>
-    <link rel="stylesheet" href="{{ asset('assets/style/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/style/auth/register.css') }}">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>

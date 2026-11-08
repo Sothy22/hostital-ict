@@ -7,7 +7,7 @@ use MongoDB\Laravel\Eloquent\Model;
 class Prescription extends Model
 {
      protected $connection = 'mongodb';
-    protected $collection = 'patients';
+    protected $collection = 'prescriptions';
 
     protected $fillable = [
         'record_id',

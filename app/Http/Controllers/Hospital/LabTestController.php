@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Test;
+namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLabTestRequest;

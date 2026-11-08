@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="{{ asset('assets/style/footer.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/style/header.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/responsive/responsive.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/style/doctors.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/style/department.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/style/layout/doctors.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/style/layout/department.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <title>Doctors</title>
 </head>
