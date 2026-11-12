@@ -223,7 +223,7 @@
               <div class="card">
                   <div class="card-header">
                         <h3>Schedule</h3>
-                        <a href="#">View All</a>
+                        <a href="{{ route('appointment_doctor') }}">View All</a>
                   </div>
 
                   <div class="table-container">
@@ -238,32 +238,42 @@
                         </thead>
 
                         <tbody>
-                          <tr>
-                              <td>Michael Chen</td>
-                              <td>Cardiology</td>
-                              <td>
-                                    <span class="badge admitted">Admitted</span>
-                              </td>
-                              <td>09:15 AM</td>
-                          </tr>
-
-                          <tr>
-                              <td>Emma Thompson</td>
-                              <td>Neurology</td>
-                              <td>
-                                    <span class="badge pending">Pending</span>
-                              </td>
-                              <td>08:45 AM</td>
-                          </tr>
-
-                          <tr>
-                              <td>David Rodriguez</td>
-                              <td>Orthopedics</td>
-                              <td>
-                                    <span class="badge discharged">Discharged</span>
-                              </td>
-                              <td>Yesterday</td>
-                          </tr>
+                          @if ($canReadAppointments)
+                            @forelse ($appointments as $appointment)
+                              @php
+                                $appointmentStatus = $appointment->status ?: 'Scheduled';
+                                $appointmentStatusClass = match (strtolower($appointmentStatus)) {
+                                  'confirmed', 'admitted' => 'admitted',
+                                  'completed', 'discharged', 'cancelled' => 'discharged',
+                                  default => 'pending',
+                                };
+                                $department = $departmentsById[(string) $appointment->department_id] ?? null;
+                                $appointmentDate = $appointment->appointment_date;
+                              @endphp
+                              <tr>
+                                  <td>{{ $appointment->patient->full_name ?? 'Patient' }}</td>
+                                  <td>{{ $department->name ?? $appointment->purpose ?? 'General' }}</td>
+                                  <td>
+                                        <span class="badge {{ $appointmentStatusClass }}">{{ $appointmentStatus }}</span>
+                                  </td>
+                                  <td>
+                                    @if ($appointmentDate)
+                                      {{ $appointmentDate->isYesterday() ? 'Yesterday' : $appointmentDate->format('h:i A') }}
+                                    @else
+                                      Date not set
+                                    @endif
+                                  </td>
+                              </tr>
+                            @empty
+                              <tr>
+                                <td colspan="4">No appointments scheduled.</td>
+                              </tr>
+                            @endforelse
+                          @else
+                            <tr>
+                              <td colspan="4">You do not have permission to view appointments.</td>
+                            </tr>
+                          @endif
                         </tbody>
                     </table>
                   </div>
@@ -306,28 +316,6 @@
             @else
                 <p>You do not have permission to read appointments.</p>
             @endif
-
-            {{-- <div class="appointment-item">
-              <div class="avatar green-avatar">AL</div>
-
-              <div class="appointment-info">
-                <h4>Alice Lee</h4>
-                <p>Follow-up - Dr. {{ $doctorName }}</p>
-              </div>
-
-              <span class="appointment-time"> 11:30 AM </span>
-            </div> --}}
-
-            {{-- <div class="appointment-item">
-              <div class="avatar purple-avatar">RW</div>
-
-              <div class="appointment-info">
-                <h4>Robert White</h4>
-                <p>MRI Scan - Radiology</p>
-              </div>
-
-              <span class="appointment-time"> 01:00 PM </span>
-            </div> --}}
 
             <button class="view-schedule">View Schedule</button>
           </div>
@@ -448,42 +436,6 @@
 
     <script src="{{ asset("assets/script/dark_mode.js") }}" type="module"></script>
     <script src="{{ asset("assets/script/menu_dashboard.js") }}"></script>
-    <script>
-      (() => {
-        const modal = document.querySelector("[data-profile-modal]");
-        if (!modal) return;
-
-        const openButton = document.querySelector("[data-open-profile]");
-        const closeButtons = modal.querySelectorAll("[data-close-profile]");
-        const imageInput = modal.querySelector("#doctor-profile-image");
-        const preview = modal.querySelector("[data-profile-preview]");
-
-        const openProfile = () => {
-          modal.hidden = false;
-          document.body.style.overflow = "hidden";
-          modal.querySelector("input, select, textarea, button")?.focus();
-        };
-
-        const closeProfile = () => {
-          modal.hidden = true;
-          document.body.style.overflow = "";
-          openButton?.focus();
-        };
-
-        openButton?.addEventListener("click", openProfile);
-        closeButtons.forEach((button) => button.addEventListener("click", closeProfile));
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape" && !modal.hidden) closeProfile();
-        });
-
-        imageInput?.addEventListener("change", () => {
-          const file = imageInput.files?.[0];
-          if (file) preview.src = URL.createObjectURL(file);
-        });
-
-        if (modal.querySelector(".doctor-profile-errors")) openProfile();
-      })();
-    </script>
+    <script src="{{ asset("assets/script/doctor/main.js") }}"></script>
   </body>
 </html>

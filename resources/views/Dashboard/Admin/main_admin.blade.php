@@ -34,15 +34,15 @@
                             Dashboard
                         </a>
 
-                        {{-- <a href="#appointments">
+                        <a href="{{ route('admin_appointments') }}">
                             <i class="fa-solid fa-calendar-check"></i>
                             Appointments
                         </a>
 
-                        <a href="#patients">
+                        <a href="{{ route('admin_patients') }}">
                             <i class="fa-solid fa-hospital-user"></i>
                             Patients
-                        </a> --}}
+                        </a>
 
                         <div class="dropdown">
                             <button class="dropbtn">
@@ -156,7 +156,7 @@
 
                 <!-- Statistics Cards -->
                 <div class="cards">
-                    <a class="card stat-card" href="#patients">
+                    <a class="card stat-card" href="{{ route('admin_patients') }}">
                         <span class="stat-icon staff-icon"><i class="fa-solid fa-people-group bg-patient"></i></span>
                         <span class="stat-content">
                             <h2>{{ number_format($totalPatients) }}</h2>
@@ -174,7 +174,7 @@
                         <span class="stat-change positive">+12%</span>
                     </div>
 
-                    <a class="card stat-card" href="#appointments">
+                    <a class="card stat-card" href="{{ route('admin_appointments') }}">
                         <span class="stat-icon appointments-icon"><i class="fa-solid fa-calendar-check bg-appointment"></i></span>
                         <span class="stat-content">
                             <h2>{{ number_format($totalAppointments) }}</h2>

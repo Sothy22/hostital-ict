@@ -28,7 +28,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('register.submit') }}">
+        <form method="POST" action="{{ route('register.submit') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-grid">
                 <div class="form-group full-width">
@@ -36,6 +36,14 @@
                     <div class="input-wrapper">
                         <i data-lucide="user"></i>
                         <input id="name" name="name" type="text" value="{{ old('name') }}" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="image">Profile image</label>
+                    <div class="input-wrapper file-wrapper">
+                        <i data-lucide="image"></i>
+                        <input id="image" name="image" type="file" accept="image/*">
                     </div>
                 </div>
 

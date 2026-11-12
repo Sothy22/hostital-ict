@@ -105,6 +105,68 @@ Route::middleware(['auth:admin'])->group(function() {
         ]);
     })->name('main_admin');
 
+    Route::get('/admin_patients', function () {
+        $patients = Patient::with([
+            'user',
+            'appointments.staff.department',
+            'medical_record.staff.department',
+            'medicalHistory',
+        ])
+            ->orderBy('full_name')
+            ->paginate(10);
+
+        return view('dashboard.admin.patient', compact('patients'));
+    })->name('admin_patients');
+
+    Route::get('/admin_appointments', function () {
+        $appointments = Appointment::with(['patient.user', 'staff.department'])
+            ->orderBy('appointment_date', 'desc')
+            ->paginate(10);
+        $patients = Patient::orderBy('full_name')->get();
+        $doctors = User::where('role', 'doctor')->orderBy('name')->get();
+
+        return view('dashboard.admin.appointment', compact('appointments', 'patients', 'doctors'));
+    })->name('admin_appointments');
+
+    Route::post('/admin_appointments', function (Request $request) {
+        $validated = $request->validate([
+            'patient_id' => ['required', 'string'],
+            'staff_id' => ['required', 'string'],
+            'appointment_date' => ['required', 'date', 'after_or_equal:today'],
+            'appointment_time' => ['required', 'date_format:H:i'],
+            'purpose' => ['required', 'string', 'max:500'],
+        ]);
+
+        $patient = Patient::find($validated['patient_id']);
+        if (!$patient) {
+            return back()->withErrors(['patient_id' => 'Select a valid patient.'])->withInput();
+        }
+
+        $doctor = User::where('role', 'doctor')->find($validated['staff_id']);
+        if (!$doctor) {
+            return back()->withErrors(['staff_id' => 'Select a valid doctor.'])->withInput();
+        }
+
+        $appointmentDate = \Illuminate\Support\Carbon::createFromFormat(
+            'Y-m-d H:i',
+            $validated['appointment_date'] . ' ' . $validated['appointment_time'],
+            config('app.timezone')
+        );
+
+        Appointment::create([
+            'patient_id' => $patient->getKey(),
+            'staff_id' => $doctor->getKey(),
+            'department_id' => $doctor->department_id,
+            'appointment_date' => $appointmentDate,
+            'purpose' => $validated['purpose'],
+            'patient_type' => 'old',
+            'status' => 'Scheduled',
+        ]);
+
+        return redirect()->route('admin_appointments')
+            ->with('success', 'Appointment created successfully.');
+    })->name('admin_appointments.store');
+
     Route::get('/admin_doctor', function () {
         return view('dashboard.admin.doctor_page', [
             'doctors' => User::with('department')
@@ -222,13 +284,17 @@ Route::middleware(['auth'])->group(function() {
                     ->count()
                 : 0;
             $departments = Department::all();
+            $departmentsById = $departments->keyBy(
+                fn ($department) => (string) $department->getKey()
+            );
 
             return view('dashboard.doctor.main_doctor', compact(
                 'totalPatients',
                 'totalAppointment',
                 'appointments',
                 'canReadAppointments',
-                'departments'
+                'departments',
+                'departmentsById'
             ));
         })->name('main_doctor');
 

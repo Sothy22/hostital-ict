@@ -21,12 +21,16 @@ class AuthController extends Controller
             'date_of_birth' => ['required', 'date', 'before:today'],
             'gender' => ['required', 'in:Male,Female,Other'],
             'address' => ['nullable', 'string', 'max:500'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $nameParts = preg_split('/\s+/', trim($validated['name']), 2);
         $firstName = $nameParts[0];
         $lastName = $nameParts[1] ?? '';
+        $imagePath = $request->hasFile('image')
+            ? $request->file('image')->store('users', 'public')
+            : null;
 
         $user = User::create([
             'name' => $validated['name'],
@@ -40,6 +44,7 @@ class AuthController extends Controller
             'date_of_birth' => $validated['date_of_birth'],
             'status' => 'Active',
             'password' => Hash::make($validated['password']),
+            'image' => $imagePath,
             'role' => 'patient',
             'permissions' => [],
         ]);

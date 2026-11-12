@@ -30,20 +30,20 @@
             </div>
             <div class="aside-head">
                 <div class="upper-head">
-                    <a href="{{ route('main_admin') }}" class="active">
+                    <a href="{{ route('main_admin') }}">
                         <i class="fa-solid fa-house"></i>
                         Dashboard
                     </a>
-                    {{-- <a href="#appointments">
+                    <a href="{{ route('admin_appointments') }}" class="active">
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
-                    <a href="#patients">
+                    <a href="{{ route('admin_patients') }}" class="active">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
-                    </a> --}}
+                    </a>
                     <div class="dropdown">
-                        <button class="dropbtn">
+                        <button class="dropbtn" type="button">
                             <i class="fa-solid fa-users"></i>
                             Staff
                             <i class="fa-solid fa-chevron-down"></i>
@@ -84,10 +84,10 @@
                         Support
                     </a>
                     <form action="{{ route('logout') }}" method="POST">
-                    @csrf
+                        @csrf
                         <button type="submit" class="logout-btn">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                                Log Out
+                            Log Out
                         </button>
                     </form>
                 </div>

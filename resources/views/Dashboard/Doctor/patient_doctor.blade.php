@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset("assets/style/dashboard/aside.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/dashboard/list_page.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/style/dashboard/theme_dashboard.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/style/dashboard/add.css") }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -153,7 +154,10 @@
             <h4>COMPLETED APPOINTMENTS</h4>
           </div>
           <div class="btn-add-appointment">
-            <button>+ New Appointment</button>
+            <button type="button" data-open-appointment-modal>
+              <i class="fa-solid fa-plus"></i>
+              New Appointment
+            </button>
           </div>
         </section>
 
@@ -255,7 +259,8 @@
                 <td>32</td>
                 <td>Dr.Heang</td>
                 <td>Paid</td>
-                <td>
+                <td>Request Fee</td>
+                {{-- <td>
                     <div class="action-btn">
                         <button class="btn-comfirm">
                             Comfirm
@@ -264,7 +269,7 @@
                             Reject
                         </button>
                     </div>
-                </td>
+                </td> --}}
               </tr>
             </tbody>
           </table>
@@ -272,6 +277,145 @@
       </main>
     </div>
 
+    <div class="doctor-appointment-modal" data-appointment-modal hidden>
+      <div class="doctor-appointment-modal__backdrop" data-close-appointment-modal></div>
+      <section class="doctor-appointment-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="doctor-appointment-title">
+        <div class="doctor-appointment-modal__header">
+          <div class="doctor-appointment-modal__title-wrap">
+            <span class="doctor-appointment-modal__icon">
+              <i class="fa-regular fa-calendar-check"></i>
+            </span>
+            <h2 id="doctor-appointment-title">Add New Appointment</h2>
+          </div>
+          <button type="button" class="doctor-appointment-modal__close" aria-label="Close appointment form" data-close-appointment-modal>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form class="doctor-appointment-form" action="#" method="POST">
+          @csrf
+
+          <div class="doctor-appointment-form__grid">
+            <div class="doctor-appointment-form__left">
+              <label class="doctor-appointment-form__label">
+                <span class="doctor-appointment-form__label-icon">
+                  <i class="fa-solid fa-user"></i>
+                </span>
+                <span>Select Patient <strong>*</strong></span>
+              </label>
+
+              <div class="doctor-appointment-form__search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search patient by name, phone..." />
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+
+              <div class="doctor-appointment-form__patient-card">
+                <div class="doctor-appointment-form__avatar">
+                  <img src="{{ asset('assets/images/dr-png-hero-section-683x1024.webp') }}" alt="John Doe" />
+                </div>
+                <div class="doctor-appointment-form__patient-info">
+                  <h3>John Doe</h3>
+                  <p><i class="fa-solid fa-phone"></i> 012 345 678</p>
+                  <p class="doctor-appointment-form__meta"><i class="fa-solid fa-cake-candles"></i> Age: 32 years old</p>
+                  <span>Patient ID: P001</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="doctor-appointment-form__right">
+              <div class="doctor-appointment-form__row">
+                <div class="doctor-appointment-form__field-group">
+                  <label class="doctor-appointment-form__label">
+                    <span class="doctor-appointment-form__label-icon">
+                      <i class="fa-regular fa-calendar"></i>
+                    </span>
+                    <span>Appointment Date <strong>*</strong></span>
+                  </label>
+                  <div class="doctor-appointment-form__field doctor-appointment-form__field--date">
+                    <i class="fa-regular fa-calendar"></i>
+                    <input type="date" value="2026-01-11" />
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </div>
+                </div>
+
+                <div class="doctor-appointment-form__field-group">
+                  <label class="doctor-appointment-form__label">
+                    <span class="doctor-appointment-form__label-icon">
+                      <i class="fa-regular fa-clock"></i>
+                    </span>
+                    <span>Appointment Time <strong>*</strong></span>
+                  </label>
+                  <div class="doctor-appointment-form__field doctor-appointment-form__field--time">
+                    <i class="fa-regular fa-clock"></i>
+                    <select>
+                      <option>9:00 AM</option>
+                      <option>9:30 AM</option>
+                      <option>10:00 AM</option>
+                      <option>11:00 AM</option>
+                      <option>1:00 PM</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="doctor-appointment-form__field-group doctor-appointment-form__field-group--doctor">
+                <label class="doctor-appointment-form__label">
+                  <span class="doctor-appointment-form__label-icon">
+                    <i class="fa-solid fa-user-doctor"></i>
+                  </span>
+                  <span>Doctor <strong>*</strong></span>
+                </label>
+                <div class="doctor-appointment-form__field doctor-appointment-form__field--select">
+                  <div class="doctor-appointment-form__doctor-badge">
+                    <img src="{{ asset('assets/images/top-doctor2.jpg') }}" alt="Dr. Sarah Johnson" />
+                  </div>
+                  <select>
+                    <option>Dr. Sarah Johnson</option>
+                    <option>Dr. Michael Chen</option>
+                    <option>Dr. Emma Wilson</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+              </div>
+
+              <div class="doctor-appointment-form__field-group">
+                <label class="doctor-appointment-form__label">
+                  <span class="doctor-appointment-form__label-icon">
+                    <i class="fa-solid fa-notes-medical"></i>
+                  </span>
+                  <span>Reason for Visit <strong>*</strong></span>
+                </label>
+                <textarea class="doctor-appointment-form__textarea" placeholder="Enter reason for visit..."></textarea>
+              </div>
+
+              <label class="doctor-appointment-form__checkbox">
+                <span class="doctor-appointment-form__checkbox-box">
+                  <input type="checkbox" checked />
+                  <i class="fa-solid fa-check"></i>
+                </span>
+                <span class="doctor-appointment-form__checkbox-text">Send Reminder (SMS/Email)</span>
+              </label>
+              <p class="doctor-appointment-form__helper">We will send a reminder before the appointment.</p>
+
+              <div class="doctor-appointment-form__actions">
+                <button type="button" class="doctor-appointment-form__cancel" data-close-appointment-modal>
+                  <i class="fa-solid fa-xmark"></i>
+                  Cancel
+                </button>
+                <button type="submit" class="doctor-appointment-form__submit">
+                  <i class="fa-regular fa-calendar-plus"></i>
+                  Save Appointment
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <script src="{{ asset("assets/script/doctor/patient.js") }}"></script>
     <script src="{{ asset("assets/script/dark_mode.js") }}" type="module"></script>
     <script src="{{ asset("assets/script/menu_dashboard.js") }}"></script>
   </body>
