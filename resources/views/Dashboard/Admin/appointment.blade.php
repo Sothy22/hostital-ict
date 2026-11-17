@@ -25,14 +25,22 @@
                         <i class="fa-solid fa-house"></i>
                         Dashboard
                     </a>
+
                     <a href="{{ route('admin_appointments') }}" class="active">
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
+
                     <a href="{{ route('admin_patients') }}">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
                     </a>
+
+                    <a href="{{ route('admin.doctor_schedules.index') }}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        Schedule Approval
+                    </a>
+
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
                             <i class="fa-solid fa-users"></i>
@@ -122,6 +130,9 @@
             <section class="admin-appointments">
                 @if (session('success'))
                     <div class="admin-appointments__notice">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="admin-appointments__errors">{{ session('error') }}</div>
                 @endif
                 @if ($errors->any())
                     <div class="admin-appointments__errors">
@@ -216,11 +227,21 @@
                                     $doctorImage = $doctor?->image;
                                     $visit = $appointment->purpose
                                         ?: (($appointment->patient_type ?? null) === 'new' ? 'New patient' : 'Appointment');
+                                    $canCancel = !in_array(strtolower($status), ['cancelled', 'canceled', 'completed', 'discharged', 'checked out', 'checked_out'], true);
                                 @endphp
                                 <tr
                                     data-appointment-row
+                                    data-appointment-id="{{ $appointment->getKey() }}"
+                                    data-appointment-edit-url="{{ route('admin_appointments.update', $appointment->getKey()) }}"
                                     data-appointment-date="{{ $appointment->appointment_date?->format('Y-m-d') }}"
                                     data-appointment-status="{{ strtolower($status) }}"
+                                    data-appointment-time="{{ $appointment->appointment_date?->format('H:i') }}"
+                                    data-patient-id="{{ $appointment->patient_id }}"
+                                    data-patient-name="{{ $patientName }}"
+                                    data-doctor-id="{{ $appointment->staff_id }}"
+                                    data-doctor-name="{{ $doctorName }}"
+                                    data-appointment-purpose="{{ $appointment->purpose }}"
+                                    data-appointment-visit="{{ $visit }}"
                                 >
                                     <td class="admin-appointments__date">
                                         @if ($appointment->appointment_date)
@@ -259,7 +280,26 @@
                                         </div>
                                     </td>
                                     <td>{{ $visit }}</td>
-                                    <td><span class="admin-appointments__status {{ $statusClass }}">{{ $status }}</span></td>
+                                    <td>
+                                        <div class="admin-appointments__status-actions">
+                                            <span class="admin-appointments__status {{ $statusClass }}">{{ $status }}</span>
+                                            <div class="admin-appointments__menu-wrap">
+                                                <button type="button" class="admin-appointments__menu-toggle" aria-label="Actions for {{ $patientName }}'s appointment" aria-expanded="false" data-appointment-menu-toggle>
+                                                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="admin-appointments__menu" data-appointment-menu hidden>
+                                                    <button type="button" data-edit-appointment>Edit</button>
+                                                    <button type="button" data-view-appointment>View</button>
+                                                    @if ($canCancel)
+                                                        <form action="{{ route('admin_appointments.cancel', $appointment->getKey()) }}" method="POST" data-cancel-appointment-form>
+                                                            @csrf
+                                                            <button type="submit" class="is-danger">Cancel</button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -311,7 +351,7 @@
             </section>
         </main>
     </div>
-    <div class="admin-appointment-modal" data-appointment-modal hidden>
+    <div class="admin-appointment-modal" data-appointment-modal data-open-on-load="{{ $errors->any() ? 'true' : 'false' }}" hidden>
         <button type="button" class="admin-appointment-modal__backdrop" aria-label="Close appointment form" data-close-appointment-form></button>
         <section class="admin-appointment-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="admin-appointment-form-title">
             <header class="admin-appointment-modal__header">
@@ -320,8 +360,10 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </header>
-            <form action="{{ route('admin_appointments.store') }}" method="POST" class="admin-appointment-modal__form">
+            <form action="{{ old('appointment_id') ? route('admin_appointments.update', old('appointment_id')) : route('admin_appointments.store') }}" method="POST" class="admin-appointment-modal__form" data-appointment-form data-create-url="{{ route('admin_appointments.store') }}">
                 @csrf
+                <input type="hidden" name="_method" value="{{ old('appointment_id') ? 'PUT' : '' }}" data-appointment-method>
+                <input type="hidden" name="appointment_id" value="{{ old('appointment_id') }}" data-appointment-id-input>
                 <label>
                     Patient
                     <select name="patient_id" required>
@@ -346,7 +388,7 @@
                 </label>
                 <label>
                     Date
-                    <input type="date" name="appointment_date" value="{{ old('appointment_date') }}" min="{{ now()->format('Y-m-d') }}" required>
+                    <input type="date" name="appointment_date" value="{{ old('appointment_date') }}" min="{{ old('appointment_id') ? '' : now()->format('Y-m-d') }}" data-min-date="{{ now()->format('Y-m-d') }}" required>
                 </label>
                 <label>
                     Time
@@ -363,98 +405,26 @@
             </form>
         </section>
     </div>
-    <script>
-        const appointmentSearch = document.querySelector('[data-appointment-search]');
-        const appointmentRows = document.querySelectorAll('[data-appointment-row]');
-        const statusFilter = document.querySelector('[data-status-filter]');
-        const dateStart = document.querySelector('[data-date-start]');
-        const dateEnd = document.querySelector('[data-date-end]');
-        const sortSelect = document.querySelector('[data-appointment-sort]');
-        const tableBody = document.querySelector('.admin-appointments__table tbody');
-
-        const filterAppointments = () => {
-            const query = appointmentSearch.value.trim().toLowerCase();
-            const status = statusFilter.value;
-            const start = dateStart.value;
-            const end = dateEnd.value;
-
-            appointmentRows.forEach((row) => {
-                const date = row.dataset.appointmentDate;
-                const matchesQuery = row.textContent.toLowerCase().includes(query);
-                const matchesStatus = !status || row.dataset.appointmentStatus === status;
-                const matchesStart = !start || !date || date >= start;
-                const matchesEnd = !end || !date || date <= end;
-
-                row.hidden = !(matchesQuery && matchesStatus && matchesStart && matchesEnd);
-            });
-        };
-
-        [appointmentSearch, statusFilter, dateStart, dateEnd].forEach((control) => {
-            control?.addEventListener('input', filterAppointments);
-            control?.addEventListener('change', filterAppointments);
-        });
-        filterAppointments();
-
-        document.querySelector('[data-toggle-filter]')?.addEventListener('click', (event) => {
-            const button = event.currentTarget;
-            statusFilter.hidden = !statusFilter.hidden;
-            button.setAttribute('aria-expanded', String(!statusFilter.hidden));
-        });
-
-        sortSelect?.addEventListener('change', () => {
-            const rows = Array.from(appointmentRows);
-            rows.sort((a, b) => {
-                const dateA = a.dataset.appointmentDate || '';
-                const dateB = b.dataset.appointmentDate || '';
-                return sortSelect.value === 'oldest'
-                    ? dateA.localeCompare(dateB)
-                    : dateB.localeCompare(dateA);
-            });
-            rows.forEach((row) => tableBody.appendChild(row));
-        });
-
-        document.querySelectorAll('[data-view]').forEach((button) => {
-            button.addEventListener('click', () => {
-                const compact = button.dataset.view === 'compact';
-                document.querySelector('.admin-appointments__table-wrap').classList.toggle('is-compact', compact);
-                document.querySelectorAll('[data-view]').forEach((viewButton) => {
-                    const isActive = viewButton === button;
-                    viewButton.classList.toggle('is-active', isActive);
-                    viewButton.setAttribute('aria-pressed', String(isActive));
-                });
-            });
-        });
-
-        const appointmentModal = document.querySelector('[data-appointment-modal]');
-        const openAppointmentForm = document.querySelector('[data-open-appointment-form]');
-        const closeAppointmentFormButtons = document.querySelectorAll('[data-close-appointment-form]');
-
-        const closeAppointmentForm = () => {
-            appointmentModal.hidden = true;
-            document.body.style.overflow = '';
-        };
-
-        openAppointmentForm?.addEventListener('click', () => {
-            appointmentModal.hidden = false;
-            document.body.style.overflow = 'hidden';
-            appointmentModal.querySelector('select')?.focus();
-        });
-
-        closeAppointmentFormButtons.forEach((button) => {
-            button.addEventListener('click', closeAppointmentForm);
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (!appointmentModal.hidden && event.key === 'Escape') {
-                closeAppointmentForm();
-            }
-        });
-
-        @if ($errors->any())
-            appointmentModal.hidden = false;
-            document.body.style.overflow = 'hidden';
-        @endif
-    </script>
+    <div class="admin-appointment-modal" data-appointment-view-modal hidden>
+        <button type="button" class="admin-appointment-modal__backdrop" aria-label="Close appointment details" data-close-appointment-view></button>
+        <section class="admin-appointment-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="admin-appointment-view-title">
+            <header class="admin-appointment-modal__header">
+                <h2 id="admin-appointment-view-title">Appointment Details</h2>
+                <button type="button" aria-label="Close" data-close-appointment-view>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+            <dl class="admin-appointment-view__details">
+                <div><dt>Patient</dt><dd data-view-patient></dd></div>
+                <div><dt>Doctor</dt><dd data-view-doctor></dd></div>
+                <div><dt>Date &amp; Time</dt><dd data-view-date></dd></div>
+                <div><dt>Visit</dt><dd data-view-visit></dd></div>
+                <div><dt>Status</dt><dd data-view-status></dd></div>
+                <div><dt>Reason</dt><dd data-view-purpose></dd></div>
+            </dl>
+        </section>
+    </div>
+    <script src="{{ asset('assets/script/admin/appointment_admin.js') }}"></script>
     <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
     <script src="{{ asset('assets/script/dropdown_dashboard.js') }}"></script>
 </body>

@@ -70,3 +70,33 @@ document.querySelectorAll("[data-patient-view]").forEach((button) => {
             });
     });
 });
+
+const patientModal = document.querySelector("[data-patient-modal]");
+const openPatientForm = document.querySelector("[data-open-patient-form]");
+const closePatientFormButtons = document.querySelectorAll("[data-close-patient-form]");
+
+const closePatientForm = () => {
+    patientModal.hidden = true;
+    document.body.style.overflow = "";
+};
+
+openPatientForm?.addEventListener("click", () => {
+    patientModal.hidden = false;
+    document.body.style.overflow = "hidden";
+    patientModal.querySelector("input")?.focus();
+});
+
+closePatientFormButtons.forEach((button) => {
+    button.addEventListener("click", closePatientForm);
+});
+
+document.addEventListener("keydown", (event) => {
+    if (!patientModal.hidden && event.key === "Escape") {
+        closePatientForm();
+    }
+});
+
+if (patientModal && !patientModal.hidden) {
+    document.body.style.overflow = "hidden";
+    patientModal.querySelector("input")?.focus();
+}

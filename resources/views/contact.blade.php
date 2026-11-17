@@ -170,7 +170,9 @@
                 @endif
             </section>
 
-            <form class="contact-booking-form" action="{{ route('appointment.store') }}" method="POST">
+            <form class="contact-booking-form" action="{{ route('appointment.store') }}" method="POST"
+                data-doctor-id="{{ $doctor?->getKey() }}"
+                data-availability-url="{{ route('doctor_schedules.availability') }}">
                 @csrf
                 <input type="hidden" name="staff_id" value="{{ $doctor->_id ?? '' }}">
                 <input type="hidden" name="department_id" value="{{ $doctor->department_id ?? '' }}">
@@ -199,19 +201,8 @@
 
                     <div class="time-slots-section">
                         <span class="input-group-label">Choose Time Slot</span>
-                        <div class="time-slots-grid">
-                            <button type="button" class="time-btn">09:00 AM</button>
-                            <button type="button" class="time-btn">09:30 AM</button>
-                            <button type="button" class="time-btn">10:00 AM</button>
-                            <button type="button" class="time-btn">10:30 AM</button>
-                            <button type="button" class="time-btn">11:00 AM</button>
-                            <button type="button" class="time-btn">11:30 AM</button>
-                            <button type="button" class="time-btn">02:00 PM</button>
-                            <button type="button" class="time-btn">02:30 PM</button>
-                            <button type="button" class="time-btn">03:00 PM</button>
-                            <button type="button" class="time-btn">03:30 PM</button>
-                            <button type="button" class="time-btn">04:00 PM</button>
-                            <button type="button" class="time-btn">04:30 PM</button>
+                        <div class="time-slots-grid" aria-live="polite">
+                            <p>Loading available appointment times...</p>
                         </div>
                     </div>
 

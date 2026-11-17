@@ -34,14 +34,22 @@
                         <i class="fa-solid fa-house"></i>
                         Dashboard
                     </a>
+
                     <a href="{{ route('admin_appointments') }}" class="active">
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
+
                     <a href="{{ route('admin_patients') }}" class="active">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
                     </a>
+
+                    <a href="{{ route('admin.doctor_schedules.index') }}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        Schedule Approval
+                    </a>
+
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
                             <i class="fa-solid fa-users"></i>

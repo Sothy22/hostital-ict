@@ -27,8 +27,8 @@
         : asset('assets/images/top-doctor2.jpg');
     @endphp
     <div class="container">
-      <!-- aside -->
-      <aside class="aside">
+        <!-- aside -->
+        <aside class="aside">
         <div class="title-head">
           <i class="fa-solid fa-heart-pulse"></i>
           <div class="title">
@@ -39,12 +39,12 @@
 
         <div class="aside-head">
           <div class="upper-head">
-           <a href="{{ route('main_doctor') }}">
+            <a href="{{ route('main_doctor') }}" class="active">
               <i class="fa-solid fa-house"></i>
               Dashboard
             </a>
 
-            <a href="{{ route('appointment_doctor') }}" class="active">
+            <a href="{{ route('appointment_doctor') }}">
               <i class="fa-solid fa-users"></i>
               Appointments
             </a>
@@ -54,7 +54,12 @@
               Patients
             </a>
 
-            <a href="schedule_doctor.html">
+            <a href="{{ route('doctor_schedules.index') }}">
+                <i class="fa-regular fa-calendar"></i>
+                Work Schedule
+            </a>
+
+            <a href="{{ route('doctor_schedules.index') }}">
               <i class="fa-regular fa-calendar"></i>
               Schedules
             </a>
@@ -70,8 +75,8 @@
             </a>
 
             <a href="settings.html">
-              <i class="fa-solid fa-gear"></i>
-              Settings
+              <i class="fa-regular fa-clipboard"></i>
+              Reports
             </a>
           </div>
 
@@ -111,34 +116,36 @@
       <main class="main">
         <!-- Header -->
         <div class="header">
-          <button class="menu-toggle" id="menuToggle">
-            <i class="fa-solid fa-bars"></i>
-          </button>
-
-          <!-- center -->
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search patients, records..." />
-          </div>
-
-          <!-- right -->
-          <div class="head-right">
-            <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
-            <!-- Dark Mode -->
-            <div class="mode-icon">
-              <i id="theme-toggle" class="fa-regular fa-moon"></i>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" placeholder="Search" aria-label="Search dashboard" />
             </div>
-
-            <!-- Notification -->
-            <div class="notification">
-              <i class="fa-solid fa-bell"></i>
-              <span class="dot"></span>
+            <div class="right-header">
+                <button class="header-action" type="button" aria-label="Documents" title="Documents">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+                <button class="header-action" type="button" aria-label="Settings" title="Settings">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <!-- Dark Mode -->
+                <div class="mode-icon">
+                    <i id="theme-toggle" class="fa-regular fa-moon"></i>
+                </div>
+                <!-- Notification -->
+                <div class="notification">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="dot"></span>
+                </div>
+                <!-- Profile -->
+                <div class="profile">
+                    <span class="profile-initial">
+                        {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
+                    </span>
+                    <div class="info-name">
+                        <h4>{{ auth('admin')->user()->name ?? 'Administrator' }}</h4>
+                    </div>
+                </div>
             </div>
-
-            <div class="avata">
-              <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
-            </div>
-          </div>
         </div>
 
         <section class="stats-grid">

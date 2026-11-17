@@ -279,6 +279,24 @@ body {
     box-shadow: 0 0 0 1px var(--border-color);
 }
 
+.avata-user > .patient-avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 2px solid var(--card-bg);
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--accent-blue);
+    box-shadow: 0 0 0 1px var(--border-color);
+    font-weight: 700;
+}
+
+.doctor-appointments-empty {
+    color: var(--muted-text) !important;
+    text-align: center !important;
+}
+
 .avata-user h5 {
     margin: 0;
     color: var(--text-color);

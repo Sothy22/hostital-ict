@@ -19,7 +19,7 @@
 
   <body class="admin-dashboard">
     <div class="container">
-      <!-- aside -->
+        <!-- aside -->
         <aside class="aside">
             <div class="title-head">
                 <i class="fa-solid fa-heart-pulse"></i>
@@ -41,6 +41,10 @@
                     <a href="{{ route('admin_patients') }}" class="active">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
+                    </a>
+                    <a href="{{ route('admin.doctor_schedules.index') }}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        Schedule Approval
                     </a>
                     <div class="dropdown">
                         <button class="dropbtn" type="button">

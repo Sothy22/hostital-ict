@@ -33,17 +33,18 @@
                             <i class="fa-solid fa-house"></i>
                             Dashboard
                         </a>
-
                         <a href="{{ route('admin_appointments') }}">
                             <i class="fa-solid fa-calendar-check"></i>
                             Appointments
                         </a>
-
                         <a href="{{ route('admin_patients') }}">
                             <i class="fa-solid fa-hospital-user"></i>
                             Patients
                         </a>
-
+                        <a href="{{ route('admin.doctor_schedules.index') }}">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            Schedule Approval
+                        </a>
                         <div class="dropdown">
                             <button class="dropbtn">
                                 <i class="fa-solid fa-users"></i>
@@ -56,25 +57,20 @@
                                     <i class="fa-solid fa-user-doctor"></i>
                                     Doctors
                                 </a>
-
                                 <a href="{{ route('admin_receptionist') }}">
                                     <i class="fa-solid fa-users"></i>
                                     Receptionists
                                 </a>
-
                                 <a href="{{ route('admin_accountant') }}">
                                     <i class="fa-solid fa-user-pen"></i>
                                     Accountants
                                 </a>
-
                                 <a href="{{ route('admin_pharmacy') }}">
                                     <i class="fa-solid fa-user-tag"></i>
                                     Pharmacy
                                 </a>
-
                             </div>
                         </div>
-
                         <a href="{{ route('permission_page') }}">
                             <i class="fa-solid fa-shield-dog"></i>
                             Permissions

@@ -9,8 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
 use App\Models\Patient;
+use App\Models\DoctorSchedule;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
+use App\Services\DoctorScheduleAvailability;
+use MongoDB\Driver\Exception\BulkWriteException;
 
 class HomeController extends Controller
 {
@@ -27,6 +30,12 @@ class HomeController extends Controller
     {
         return view('about_us');
     }
+
+    public function appointment_page(Request $request)
+    {
+        return $this->contact($request);
+    }
+
     public function contact(Request $request)
     {
         if (!Auth::guard('web')->check()) {
@@ -91,7 +100,7 @@ class HomeController extends Controller
         return view('department', compact('departments'));
     }
 
-    public function storeAppointment(Request $request)
+    public function storeAppointment(Request $request, DoctorScheduleAvailability $availability)
     {
         $user = Auth::guard('web')->user();
 
@@ -119,6 +128,33 @@ class HomeController extends Controller
             return back()->withErrors(['staff_id' => 'Please select a valid doctor.'])->withInput();
         }
 
+        $schedule = DoctorSchedule::where('doctor_id', $doctor->getKey())
+            ->where('work_date', $validated['appointment_date'])
+            ->where('status', 'approved')
+            ->first();
+
+        if (!$schedule) {
+            return back()
+                ->withErrors(['appointment_date' => 'The selected doctor has no approved schedule for this date.'])
+                ->withInput();
+        }
+
+        $availableSlots = $availability->slotsFor(
+            $schedule,
+            $availability->appointmentsForSchedule($schedule)
+        );
+        if (!in_array($validated['appointment_time'], array_column($availableSlots, 'time'), true)) {
+            return back()
+                ->withErrors(['appointment_time' => 'This appointment time is no longer available. Choose another slot.'])
+                ->withInput();
+        }
+
+        $appointmentDate = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            $validated['appointment_date'].' '.$validated['appointment_time'],
+            config('app.timezone')
+        );
+
         $department = Department::find($validated['department_id']);
         $patient = Patient::where('user_id', $user->_id)->first();
 
@@ -128,6 +164,8 @@ class HomeController extends Controller
                 ->withInput();
         }
 
+        $createdPatient = false;
+        $patientData = [];
         if (!$patient) {
             $patient = Patient::create([
                 'full_name' => $validated['full_name'] ?: $user->name,
@@ -137,30 +175,71 @@ class HomeController extends Controller
                 'address' => $user->address ?? '',
                 'user_id' => $user->_id,
             ]);
+            $createdPatient = true;
         } else {
             $patientData = ['phone' => $validated['phone']];
             if ($validated['patient_type'] === 'new' && !empty($validated['full_name'])) {
                 $patientData['full_name'] = $validated['full_name'];
             }
-            $patient->update($patientData);
         }
 
-        $appointmentDate = Carbon::createFromFormat(
-            'Y-m-d H:i',
-            $validated['appointment_date'].' '.$validated['appointment_time'],
-            config('app.timezone')
+        $currentSchedule = DoctorSchedule::where('_id', $schedule->getKey())
+            ->where('doctor_id', $doctor->getKey())
+            ->where('work_date', $validated['appointment_date'])
+            ->where('status', 'approved')
+            ->first();
+        if (!$currentSchedule || !in_array(
+            $validated['appointment_time'],
+            array_column($availability->slotsFor(
+                $currentSchedule,
+                $availability->appointmentsForSchedule($currentSchedule)
+            ), 'time'),
+            true
+        )) {
+            if ($createdPatient) {
+                $patient->delete();
+            }
+
+            return back()
+                ->withErrors(['appointment_time' => 'This appointment time is no longer available. Choose another slot.'])
+                ->withInput();
+        }
+
+        $appointment = new Appointment();
+        $appointment->patient_id = $patient->_id;
+        $appointment->staff_id = $doctor->_id;
+        $appointment->department_id = $validated['department_id'];
+        $appointment->appointment_date = $appointmentDate;
+        $appointment->purpose = $department ? $department->name : ($doctor->specialization ?? 'General consultation');
+        $appointment->notes = $validated['notes'] ?? null;
+        $appointment->patient_type = $validated['patient_type'];
+        $appointment->status = 'Scheduled';
+        $appointment->doctor_schedule_id = $currentSchedule->getKey();
+        $appointment->booking_duration_minutes = (int) $currentSchedule->duration_minutes;
+        $appointment->booking_slot_key = hash(
+            'sha256',
+            (string) $doctor->getKey() . ':' . $validated['appointment_date'] . ':' . $validated['appointment_time']
         );
 
-        Appointment::create([
-            'patient_id' => $patient->_id,
-            'staff_id' => $doctor->_id,
-            'department_id' => $validated['department_id'],
-            'appointment_date' => $appointmentDate,
-            'purpose' => $department ? $department->name : ($doctor->specialization ?? 'General consultation'),
-            'notes' => $validated['notes'] ?? null,
-            'patient_type' => $validated['patient_type'],
-            'status' => 'Scheduled',
-        ]);
+        try {
+            $appointment->save();
+        } catch (BulkWriteException $exception) {
+            if ($createdPatient) {
+                $patient->delete();
+            }
+
+            if ($exception->getCode() !== 11000) {
+                throw $exception;
+            }
+
+            return back()
+                ->withErrors(['appointment_time' => 'This appointment time was just booked. Choose another slot.'])
+                ->withInput();
+        }
+
+        if (!$createdPatient) {
+            $patient->update($patientData);
+        }
 
         return back()->with('success', 'Your appointment has been booked successfully.');
     }

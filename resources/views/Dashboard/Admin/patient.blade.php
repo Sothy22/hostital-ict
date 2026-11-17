@@ -33,6 +33,10 @@
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
                     </a>
+                    <a href="{{ route('admin.doctor_schedules.index') }}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        Schedule Approval
+                    </a>
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
                             <i class="fa-solid fa-users"></i>
@@ -118,12 +122,16 @@
                                 <i class="fa-solid fa-list"></i>
                             </button>
                         </div>
-                        <a class="admin-patients__appointments-link" href="{{ route('admin_appointments') }}">
+                        <button class="admin-patients__appointments-link" type="button" data-open-patient-form>
                             <i class="fa-solid fa-plus"></i>
-                            Appointments
-                        </a>
+                            Add Patient
+                        </button>
                     </div>
                 </div>
+
+                @if (session('success'))
+                    <div class="admin-patients__notice" role="status">{{ session('success') }}</div>
+                @endif
 
                 <div class="admin-patients__toolbar">
                     <label class="admin-patients__search">
@@ -298,6 +306,69 @@
                 @endif
             </section>
         </main>
+    </div>
+    <div class="admin-patient-modal" data-patient-modal @if (!$errors->any()) hidden @endif>
+        <button type="button" class="admin-patient-modal__backdrop" aria-label="Close patient form" data-close-patient-form></button>
+        <section class="admin-patient-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="admin-patient-form-title" tabindex="-1">
+            <header class="admin-patient-modal__header">
+                <h2 id="admin-patient-form-title">Add Patient</h2>
+                <button type="button" aria-label="Close" data-close-patient-form>
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </header>
+            <form action="{{ route('admin_patients.store') }}" method="POST" class="admin-patient-modal__form">
+                @csrf
+                @if ($errors->any())
+                    <div class="admin-patient-modal__errors admin-patient-modal__full" role="alert">
+                        Please correct the highlighted fields and try again.
+                    </div>
+                @endif
+                <label for="patient-full-name">
+                    Full name
+                    <input id="patient-full-name" type="text" name="full_name" value="{{ old('full_name') }}" maxlength="100" autocomplete="name" required>
+                    @error('full_name') <span class="admin-patient-modal__field-error">{{ $message }}</span> @enderror
+                </label>
+                <label for="patient-dob">
+                    Date of birth
+                    <input id="patient-dob" type="date" name="dob" value="{{ old('dob') }}" max="{{ now()->format('Y-m-d') }}" required>
+                    @error('dob') <span class="admin-patient-modal__field-error">{{ $message }}</span> @enderror
+                </label>
+                <label for="patient-gender">
+                    Gender
+                    <select id="patient-gender" name="gender" required>
+                        <option value="">Select gender</option>
+                        <option value="Male" @selected(old('gender') === 'Male')>Male</option>
+                        <option value="Female" @selected(old('gender') === 'Female')>Female</option>
+                        <option value="Other" @selected(old('gender') === 'Other')>Other</option>
+                    </select>
+                    @error('gender') <span class="admin-patient-modal__field-error">{{ $message }}</span> @enderror
+                </label>
+                <label for="patient-phone">
+                    Phone
+                    <input id="patient-phone" type="tel" name="phone" value="{{ old('phone') }}" maxlength="30" autocomplete="tel" required>
+                    @error('phone') <span class="admin-patient-modal__field-error">{{ $message }}</span> @enderror
+                </label>
+                <label for="patient-blood-group">
+                    Blood group
+                    <select id="patient-blood-group" name="blood_group">
+                        <option value="">Select blood group</option>
+                        @foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $bloodGroup)
+                            <option value="{{ $bloodGroup }}" @selected(old('blood_group') === $bloodGroup)>{{ $bloodGroup }}</option>
+                        @endforeach
+                    </select>
+                    @error('blood_group') <span class="admin-patient-modal__field-error">{{ $message }}</span> @enderror
+                </label>
+                <label class="admin-patient-modal__full" for="patient-address">
+                    Address
+                    <textarea id="patient-address" name="address" rows="3" maxlength="500" autocomplete="street-address">{{ old('address') }}</textarea>
+                    @error('address') <span class="admin-patient-modal__field-error">{{ $message }}</span> @enderror
+                </label>
+                <div class="admin-patient-modal__actions admin-patient-modal__full">
+                    <button type="button" class="admin-patient-modal__cancel" data-close-patient-form>Cancel</button>
+                    <button type="submit" class="admin-patient-modal__submit">Save Patient</button>
+                </div>
+            </form>
+        </section>
     </div>
     <script src="{{ asset('assets/script/admin/patient.js') }}"></script>
     <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>

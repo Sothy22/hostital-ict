@@ -54,7 +54,12 @@
               Patients
             </a>
 
-            <a href="schedule_doctor.html">
+            <a href="{{ route('doctor_schedules.index') }}">
+                <i class="fa-regular fa-calendar"></i>
+                Work Schedule
+            </a>
+
+            <a href="{{ route('doctor_schedules.index') }}">
               <i class="fa-regular fa-calendar"></i>
               Schedules
             </a>
@@ -108,218 +113,220 @@
         </div>
       </aside>
 
-      <!-- main -->
-      <main class="main">
+        <!-- main -->
+        <main class="main">
             <!-- header -->
             <div class="header">
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-
-                <!-- center -->
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search patients, records..." />
+                    <input type="search" placeholder="Search" aria-label="Search dashboard" />
                 </div>
-
-                <!-- right -->
-                <div class="head-right">
-                    <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                <div class="right-header">
+                    <button class="header-action" type="button" aria-label="Documents" title="Documents">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button class="header-action" type="button" aria-label="Settings" title="Settings">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
                     <!-- Dark Mode -->
                     <div class="mode-icon">
                         <i id="theme-toggle" class="fa-regular fa-moon"></i>
                     </div>
-
                     <!-- Notification -->
                     <div class="notification">
                         <i class="fa-solid fa-bell"></i>
                         <span class="dot"></span>
                     </div>
+                    <!-- Profile -->
+                    <div class="profile">
+                        <span class="profile-initial">
+                            {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
+                        </span>
+                        <div class="info-name">
+                            <h4>{{ auth('admin')->user()->name ?? 'Administrator' }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <button class="avata" type="button" data-open-profile aria-label="Open doctor profile">
-                        <img src="{{ $doctorImage }}" alt="{{ $doctorName }}" />
+            <!-- Welcome + Statistics -->
+            <section class="dashboard-overview">
+                <!-- Welcome -->
+                <div class="dashboard-header">
+                    <div class="welcome">
+                        <h1>Welcome back, Dr. {{ $doctorName }}</h1>
+                        <p>Here is the latest hospital overview.</p>
+                    </div>
+
+                    <div class="date">
+                        <h4>{{ now()->format('l, M d, Y') }}</h4>
+                        <p id="currentTime">{{ now()->format('h:i A') }}</p>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-hospital-user"></i>
+                        </div>
+
+                        <div class="stat-info">
+                            <p>Total Patients</p>
+                            <h2>{{ number_format($totalPatients) ?? 0 }}</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-bed"></i>
+                        </div>
+
+                        <div class="stat-info">
+                            <p>Bed Occupancy</p>
+                            <h2>85</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                              <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+
+                        <div class="stat-info">
+                              <p>Today's Appointments</p>
+                              <h2>{{ number_format($totalAppointment ?? 0) }}</h2>
+                              {{-- <h2>45</h2> --}}
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon red">
+                            <i class="fa-solid fa-file-medical"></i>
+                        </div>
+
+                        <div class="stat-info">
+                            <p>Pending Reports</p>
+                            <h2>12</h2>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Content -->
+            <section class="content">
+                <div class="left-content">
+                  <!-- Patient Admission Trends -->
+                  <div class="card">
+                      <div class="card-header">
+                          <h3>Patient Admissions Trends</h3>
+                          <i class="fa-solid fa-ellipsis"></i>
+                      </div>
+
+                      <div class="chart-box">Chart Area</div>
+                  </div>
+
+                  <!-- Schedule -->
+                  <div class="card">
+                      <div class="card-header">
+                            <h3>Schedule</h3>
+                            <a href="{{ route('appointment_doctor') }}">View All</a>
+                      </div>
+
+                      <div class="table-container">
+                        <table>
+                            <thead>
+                                  <tr>
+                                      <th>PATIENT NAME</th>
+                                      <th>DEPARTMENT</th>
+                                      <th>STATUS</th>
+                                      <th>TIME</th>
+                                  </tr>
+                            </thead>
+
+                            <tbody>
+                              @if ($canReadAppointments)
+                                @forelse ($appointments as $appointment)
+                                  @php
+                                    $appointmentStatus = $appointment->status ?: 'Scheduled';
+                                    $appointmentStatusClass = match (strtolower($appointmentStatus)) {
+                                      'confirmed', 'admitted' => 'admitted',
+                                      'completed', 'discharged', 'cancelled' => 'discharged',
+                                      default => 'pending',
+                                    };
+                                    $department = $departmentsById[(string) $appointment->department_id] ?? null;
+                                    $appointmentDate = $appointment->appointment_date;
+                                  @endphp
+                                  <tr>
+                                      <td>{{ $appointment->patient->full_name ?? 'Patient' }}</td>
+                                      <td>{{ $department->name ?? $appointment->purpose ?? 'General' }}</td>
+                                      <td>
+                                            <span class="badge {{ $appointmentStatusClass }}">{{ $appointmentStatus }}</span>
+                                      </td>
+                                      <td>
+                                        @if ($appointmentDate)
+                                          {{ $appointmentDate->isYesterday() ? 'Yesterday' : $appointmentDate->format('h:i A') }}
+                                        @else
+                                          Date not set
+                                        @endif
+                                      </td>
+                                  </tr>
+                                @empty
+                                  <tr>
+                                    <td colspan="4">No appointments scheduled.</td>
+                                  </tr>
+                                @endforelse
+                              @else
+                                <tr>
+                                  <td colspan="4">You do not have permission to view appointments.</td>
+                                </tr>
+                              @endif
+                            </tbody>
+                        </table>
+                      </div>
+                  </div>
+                </div>
+
+              <!-- Upcoming Appointments -->
+              <div class="appointment-card">
+                <div class="appointment-title">
+                    <h3>Upcoming<br />Appointments</h3>
+
+                    <button class="add-btn" id="addAppointment">
+                        <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
-            </div>
 
-        <!-- Welcome + Statistics -->
-        <section class="dashboard-overview">
-            <!-- Welcome -->
-            <div class="dashboard-header">
-                <div class="welcome">
-                    <h1>Welcome back, Dr. {{ $doctorName }}</h1>
-                    <p>Here is the latest hospital overview.</p>
-                </div>
+                @if ($canReadAppointments)
+                    @forelse ($appointments as $appointment)
+                        <div class="appointment-item">
+                            <div class="avatar blue-avatar">
+                                {{ strtoupper(substr($appointment->patient->full_name ?? 'P', 0, 2)) }}
+                            </div>
 
-                <div class="date">
-                    <h4>{{ now()->format('l, M d, Y') }}</h4>
-                    <p id="currentTime">{{ now()->format('h:i A') }}</p>
-                </div>
-            </div>
+                            <div class="appointment-info">
+                                <h4>{{ $appointment->patient->full_name ?? 'Patient' }}</h4>
+                                <p>{{ $appointment->purpose ?? 'Appointment' }}</p>
+                            </div>
 
-            <!-- Statistics -->
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-icon blue">
-                        <i class="fa-solid fa-hospital-user"></i>
-                    </div>
-
-                    <div class="stat-info">
-                        <p>Total Patients</p>
-                        <h2>{{ number_format($totalPatients) ?? 0 }}</h2>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon green">
-                        <i class="fa-solid fa-bed"></i>
-                    </div>
-
-                    <div class="stat-info">
-                        <p>Bed Occupancy</p>
-                        <h2>85</h2>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon purple">
-                          <i class="fa-solid fa-calendar-days"></i>
-                    </div>
-
-                    <div class="stat-info">
-                          <p>Today's Appointments</p>
-                          <h2>{{ number_format($totalAppointment ?? 0) }}</h2>
-                          {{-- <h2>45</h2> --}}
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon red">
-                        <i class="fa-solid fa-file-medical"></i>
-                    </div>
-
-                    <div class="stat-info">
-                        <p>Pending Reports</p>
-                        <h2>12</h2>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Main Dashboard Content -->
-        <section class="content">
-            <div class="left-content">
-              <!-- Patient Admission Trends -->
-              <div class="card">
-                  <div class="card-header">
-                      <h3>Patient Admissions Trends</h3>
-                      <i class="fa-solid fa-ellipsis"></i>
-                  </div>
-
-                  <div class="chart-box">Chart Area</div>
-              </div>
-
-              <!-- Schedule -->
-              <div class="card">
-                  <div class="card-header">
-                        <h3>Schedule</h3>
-                        <a href="{{ route('appointment_doctor') }}">View All</a>
-                  </div>
-
-                  <div class="table-container">
-                    <table>
-                        <thead>
-                              <tr>
-                                  <th>PATIENT NAME</th>
-                                  <th>DEPARTMENT</th>
-                                  <th>STATUS</th>
-                                  <th>TIME</th>
-                              </tr>
-                        </thead>
-
-                        <tbody>
-                          @if ($canReadAppointments)
-                            @forelse ($appointments as $appointment)
-                              @php
-                                $appointmentStatus = $appointment->status ?: 'Scheduled';
-                                $appointmentStatusClass = match (strtolower($appointmentStatus)) {
-                                  'confirmed', 'admitted' => 'admitted',
-                                  'completed', 'discharged', 'cancelled' => 'discharged',
-                                  default => 'pending',
-                                };
-                                $department = $departmentsById[(string) $appointment->department_id] ?? null;
-                                $appointmentDate = $appointment->appointment_date;
-                              @endphp
-                              <tr>
-                                  <td>{{ $appointment->patient->full_name ?? 'Patient' }}</td>
-                                  <td>{{ $department->name ?? $appointment->purpose ?? 'General' }}</td>
-                                  <td>
-                                        <span class="badge {{ $appointmentStatusClass }}">{{ $appointmentStatus }}</span>
-                                  </td>
-                                  <td>
-                                    @if ($appointmentDate)
-                                      {{ $appointmentDate->isYesterday() ? 'Yesterday' : $appointmentDate->format('h:i A') }}
-                                    @else
-                                      Date not set
-                                    @endif
-                                  </td>
-                              </tr>
-                            @empty
-                              <tr>
-                                <td colspan="4">No appointments scheduled.</td>
-                              </tr>
-                            @endforelse
-                          @else
-                            <tr>
-                              <td colspan="4">You do not have permission to view appointments.</td>
-                            </tr>
-                          @endif
-                        </tbody>
-                    </table>
-                  </div>
-              </div>
-            </div>
-
-          <!-- Upcoming Appointments -->
-          <div class="appointment-card">
-            <div class="appointment-title">
-                <h3>Upcoming<br />Appointments</h3>
-
-                <button class="add-btn" id="addAppointment">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-            </div>
-
-            @if ($canReadAppointments)
-                @forelse ($appointments as $appointment)
-                    <div class="appointment-item">
-                        <div class="avatar blue-avatar">
-                            {{ strtoupper(substr($appointment->patient->full_name ?? 'P', 0, 2)) }}
+                            <span class="appointment-time">
+                                @if ($appointment->appointment_date)
+                                    {{ \Illuminate\Support\Carbon::parse($appointment->appointment_date)->format('M j, g:i A') }}
+                                @else
+                                    Date not set
+                                @endif
+                            </span>
                         </div>
+                    @empty
+                        <p>No appointments found.</p>
+                    @endforelse
+                @else
+                    <p>You do not have permission to read appointments.</p>
+                @endif
 
-                        <div class="appointment-info">
-                            <h4>{{ $appointment->patient->full_name ?? 'Patient' }}</h4>
-                            <p>{{ $appointment->purpose ?? 'Appointment' }}</p>
-                        </div>
-
-                        <span class="appointment-time">
-                            @if ($appointment->appointment_date)
-                                {{ \Illuminate\Support\Carbon::parse($appointment->appointment_date)->format('M j, g:i A') }}
-                            @else
-                                Date not set
-                            @endif
-                        </span>
-                    </div>
-                @empty
-                    <p>No appointments found.</p>
-                @endforelse
-            @else
-                <p>You do not have permission to read appointments.</p>
-            @endif
-
-            <button class="view-schedule">View Schedule</button>
-          </div>
-        </section>
+                <button class="view-schedule">View Schedule</button>
+              </div>
+            </section>
       </main>
     </div>
 

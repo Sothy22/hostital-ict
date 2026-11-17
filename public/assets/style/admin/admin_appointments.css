@@ -222,7 +222,7 @@
 
 .admin-appointments__table {
     width: 100%;
-    min-width: 760px;
+    min-width: 810px;
     border-collapse: collapse;
 }
 
@@ -332,6 +332,98 @@
 .admin-appointments__status.is-scheduled {
     color: #7c3aed;
     background: #f1eafd;
+}
+
+.admin-appointments__status-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.admin-appointments__menu-wrap {
+    position: relative;
+}
+
+.admin-appointments__menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #dfe7ef;
+    border-radius: 50%;
+    color: #334155;
+    background: #fff;
+    cursor: pointer;
+}
+
+.admin-appointments__menu-toggle:hover,
+.admin-appointments__menu-toggle[aria-expanded="true"] {
+    background: #f1f5f9;
+}
+
+.admin-appointments__menu[hidden] {
+    display: none;
+}
+
+.admin-appointments__menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 5;
+    min-width: 100px;
+    padding: 4px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.admin-appointments__menu button {
+    display: block;
+    width: 100%;
+    padding: 7px 9px;
+    border: 0;
+    border-radius: 4px;
+    color: #334155;
+    background: transparent;
+    text-align: left;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.admin-appointments__menu button:hover {
+    background: #f1f5f9;
+}
+
+.admin-appointments__menu button.is-danger {
+    color: #dc3545;
+}
+
+.admin-appointment-view__details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 0;
+    padding: 20px;
+}
+
+.admin-appointment-view__details dt {
+    margin-bottom: 4px;
+    color: #718096;
+    font-size: 12px;
+}
+
+.admin-appointment-view__details dd {
+    margin: 0;
+    color: #26374b;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.admin-appointment-view__details > div:last-child {
+    grid-column: 1 / -1;
 }
 
 .admin-appointments__empty {
@@ -583,6 +675,14 @@
     }
 
     .admin-appointment-modal__full {
+        grid-column: auto;
+    }
+
+    .admin-appointment-view__details {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-appointment-view__details > div:last-child {
         grid-column: auto;
     }
 }

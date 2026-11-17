@@ -196,12 +196,14 @@ input:focus {
     background-color: #1a52de;
 }
 
-.forgot-password {
+.forgot-password,
+.back {
     text-align: center;
     margin-top: 24px;
 }
 
-.forgot-password a {
+.forgot-password a,
+.back a {
     color: #1d61f2;
     font-size: 13px;
     font-weight: 600;

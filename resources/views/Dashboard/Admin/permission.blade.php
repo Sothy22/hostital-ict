@@ -38,6 +38,10 @@
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
                     </a>
+                    <a href="{{ route('admin.doctor_schedules.index') }}">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        Schedule Approval
+                    </a>
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
                             <i class="fa-solid fa-users"></i>
