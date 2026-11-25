@@ -28,10 +28,6 @@ class DoctorScheduleAvailability
 
     public function slotsFor(DoctorSchedule $schedule, iterable $appointments = []): array
     {
-        if ($schedule->status !== 'approved') {
-            return [];
-        }
-
         $timezone = config('app.timezone');
         $workStart = Carbon::createFromFormat(
             'Y-m-d H:i',

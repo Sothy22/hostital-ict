@@ -34,17 +34,13 @@
                         <i class="fa-solid fa-house"></i>
                         Dashboard
                     </a>
-                    <a href="{{ route('admin_appointments') }}" class="active">
+                    <a href="{{ route('admin_appointments') }}">
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
-                    <a href="{{ route('admin_patients') }}" class="active">
+                    <a href="{{ route('admin_patients') }}">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
-                    </a>
-                    <a href="{{ route('admin.doctor_schedules.index') }}">
-                        <i class="fa-regular fa-calendar-check"></i>
-                        Schedule Approval
                     </a>
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
@@ -101,38 +97,37 @@
         <main class="main">
           <!-- Header -->
           <div class="header">
-            <button class="menu-toggle" id="menuToggle">
-              <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <!-- center -->
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="search" placeholder="Search" aria-label="Search dashboard" />
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" placeholder="Search" aria-label="Search dashboard" />
+                </div>
+                <div class="right-header">
+                    <button class="header-action" type="button" aria-label="Documents" title="Documents">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button class="header-action" type="button" aria-label="Settings" title="Settings">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                    <!-- Dark Mode -->
+                    <div class="header-action">
+                        <i id="theme-toggle" class="fa-regular fa-moon"></i>
+                    </div>
+                    <!-- Notification -->
+                    <div class="header-action">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="dot"></span>
+                    </div>
+                    <!-- Profile -->
+                    <div class="profile">
+                        <span class="profile-initial">
+                            {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
+                        </span>
+                        <div class="info-name">
+                            <h4>{{ auth('admin')->user()->name ?? 'Administrator' }}</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- right -->
-            <div class="right-header">
-              <button class="header-action" type="button" aria-label="Documents" title="Documents">
-                <i class="fa-regular fa-copy"></i>
-              </button>
-              <button class="header-action" type="button" aria-label="Settings" title="Settings">
-                <i class="fa-solid fa-gear"></i>
-              </button>
-              <div class="mode-icon">
-                <i id="theme-toggle" class="fa-regular fa-moon"></i>
-              </div>
-              <div class="notification">
-                <i class="fa-solid fa-bell"></i>
-                <span class="dot"></span>
-              </div>
-              <div class="profile">
-                <span class="profile-initial">
-                  {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
-                </span>
-              </div>
-            </div>
-          </div>
 
           <!-- container -->
           <section class="title-contain">
@@ -335,9 +330,9 @@
         @include('Dashboard.Admin._staff_modal')
     </div>
 
-    <script src="../assets/script/dark_mode.js" type="module"></script>
-    <script src="../assets/script/menu_dashboard.js"></script>
-    <script src="./assets/script/dropdown_dashboard.js"></script>
+    <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
+    <script src="{{ asset('assets/script/menu_dashboard.js') }}"></script>
+    <script src="{{ asset('assets/script/dropdown_dashboard.js') }}"></script>
     <script src="{{ asset('assets/script/staff-modal.js') }}" defer></script>
   </body>
 </html>

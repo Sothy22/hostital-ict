@@ -29,13 +29,9 @@
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
-                    <a href="{{ route('admin_patients') }}" class="active">
+                    <a href="{{ route('admin_patients') }}">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
-                    </a>
-                    <a href="{{ route('admin.doctor_schedules.index') }}">
-                        <i class="fa-regular fa-calendar-check"></i>
-                        Schedule Approval
                     </a>
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
@@ -90,22 +86,38 @@
         </aside>
 
         <main class="main">
-            <header class="header">
+            <div class="header">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="search" placeholder="Search" aria-label="Search">
+                    <input type="search" placeholder="Search" aria-label="Search dashboard" />
                 </div>
                 <div class="right-header">
-                    <button class="header-action" type="button" aria-label="Notifications">
-                        <i class="fa-regular fa-bell"></i>
+                    <button class="header-action" type="button" aria-label="Documents" title="Documents">
+                        <i class="fa-regular fa-copy"></i>
                     </button>
+                    <button class="header-action" type="button" aria-label="Settings" title="Settings">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                    <!-- Dark Mode -->
+                    <div class="header-action">
+                        <i id="theme-toggle" class="fa-regular fa-moon"></i>
+                    </div>
+                    <!-- Notification -->
+                    <div class="header-action">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="dot"></span>
+                    </div>
+                    <!-- Profile -->
                     <div class="profile">
                         <span class="profile-initial">
                             {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
                         </span>
+                        <div class="info-name">
+                            <h4>{{ auth('admin')->user()->name ?? 'Administrator' }}</h4>
+                        </div>
                     </div>
                 </div>
-            </header>
+            </div>
 
             <section class="admin-patients">
                 <div class="admin-patients__heading">
@@ -373,5 +385,6 @@
     <script src="{{ asset('assets/script/admin/patient.js') }}"></script>
     <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
     <script src="{{ asset('/assets/script/dropdown_dashboard.js') }}"></script>
+    <script src="{{ asset('assets/script/staff-modal.js') }}" defer></script>
 </body>
 </html>

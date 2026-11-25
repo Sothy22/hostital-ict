@@ -130,12 +130,11 @@ class HomeController extends Controller
 
         $schedule = DoctorSchedule::where('doctor_id', $doctor->getKey())
             ->where('work_date', $validated['appointment_date'])
-            ->where('status', 'approved')
             ->first();
 
         if (!$schedule) {
             return back()
-                ->withErrors(['appointment_date' => 'The selected doctor has no approved schedule for this date.'])
+                ->withErrors(['appointment_date' => 'The selected doctor has no schedule for this date.'])
                 ->withInput();
         }
 
@@ -186,7 +185,6 @@ class HomeController extends Controller
         $currentSchedule = DoctorSchedule::where('_id', $schedule->getKey())
             ->where('doctor_id', $doctor->getKey())
             ->where('work_date', $validated['appointment_date'])
-            ->where('status', 'approved')
             ->first();
         if (!$currentSchedule || !in_array(
             $validated['appointment_time'],

@@ -26,7 +26,7 @@
                         Dashboard
                     </a>
 
-                    <a href="{{ route('admin_appointments') }}" class="active">
+                    <a href="{{ route('admin_appointments') }}">
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
@@ -36,10 +36,6 @@
                         Patients
                     </a>
 
-                    <a href="{{ route('admin.doctor_schedules.index') }}">
-                        <i class="fa-regular fa-calendar-check"></i>
-                        Schedule Approval
-                    </a>
 
                     <div class="dropdown">
                         <button class="dropbtn" type="button">

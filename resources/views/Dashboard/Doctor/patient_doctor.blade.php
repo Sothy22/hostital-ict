@@ -159,14 +159,14 @@
                     <h4>NEW APPOINTMENT</h4>
                     <h4>COMPLETED APPOINTMENTS</h4>
                 </div>
-                <div class="btn-add-appointment">
+                {{-- <div class="btn-add-appointment">
                     @if ($doctor->hasPermission('create_appointment'))
                         <button type="button" data-open-appointment-modal>
                             <i class="fa-solid fa-plus"></i>
                             New Appointment
                         </button>
                   @endif
-                </div>
+                </div> --}}
             </section>
 
             @if (session('success'))

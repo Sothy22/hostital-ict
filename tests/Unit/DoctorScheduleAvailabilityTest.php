@@ -60,13 +60,13 @@ class DoctorScheduleAvailabilityTest extends TestCase
         $this->assertSame(['09:30', '10:00'], array_column($slots, 'time'));
     }
 
-    public function test_pending_and_rejected_schedules_have_no_bookable_slots(): void
+    public function test_saved_schedules_have_bookable_slots(): void
     {
         $availability = app(DoctorScheduleAvailability::class);
 
-        foreach (['pending', 'rejected'] as $status) {
+        foreach (['pending', 'approved', 'rejected'] as $status) {
             $schedule = $this->schedule(['status' => $status]);
-            $this->assertSame([], $availability->slotsFor($schedule));
+            $this->assertNotEmpty($availability->slotsFor($schedule));
         }
     }
 

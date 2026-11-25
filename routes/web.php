@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\StaffController;
-use App\Http\Controllers\Admin\DoctorScheduleApprovalController;
 use App\Http\Controllers\Doctor\DoctorScheduleController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\AuthController;
@@ -14,6 +13,7 @@ use App\Models\Department;
 use App\Models\Patient;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\DoctorScheduleAvailability;
 use Illuminate\Support\Facades\Route;
 
 // ================= Authentication =================
@@ -79,15 +79,6 @@ Route::get('/doctor-schedule-availability', [DoctorScheduleController::class, 'a
 
 // ============= Admin =============
 Route::middleware(['auth:admin'])->group(function() {
-
-    Route::get('/admin/doctor-schedules', [DoctorScheduleApprovalController::class, 'index'])
-        ->name('admin.doctor_schedules.index');
-    Route::put('/admin/doctor-schedules/{schedule}', [DoctorScheduleApprovalController::class, 'update'])
-        ->name('admin.doctor_schedules.update');
-    Route::post('/admin/doctor-schedules/{schedule}/approve', [DoctorScheduleApprovalController::class, 'approve'])
-        ->name('admin.doctor_schedules.approve');
-    Route::post('/admin/doctor-schedules/{schedule}/reject', [DoctorScheduleApprovalController::class, 'reject'])
-        ->name('admin.doctor_schedules.reject');
 
     Route::get('/add_staff', [StaffController::class, 'create'])->name('add_staff');
     Route::post('/add_staff', [StaffController::class, 'store'])->name('staff.store');
@@ -344,14 +335,152 @@ Route::middleware(['auth'])->group(function() {
             ->name('doctor.profile.update');
 
         Route::get('/appointment_doctor', function () {
-            return view('dashboard.doctor.appointment_doctor');
+            $doctor = auth('web')->user();
+            $appointments = collect();
+
+            if ($doctor->hasPermission('read_appointment')) {
+                $appointments = Appointment::with([
+                        'patient.user',
+                        'patient.medicalHistory',
+                        'patient.medical_record',
+                        'staff.department',
+                    ])
+                    ->where('staff_id', $doctor->getKey())
+                    ->orderBy('appointment_date', 'desc')
+                    ->get();
+            }
+
+            $today = now()->startOfDay();
+            $weekEnd = now()->endOfWeek();
+            $summary = [
+                'today' => $appointments->filter(fn ($appointment) =>
+                    $appointment->appointment_date
+                    && \Illuminate\Support\Carbon::parse($appointment->appointment_date)->isToday()
+                )->count(),
+                'week' => $appointments->filter(fn ($appointment) =>
+                    $appointment->appointment_date
+                    && \Illuminate\Support\Carbon::parse($appointment->appointment_date)->betweenIncluded($today, $weekEnd)
+                )->count(),
+                'pending' => $appointments->filter(function ($appointment) {
+                    $status = strtolower((string) ($appointment->status ?: 'scheduled'));
+                    return in_array($status, ['pending', 'scheduled'], true);
+                })->count(),
+                'completed' => $appointments->filter(fn ($appointment) =>
+                    strtolower((string) ($appointment->status ?: '')) === 'completed'
+                )->count(),
+            ];
+
+            return view('dashboard.doctor.appointment_doctor', compact(
+                'doctor',
+                'appointments',
+                'summary'
+            ));
         })->middleware('permission:read_appointment')->name('appointment_doctor');
+
+        Route::post('/doctor/appointments/{appointmentId}/confirm', function ($appointmentId) {
+            $appointment = Appointment::where('_id', $appointmentId)
+                ->where('staff_id', auth('web')->user()->getKey())
+                ->firstOrFail();
+            $appointment->update(['status' => 'Confirmed']);
+            return back()->with('success', 'Appointment confirmed successfully.');
+        })->name('doctor.appointments.confirm');
+
+        Route::post('/doctor/appointments/{appointmentId}/cancel', function (Request $request, $appointmentId) {
+            $appointment = Appointment::where('_id', $appointmentId)
+                ->where('staff_id', auth('web')->user()->getKey())
+                ->firstOrFail();
+            $validated = $request->validate([
+                'cancellation_reason' => ['required', 'string', 'max:500'],
+            ]);
+            if ($appointment->getAttribute('booking_slot_key')) {
+                $appointment->unset('booking_slot_key');
+            }
+            $appointment->setAttribute('status', 'Cancelled');
+            $appointment->setAttribute('cancellation_reason', $validated['cancellation_reason']);
+            $appointment->save();
+            return back()->with('success', 'Appointment cancelled successfully.');
+        })->name('doctor.appointments.cancel');
+
+        Route::post('/doctor/appointments/{appointmentId}/check-in', function ($appointmentId) {
+            $appointment = Appointment::where('_id', $appointmentId)
+                ->where('staff_id', auth('web')->user()->getKey())
+                ->firstOrFail();
+            $appointment->update(['status' => 'Checked In']);
+            return back()->with('success', 'Patient checked in successfully.');
+        })->name('doctor.appointments.check-in');
+
+        Route::post('/doctor/appointments/{appointmentId}/complete', function ($appointmentId) {
+            $appointment = Appointment::where('_id', $appointmentId)
+                ->where('staff_id', auth('web')->user()->getKey())
+                ->firstOrFail();
+            $appointment->update(['status' => 'Completed']);
+            return back()->with('success', 'Consultation completed.');
+        })->name('doctor.appointments.complete');
+
+        Route::post('/doctor/appointments/{appointmentId}/notes', function (Request $request, $appointmentId) {
+            $appointment = Appointment::where('_id', $appointmentId)
+                ->where('staff_id', auth('web')->user()->getKey())
+                ->firstOrFail();
+            $validated = $request->validate([
+                'notes' => ['required', 'string', 'max:2000'],
+            ]);
+            $appointment->update(['notes' => $validated['notes']]);
+            return back()->with('success', 'Appointment notes saved.');
+        })->name('doctor.appointments.notes');
+
+        Route::put('/doctor/appointments/{appointmentId}/reschedule', function (
+            Request $request,
+            $appointmentId,
+            DoctorScheduleAvailability $availability
+        ) {
+            $appointment = Appointment::where('_id', $appointmentId)
+                ->where('staff_id', auth('web')->user()->getKey())
+                ->firstOrFail();
+            $validated = $request->validate([
+                'appointment_date' => ['required', 'date_format:Y-m-d', 'after_or_equal:today'],
+                'appointment_time' => ['required', 'date_format:H:i'],
+            ]);
+
+            $doctor = auth('web')->user();
+            $schedule = \App\Models\DoctorSchedule::where('doctor_id', $doctor->getKey())
+                ->where('work_date', $validated['appointment_date'])
+                ->first();
+            if (!$schedule) {
+                return back()->withErrors(['reschedule' => 'The doctor has no schedule for the selected date.']);
+            }
+
+            $slots = $availability->slotsFor(
+                $schedule,
+                $availability->appointmentsForSchedule($schedule)
+                    ->reject(fn ($existing) => (string) data_get($existing, '_id') === (string) $appointment->getKey())
+            );
+            if (!in_array($validated['appointment_time'], array_column($slots, 'time'), true)) {
+                return back()->withErrors(['reschedule' => 'That time is no longer available. Choose another slot.']);
+            }
+
+            $appointmentDate = \Illuminate\Support\Carbon::createFromFormat(
+                'Y-m-d H:i',
+                $validated['appointment_date'] . ' ' . $validated['appointment_time'],
+                config('app.timezone')
+            );
+            $appointment->unset('booking_slot_key');
+            $appointment->setAttribute('appointment_date', $appointmentDate);
+            $appointment->setAttribute('status', 'Confirmed');
+            $appointment->setAttribute('booking_duration_minutes', (int) $schedule->duration_minutes);
+            $appointment->setAttribute('booking_slot_key', hash(
+                'sha256',
+                (string) $doctor->getKey() . ':' . $validated['appointment_date'] . ':' . $validated['appointment_time']
+            ));
+            $appointment->save();
+            return back()->with('success', 'Appointment rescheduled successfully.');
+        })->name('doctor.appointments.reschedule');
 
         Route::get('/doctor', function () {
             $user = auth('web')->user();
             $canReadAppointments = $user->hasPermission('read_appointment');
             $today = now()->startOfDay();
             $tomorrow = $today->copy()->addDay();
+            $recentCutoff = now();
 
             $appointments = $canReadAppointments
                 ? $user->appointment()
@@ -361,9 +490,45 @@ Route::middleware(['auth'])->group(function() {
                     ->get()
                 : collect();
 
-            $totalPatients = $user->hasPermission('read_patient')
-                ? Patient::count()
-                : null;
+            $monthStart = now()->startOfMonth();
+            $nextMonth = $monthStart->copy()->addMonth();
+            $monthlyAppointments = $canReadAppointments
+                ? $user->appointment()
+                    ->with('patient')
+                    ->where(function ($query) use ($monthStart, $nextMonth) {
+                        $query->where(function ($dateQuery) use ($monthStart, $nextMonth) {
+                            $dateQuery->where('appointment_date', '>=', $monthStart)
+                                ->where('appointment_date', '<', $nextMonth);
+                        })->orWhere(function ($dateQuery) use ($monthStart, $nextMonth) {
+                            $dateQuery->where('appointment_date', '>=', $monthStart->format('Y-m-d H:i:s'))
+                                ->where('appointment_date', '<', $nextMonth->format('Y-m-d H:i:s'));
+                        });
+                    })
+                    ->orderBy('appointment_date', 'asc')
+                    ->get()
+                : collect();
+
+            $recentAppointments = $canReadAppointments
+                ? $user->appointment()
+                    ->with('patient')
+                    ->where(function ($query) use ($recentCutoff) {
+                        $query->where('appointment_date', '<=', $recentCutoff)
+                            ->orWhere('appointment_date', '<=', $recentCutoff->format('Y-m-d H:i:s'));
+                    })
+                    ->orderBy('appointment_date', 'desc')
+                    ->take(4)
+                    ->get()
+                : collect();
+
+            $totalPatients = $canReadAppointments
+                ? $user->appointment()
+                ->whereNotNull('patient_id')
+                ->get(['patient_id'])
+                ->pluck('patient_id')
+                ->map(fn ($patientId) => (string) $patientId)
+                ->unique()
+                ->count()
+                : null ;
 
             $totalAppointment = $canReadAppointments
                 ? $user->appointment()
@@ -387,15 +552,13 @@ Route::middleware(['auth'])->group(function() {
                 'totalPatients',
                 'totalAppointment',
                 'appointments',
+                'monthlyAppointments',
+                'recentAppointments',
                 'canReadAppointments',
                 'departments',
                 'departmentsById'
             ));
         })->name('main_doctor');
-
-        Route::get('/appointment_doctor', function () {
-            return view('dashboard.doctor.appointment_doctor');
-        })->name('appointment_doctor');
 
         Route::get('/patient_doctor', function () {
             $doctor = auth('web')->user();

@@ -1203,6 +1203,17 @@
 
 .admin-dashboard .menu-toggle {
     display: none !important;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    color: #64748b;
+    background: #fff;
+    font: inherit;
+    cursor: pointer;
 }
 
 .admin-dashboard .search-box {
@@ -1270,10 +1281,13 @@
 
     .admin-dashboard .menu-toggle {
         display: flex !important;
+        padding: 8px;
+        margin-right: 4px;
     }
 
     .admin-dashboard .search-box {
-        width: 42px;
+        width: 32px;
+        max-width: 20px;
         margin-left: auto;
     }
 

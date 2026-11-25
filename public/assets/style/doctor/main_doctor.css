@@ -1023,3 +1023,933 @@ td:first-child {
         grid-column: auto;
     }
 }
+
+.doctor-dashboard .dashboard-overview {
+    padding: 22px 24px 10px;
+}
+
+.doctor-dashboard .dashboard-header {
+    margin-bottom: 18px;
+}
+
+.doctor-dashboard .dashboard-header .welcome {
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    background: transparent;
+    box-shadow: none;
+}
+
+.doctor-dashboard .welcome h1 {
+    margin: 0;
+    color: #17345c;
+    font-size: 25px;
+}
+
+.doctor-dashboard .welcome p,
+.doctor-dashboard .date p {
+    margin: 0;
+    color: #718096;
+}
+
+.doctor-dashboard .date h4 {
+    margin: 0 0 4px;
+    color: #334155;
+}
+
+.doctor-dashboard .stats-container {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.doctor-dashboard .stats-container .stat-card {
+    min-width: 0;
+    min-height: 92px;
+    height: auto;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border: 1px solid #e2eaf1;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(31, 66, 99, 0.05);
+}
+
+.doctor-dashboard .stats-container .stat-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+.doctor-dashboard .stat-info {
+    min-width: 0;
+}
+
+.doctor-dashboard .stat-info p {
+    margin: 0 0 5px;
+    color: #718096;
+    font-size: 12px;
+}
+
+.doctor-dashboard .stat-info h2 {
+    margin: 0;
+    color: #17345c;
+    font-size: 23px;
+}
+
+.doctor-dashboard .dashboard-content {
+    padding: 12px 24px 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(270px, 1fr);
+    gap: 14px;
+    align-items: stretch;
+}
+
+.doctor-dashboard .dashboard-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e2eaf1;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(31, 66, 99, 0.05);
+}
+
+.doctor-dashboard .appointments-panel {
+    grid-row: span 2;
+}
+
+.doctor-dashboard .dashboard-card-header {
+    min-height: 58px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.doctor-dashboard .dashboard-card-header > div {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.doctor-dashboard .dashboard-card-header h2 {
+    margin: 0;
+    color: #17345c;
+    font-size: 15px;
+}
+
+.doctor-dashboard .dashboard-section-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    color: #1676d2;
+    background: #eaf4ff;
+}
+
+.doctor-dashboard .dashboard-card-header > a {
+    flex: 0 0 auto;
+    color: #1676d2;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.doctor-dashboard .dashboard-card-header > a:hover,
+.doctor-dashboard .dashboard-card-link:hover {
+    color: #074f90;
+}
+
+.doctor-dashboard .dashboard-table {
+    min-width: 540px;
+}
+
+.doctor-dashboard .dashboard-table th {
+    padding: 12px 14px;
+    color: #64748b;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+}
+
+.doctor-dashboard .dashboard-table td {
+    padding: 13px 14px;
+    color: #475569;
+    font-size: 12px;
+}
+
+.doctor-dashboard .dashboard-table .patient-name {
+    color: #17345c;
+    font-weight: 700;
+}
+
+.doctor-dashboard .dashboard-table .badge {
+    display: inline-block;
+    padding: 5px 9px;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.doctor-dashboard .dashboard-table .empty-state {
+    padding: 28px 14px;
+    color: #718096;
+    text-align: center;
+}
+
+.doctor-dashboard .recent-patients-list {
+    padding: 4px 16px;
+}
+
+.doctor-dashboard .recent-patient {
+    min-width: 0;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.doctor-dashboard .recent-patient:last-child {
+    border-bottom: 0;
+}
+
+.doctor-dashboard .patient-avatar {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #1676d2;
+    background: #eaf4ff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.doctor-dashboard .recent-patient-info {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.doctor-dashboard .recent-patient-info strong {
+    overflow: hidden;
+    color: #17345c;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.doctor-dashboard .recent-patient-info span,
+.doctor-dashboard .patient-visit-time {
+    color: #718096;
+    font-size: 11px;
+}
+
+.doctor-dashboard .empty-state {
+    margin: 0;
+    padding: 20px 4px;
+    color: #718096;
+    font-size: 12px;
+    text-align: center;
+}
+
+.doctor-dashboard .dashboard-card-link {
+    margin: 0 16px 14px;
+    display: block;
+    color: #1676d2;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+
+.doctor-dashboard .quick-actions {
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.doctor-dashboard .quick-actions a,
+.doctor-dashboard .quick-actions button {
+    min-height: 70px;
+    padding: 10px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #e5eef7;
+    border-radius: 10px;
+    color: #33506f;
+    background: #f5f9fe;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.doctor-dashboard .quick-actions a:hover,
+.doctor-dashboard .quick-actions button:hover {
+    transform: translateY(-2px);
+    background: #eaf4ff;
+}
+
+.doctor-dashboard .quick-actions i {
+    color: #1676d2;
+    font-size: 18px;
+}
+
+.doctor-dashboard .header .profile-trigger {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+}
+
+body.dark-mode.doctor-dashboard .dashboard-card,
+body.dark-mode.doctor-dashboard .stats-container .stat-card {
+    border-color: #334155;
+    background: #1e293b;
+}
+
+body.dark-mode.doctor-dashboard .welcome h1,
+body.dark-mode.doctor-dashboard .date h4,
+body.dark-mode.doctor-dashboard .stat-info h2,
+body.dark-mode.doctor-dashboard .dashboard-card-header h2,
+body.dark-mode.doctor-dashboard .dashboard-table .patient-name,
+body.dark-mode.doctor-dashboard .recent-patient-info strong {
+    color: #e2e8f0;
+}
+
+body.dark-mode.doctor-dashboard .dashboard-card-header,
+body.dark-mode.doctor-dashboard .recent-patient {
+    border-color: #334155;
+}
+
+body.dark-mode.doctor-dashboard .dashboard-table th {
+    color: #cbd5e1;
+    background: #273449;
+}
+
+body.dark-mode.doctor-dashboard .dashboard-table td,
+body.dark-mode.doctor-dashboard .recent-patient-info span,
+body.dark-mode.doctor-dashboard .patient-visit-time,
+body.dark-mode.doctor-dashboard .stat-info p,
+body.dark-mode.doctor-dashboard .welcome p,
+body.dark-mode.doctor-dashboard .date p {
+    color: #a8b6c8;
+}
+
+body.dark-mode.doctor-dashboard .quick-actions a,
+body.dark-mode.doctor-dashboard .quick-actions button {
+    border-color: #334155;
+    color: #dbeafe;
+    background: #273449;
+}
+
+body.dark-mode.doctor-dashboard .quick-actions a:hover,
+body.dark-mode.doctor-dashboard .quick-actions button:hover {
+    background: #334155;
+}
+
+@media (max-width: 1100px) {
+    .doctor-dashboard .stats-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .doctor-dashboard .dashboard-content {
+        grid-template-columns: minmax(0, 1.5fr) minmax(250px, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .doctor-dashboard .dashboard-content {
+        grid-template-columns: 1fr;
+    }
+
+    .doctor-dashboard .appointments-panel {
+        grid-row: auto;
+    }
+}
+
+@media (max-width: 767.99px) {
+    .doctor-dashboard .dashboard-overview {
+        padding: 12px 10px 8px;
+    }
+
+    .doctor-dashboard .dashboard-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .doctor-dashboard .welcome h1 {
+        font-size: 21px;
+    }
+
+    .doctor-dashboard .date {
+        flex: 0 0 auto;
+        text-align: right;
+    }
+
+    .doctor-dashboard .stats-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .doctor-dashboard .stats-container .stat-card {
+        min-height: 78px;
+        padding: 10px;
+        gap: 9px;
+    }
+
+    .doctor-dashboard .stats-container .stat-icon {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
+
+    .doctor-dashboard .stat-info h2 {
+        font-size: 19px;
+    }
+
+    .doctor-dashboard .dashboard-content {
+        padding: 10px 10px 24px;
+        gap: 12px;
+    }
+
+    .doctor-dashboard .header .profile-trigger {
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 420px) {
+    .doctor-dashboard .dashboard-header {
+        flex-direction: column;
+    }
+
+    .doctor-dashboard .date {
+        text-align: left;
+    }
+
+    .doctor-dashboard .stats-container .stat-card {
+        gap: 7px;
+        padding: 9px;
+    }
+}
+
+.doctor-dashboard .stats-container .stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.doctor-dashboard .stat-card-blue {
+    background: #e7f1ff !important;
+}
+
+.doctor-dashboard .stat-card-green {
+    background: #e2f8f2 !important;
+}
+
+.doctor-dashboard .stat-card-red {
+    background: #ffe9eb !important;
+}
+
+.doctor-dashboard .stat-card-purple {
+    background: #eeebff !important;
+}
+
+.doctor-dashboard .stat-info {
+    position: relative;
+    z-index: 1;
+    padding-right: 68px;
+}
+
+.doctor-dashboard .stat-sparkline {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 76px;
+    height: 38px;
+    overflow: visible;
+    transform: translateY(-50%);
+    fill: none;
+    stroke: #2183f6;
+    stroke-width: 2;
+}
+
+.doctor-dashboard .stat-card-green .stat-sparkline {
+    stroke: #11b8ad;
+}
+
+.doctor-dashboard .stat-card-red .stat-sparkline {
+    stroke: #ff6f83;
+}
+
+.doctor-dashboard .stat-card-purple .stat-sparkline {
+    stroke: #785bff;
+}
+
+.doctor-dashboard .dashboard-content {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.doctor-dashboard .appointments-panel {
+    grid-column: span 7;
+    grid-row: auto;
+}
+
+.doctor-dashboard .statistics-panel {
+    grid-column: span 5;
+}
+
+.doctor-dashboard .schedule-panel {
+    grid-column: span 3;
+}
+
+.doctor-dashboard .recent-patients-panel {
+    grid-column: span 4;
+}
+
+.doctor-dashboard .quick-actions-panel {
+    grid-column: span 5;
+}
+
+.doctor-dashboard .appointments-panel,
+.doctor-dashboard .statistics-panel {
+    min-height: 230px;
+}
+
+.doctor-dashboard .statistics-panel {
+    height: auto;
+    min-height: 260px;
+    align-self: stretch;
+}
+
+.doctor-dashboard .dashboard-table {
+    min-width: 620px;
+}
+
+.doctor-dashboard .dashboard-table th,
+.doctor-dashboard .dashboard-table td {
+    padding: 9px 12px;
+}
+
+.doctor-dashboard .appointment-view-link {
+    padding: 4px 8px;
+    display: inline-block;
+    border-radius: 5px;
+    color: #fff;
+    background: #1676d2;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.doctor-dashboard .dashboard-period {
+    padding: 5px 9px;
+    border: 1px solid #e2eaf1;
+    border-radius: 7px;
+    color: #334155;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.doctor-dashboard .chart-legend {
+    padding: 9px 16px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    color: #334155;
+    font-size: 12px;
+}
+
+.doctor-dashboard .chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.doctor-dashboard .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1676f3;
+}
+
+.doctor-dashboard .patients-dot {
+    background: #10b7b0;
+}
+
+.doctor-dashboard .patient-statistics-chart {
+    display: block;
+    width: 100%;
+    height: 150px;
+    margin: 0;
+    overflow: visible;
+}
+
+.doctor-dashboard .chart-grid-line {
+    stroke: #e8eef5;
+    stroke-width: 1;
+}
+
+.doctor-dashboard .chart-axis-label {
+    fill: #61728a;
+    font-family: inherit;
+    font-size: 10px;
+}
+
+.doctor-dashboard .chart-area {
+    opacity: 1;
+}
+
+.doctor-dashboard .appointments-area {
+    fill: url(#appointments-gradient);
+}
+
+.doctor-dashboard .patients-area {
+    fill: url(#patients-gradient);
+}
+
+.doctor-dashboard .chart-line {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.doctor-dashboard .appointments-line {
+    stroke: #1676f3;
+}
+
+.doctor-dashboard .patients-line {
+    stroke: #10b7b0;
+}
+
+.doctor-dashboard .appointments-point {
+    stroke: #fff;
+    stroke-width: 2;
+    fill: #1676f3;
+}
+
+.doctor-dashboard .patients-point {
+    stroke: #fff;
+    stroke-width: 2;
+    fill: #10b7b0;
+}
+
+.doctor-dashboard .chart-point {
+    cursor: help;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.18s ease;
+}
+
+.doctor-dashboard .chart-point:hover,
+.doctor-dashboard .chart-point:focus-visible {
+    transform: scale(1.35);
+}
+
+.doctor-dashboard .chart-point:focus-visible {
+    outline: none;
+    stroke: #17345c;
+    stroke-width: 2.5;
+}
+
+.doctor-dashboard .under-head form {
+    width: 100%;
+}
+
+.doctor-dashboard .under-head .logout-btn {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 7px;
+    color: rgba(255, 255, 255, 0.82);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.doctor-dashboard .under-head .logout-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.doctor-dashboard .chart-week-labels {
+    padding: 0 16px 10px 38px;
+    display: flex;
+    justify-content: space-between;
+    color: #334155;
+    font-size: 11px;
+}
+
+.doctor-dashboard .calendar-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #17345c;
+    font-size: 11px;
+}
+
+.doctor-dashboard .calendar-heading i {
+    color: #718096;
+    font-size: 10px;
+}
+
+.doctor-dashboard .mini-calendar {
+    padding: 8px 10px 12px;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    justify-items: center;
+    row-gap: 3px;
+}
+
+.doctor-dashboard .calendar-weekday,
+.doctor-dashboard .calendar-day {
+    width: 28px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    color: #17345c;
+    font-size: 10px;
+}
+
+.doctor-dashboard .calendar-weekday {
+    color: #475569;
+    font-weight: 700;
+}
+
+.doctor-dashboard .calendar-day {
+    position: relative;
+    border-radius: 50%;
+}
+
+.doctor-dashboard .calendar-day.outside-month {
+    color: #a0aec0;
+}
+
+.doctor-dashboard .calendar-day.today {
+    color: #fff;
+    background: #1676f3;
+}
+
+.doctor-dashboard .calendar-appointment-dot {
+    position: absolute;
+    bottom: 1px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #10b7b0;
+}
+
+.doctor-dashboard .calendar-day.today .calendar-appointment-dot {
+    background: #fff;
+}
+
+.doctor-dashboard .recent-patients-list {
+    padding: 0 14px;
+}
+
+.doctor-dashboard .recent-patient {
+    padding: 9px 0;
+}
+
+.doctor-dashboard .patient-avatar {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    background: #2082f4;
+    color: #fff;
+}
+
+.doctor-dashboard .recent-patient:nth-child(2) .patient-avatar {
+    background: #12b7a9;
+}
+
+.doctor-dashboard .recent-patient:nth-child(3) .patient-avatar {
+    background: #775af5;
+}
+
+.doctor-dashboard .recent-patient:nth-child(4) .patient-avatar {
+    background: #ff9a3e;
+}
+
+.doctor-dashboard .recent-patient-info span {
+    font-size: 10px;
+}
+
+.doctor-dashboard .patient-visit-time {
+    white-space: nowrap;
+}
+
+.doctor-dashboard .quick-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 11px;
+}
+
+.doctor-dashboard .quick-actions a,
+.doctor-dashboard .quick-actions button {
+    min-height: 67px;
+    background: #eaf3ff;
+}
+
+.doctor-dashboard .quick-actions a:nth-child(3n + 2),
+.doctor-dashboard .quick-actions button:nth-child(3n + 2) {
+    background: #e3f8f2;
+}
+
+.doctor-dashboard .quick-actions a:nth-child(3n),
+.doctor-dashboard .quick-actions button:nth-child(3n) {
+    background: #eeebff;
+}
+
+body.dark-mode.doctor-dashboard .dashboard-period,
+body.dark-mode.doctor-dashboard .calendar-heading,
+body.dark-mode.doctor-dashboard .chart-legend,
+body.dark-mode.doctor-dashboard .chart-week-labels,
+body.dark-mode.doctor-dashboard .calendar-weekday,
+body.dark-mode.doctor-dashboard .calendar-day {
+    color: #dbeafe;
+}
+
+body.dark-mode.doctor-dashboard .dashboard-period {
+    border-color: #475569;
+    background: #273449;
+}
+
+body.dark-mode.doctor-dashboard .chart-grid-line {
+    stroke: #475569;
+}
+
+body.dark-mode.doctor-dashboard .chart-axis-label {
+    fill: #a8b6c8;
+}
+
+body.dark-mode.doctor-dashboard .stat-card-blue {
+    background: #233652 !important;
+}
+
+body.dark-mode.doctor-dashboard .stat-card-green {
+    background: #1d3d3b !important;
+}
+
+body.dark-mode.doctor-dashboard .stat-card-red {
+    background: #432d3a !important;
+}
+
+body.dark-mode.doctor-dashboard .stat-card-purple {
+    background: #332f52 !important;
+}
+
+@media (max-width: 1100px) {
+    .doctor-dashboard .dashboard-content {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .doctor-dashboard .appointments-panel,
+    .doctor-dashboard .statistics-panel,
+    .doctor-dashboard .quick-actions-panel {
+        grid-column: span 6;
+    }
+
+    .doctor-dashboard .schedule-panel,
+    .doctor-dashboard .recent-patients-panel {
+        grid-column: span 3;
+    }
+}
+
+@media (max-width: 800px) {
+    .doctor-dashboard .dashboard-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .doctor-dashboard .appointments-panel,
+    .doctor-dashboard .statistics-panel,
+    .doctor-dashboard .schedule-panel,
+    .doctor-dashboard .recent-patients-panel,
+    .doctor-dashboard .quick-actions-panel {
+        grid-column: auto;
+    }
+
+    .doctor-dashboard .appointments-panel,
+    .doctor-dashboard .statistics-panel {
+        min-height: 0;
+    }
+
+    .doctor-dashboard .quick-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Match the admin dashboard's typography hierarchy. */
+.doctor-dashboard:not(.doctor-appointments-page) {
+    font-size: 16px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .welcome h1 {
+    font-size: 32px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .welcome p,
+.doctor-dashboard:not(.doctor-appointments-page) .date h4,
+.doctor-dashboard:not(.doctor-appointments-page) .date p {
+    font-size: 16px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .stat-info p,
+.doctor-dashboard:not(.doctor-appointments-page) .recent-patient-info strong {
+    font-size: 16px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .stat-info h2 {
+    font-size: 24px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .dashboard-card-header h2 {
+    font-size: 24px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .dashboard-card-header > a,
+.doctor-dashboard:not(.doctor-appointments-page) .dashboard-table td,
+.doctor-dashboard:not(.doctor-appointments-page) .dashboard-card-link,
+.doctor-dashboard:not(.doctor-appointments-page) .quick-actions a,
+.doctor-dashboard:not(.doctor-appointments-page) .quick-actions button {
+    font-size: 14px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .dashboard-table th,
+.doctor-dashboard:not(.doctor-appointments-page) .dashboard-table .badge,
+.doctor-dashboard:not(.doctor-appointments-page) .recent-patient-info span,
+.doctor-dashboard:not(.doctor-appointments-page) .patient-visit-time,
+.doctor-dashboard:not(.doctor-appointments-page) .empty-state,
+.doctor-dashboard:not(.doctor-appointments-page) .chart-legend,
+.doctor-dashboard:not(.doctor-appointments-page) .chart-week-labels,
+.doctor-dashboard:not(.doctor-appointments-page) .calendar-weekday {
+    font-size: 12px;
+}
+
+.doctor-dashboard:not(.doctor-appointments-page) .calendar-day {
+    font-size: 14px;
+}

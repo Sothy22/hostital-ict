@@ -2,12 +2,14 @@
     const modal = document.querySelector("[data-profile-modal]");
     if (!modal) return;
 
-    const openButton = document.querySelector("[data-open-profile]");
+    const openButtons = document.querySelectorAll("[data-open-profile]");
     const closeButtons = modal.querySelectorAll("[data-close-profile]");
     const imageInput = modal.querySelector("#doctor-profile-image");
     const preview = modal.querySelector("[data-profile-preview]");
+    let lastOpenButton;
 
-    const openProfile = () => {
+    const openProfile = (event) => {
+        lastOpenButton = event?.currentTarget;
         modal.hidden = false;
         document.body.style.overflow = "hidden";
         modal.querySelector("input, select, textarea, button")?.focus();
@@ -16,10 +18,12 @@
     const closeProfile = () => {
         modal.hidden = true;
         document.body.style.overflow = "";
-        openButton?.focus();
+        lastOpenButton?.focus();
     };
 
-    openButton?.addEventListener("click", openProfile);
+    openButtons.forEach((button) =>
+        button.addEventListener("click", openProfile),
+    );
     closeButtons.forEach((button) =>
         button.addEventListener("click", closeProfile),
     );

@@ -18,7 +18,7 @@
     <body class="admin-dashboard">
         <div class="container">
             <!-- Sidebar -->
-            <aside class="aside">
+            <aside class="aside" id="adminSidebar">
                 <div class="title-head">
                     <i class="fa-solid fa-heart-pulse"></i>
                     <div class="title">
@@ -29,7 +29,7 @@
 
                 <div class="aside-head">
                     <div class="upper-head">
-                        <a href="{{ route('main_admin') }}" class="active">
+                        <a href="{{ route('main_admin') }}">
                             <i class="fa-solid fa-house"></i>
                             Dashboard
                         </a>
@@ -40,10 +40,6 @@
                         <a href="{{ route('admin_patients') }}">
                             <i class="fa-solid fa-hospital-user"></i>
                             Patients
-                        </a>
-                        <a href="{{ route('admin.doctor_schedules.index') }}">
-                            <i class="fa-regular fa-calendar-check"></i>
-                            Schedule Approval
                         </a>
                         <div class="dropdown">
                             <button class="dropbtn">
@@ -105,6 +101,10 @@
             <!-- Main -->
             <main class="main">
                 <div class="header">
+                    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation menu" aria-controls="adminSidebar">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
+
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="search" placeholder="Search" aria-label="Search dashboard" />
@@ -120,12 +120,12 @@
                         </button>
 
                         <!-- Dark Mode -->
-                        <div class="mode-icon">
+                        <div class="header-action">
                             <i id="theme-toggle" class="fa-regular fa-moon"></i>
                         </div>
 
                         <!-- Notification -->
-                        <div class="notification">
+                        <div class="header-action">
                             <i class="fa-solid fa-bell"></i>
                             <span class="dot"></span>
                         </div>

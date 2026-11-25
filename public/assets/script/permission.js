@@ -16,13 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function selectStaff(staff) {
         staffIdInput.value = staff.dataset.staffId || "";
 
-        document.getElementById("selectedStaffName").textContent =
+        const staffName = document.getElementById("selectedStaffName");
+        if (staffName) staffName.textContent =
             staff.dataset.name || "Staff member";
-        document.getElementById("selectedStaffEmail").textContent =
+        const staffEmail = document.getElementById("selectedStaffEmail");
+        if (staffEmail) staffEmail.textContent =
             staff.dataset.email || "";
-        document.getElementById("selectedStaffRole").textContent =
+        const staffRole = document.getElementById("selectedStaffRole");
+        if (staffRole) staffRole.textContent =
             staff.dataset.role || "";
-        document.getElementById("selectedStaffDepartment").textContent =
+        const staffDepartment = document.getElementById("selectedStaffDepartment");
+        if (staffDepartment) staffDepartment.textContent =
             staff.dataset.department || "Not assigned";
 
         const image = document.getElementById("selectedStaffImage");

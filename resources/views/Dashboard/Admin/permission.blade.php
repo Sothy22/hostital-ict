@@ -30,17 +30,13 @@
                         <i class="fa-solid fa-house"></i>
                         Dashboard
                     </a>
-                    <a href="{{ route('admin_appointments') }}" class="active">
+                    <a href="{{ route('admin_appointments') }}">
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
-                    <a href="{{ route('admin_patients') }}" class="active">
+                    <a href="{{ route('admin_patients') }}">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
-                    </a>
-                    <a href="{{ route('admin.doctor_schedules.index') }}">
-                        <i class="fa-regular fa-calendar-check"></i>
-                        Schedule Approval
                     </a>
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
@@ -97,22 +93,10 @@
         {{-- main  --}}
         <main class="main">
             <div class="header">
-                <!-- Left -->
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-
-                <!-- Center -->
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search dashboard"
-                    />
+                    <input type="search" placeholder="Search" aria-label="Search dashboard" />
                 </div>
-
-                <!-- Right -->
                 <div class="right-header">
                     <button class="header-action" type="button" aria-label="Documents" title="Documents">
                         <i class="fa-regular fa-copy"></i>
@@ -121,11 +105,11 @@
                         <i class="fa-solid fa-gear"></i>
                     </button>
                     <!-- Dark Mode -->
-                    <div class="mode-icon">
+                    <div class="header-action">
                         <i id="theme-toggle" class="fa-regular fa-moon"></i>
                     </div>
                     <!-- Notification -->
-                    <div class="notification">
+                    <div class="header-action">
                         <i class="fa-solid fa-bell"></i>
                         <span class="dot"></span>
                     </div>
@@ -191,7 +175,7 @@
                                     data-staff-select
                                     data-staff-id="{{ $staff->getKey() }}"
                                     data-permissions="{{ implode(',', $staff->permissions ?? []) }}"
-                                    data-name="{{ trim(($staff->first_name ?? ''). '' . ($staff->last_name ?? '')) ?: ($staff->name ?? '')}}"
+                                    data-name="{{ trim(($staff->first_name ?? '') . ' ' . ($staff->last_name ?? '')) ?: ($staff->name ?? '') }}"
                                     data-email="{{ $staff->email ?? '' }}"
                                     data-role="{{ $staff->role ?? '' }}"
                                     data-department="{{ $staff->department->name ?? '' }}"
@@ -242,253 +226,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="role-editor">
-                                    <label for="staff-role">Update Role</label>
-                                    <span>Role</span>
-                                    <select id="staff-role">
-                                        <option>Doctor</option>
-                                        <option>Reception</option>
-                                        <option>Pharmacy</option>
-                                        <option>Account</option>
-                                    </select>
-                                </div> --}}
                             </div>
                         </div>
-
-                        <!-- ================= PERMISSIONS ================= -->
-
-                        {{-- <div class="permissions-section">
-                            <div class="section-title">Permissions</div>
-
-                            <div class="permission-alert">
-                                <span class="info-icon">i</span>
-
-                                <span>
-                                    Select the permissions you want to assign to this staff member
-                                    based on their role.
-                                </span>
-                            </div>
-
-                            <div class="permission-grid">
-                                <!-- USER MANAGEMENT -->
-
-                                <div class="permission-card">
-                                    <div class="permission-card-header">
-                                        <div class="permission-icon">⚙</div>
-
-                                        <div>
-                                            <h3>User Management</h3>
-                                            <p>Manage users and system accounts</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="permission-list">
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Create User
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Read User
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Update User
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Delete User
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <!-- PATIENT MANAGEMENT -->
-
-                                <div class="permission-card">
-                                    <div class="permission-card-header">
-                                        <div class="permission-icon">🛡</div>
-
-                                        <div>
-                                            <h3>Patient Management</h3>
-                                            <p>Manage patient information</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="permission-list">
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Create Patient
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Read Patient
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Update Patient
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Delete Patient
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <!-- APPOINTMENT MANAGEMENT -->
-
-                                <div class="permission-card">
-                                    <div class="permission-card-header">
-                                        <div class="permission-icon">📅</div>
-
-                                        <div>
-                                            <h3>Appointment Management</h3>
-                                            <p>Manage appointments and schedules</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="permission-list">
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Create Appointment
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Read Appointment
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Update Appointment
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Delete Appointment
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <!-- MEDICAL RECORDS -->
-
-                                <div class="permission-card">
-                                    <div class="permission-card-header">
-                                        <div class="permission-icon">📄</div>
-
-                                        <div>
-                                            <h3>Medical Records</h3>
-                                            <p>Access and manage medical records</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="permission-list">
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Create Medical Record
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Read Medical Record
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Update Medical Record
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Delete Medical Record
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <!-- PHARMACY MANAGEMENT -->
-
-                                <div class="permission-card">
-                                    <div class="permission-card-header">
-                                        <div class="permission-icon">💊</div>
-
-                                        <div>
-                                            <h3>Pharmacy Management</h3>
-                                            <p>Manage pharmacy and medication</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="permission-list">
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Create Medicine
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Read Medicine
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Update Medicine
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Delete Medicine
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <!-- ACCOUNTING -->
-
-                                <div class="permission-card">
-                                    <div class="permission-card-header">
-                                        <div class="permission-icon">$</div>
-
-                                        <div>
-                                            <h3>Accounting & Finance</h3>
-                                            <p>Manage invoices and payments</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="permission-list">
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Create Invoice
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" checked />
-                                            Read Invoice
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Update Invoice
-                                        </label>
-
-                                        <label class="permission-item">
-                                            <input type="checkbox" />
-                                            Delete Invoice
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- BUTTONS -->
-
-                            <div class="permission-footer">
-                                <button class="btn btn-cancel">Cancel</button>
-
-                                <button class="btn btn-save"><i class="fa-solid fa-floppy-disk"></i> Save Permissions</button>
-                            </div>
-                        </div> --}}
 
                         <form id="permissionForm" action="{{ route('permissions.assign') }}" method="POST">
                             @csrf
@@ -562,9 +301,10 @@
             </div>
         </main>
     </div>
-    <script src="../assets/script/dark_mode.js" type="module"></script>
-    <script src="../assets/script/menu_dashboard.js"></script>
-    <script src="./assets/script/dropdown_dashboard.js"></script>
+    <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
+    <script src="{{ asset('assets/script/menu_dashboard.js') }}"></script>
+    <script src="{{ asset('assets/script/dropdown_dashboard.js') }}"></script>
     <script src="{{ asset('assets/script/permission.js') }}" defer></script>
+    <script src="{{ asset('assets/script/staff-modal.js') }}" defer></script>
 </body>
 </html>

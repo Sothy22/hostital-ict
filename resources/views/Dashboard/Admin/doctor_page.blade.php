@@ -35,20 +35,16 @@
                         Dashboard
                     </a>
 
-                    <a href="{{ route('admin_appointments') }}" class="active">
+                    <a href="{{ route('admin_appointments') }}">
                         <i class="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
 
-                    <a href="{{ route('admin_patients') }}" class="active">
+                    <a href="{{ route('admin_patients') }}">
                         <i class="fa-solid fa-hospital-user"></i>
                         Patients
                     </a>
 
-                    <a href="{{ route('admin.doctor_schedules.index') }}">
-                        <i class="fa-regular fa-calendar-check"></i>
-                        Schedule Approval
-                    </a>
 
                     <div class="dropdown">
                         <button class="dropbtn" type="button">
@@ -105,8 +101,8 @@
         <main class="main">
           <!-- Header -->
           <div class="header">
-            <button class="menu-toggle" id="menuToggle">
-              <i class="fa-solid fa-bars"></i>
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation menu" aria-controls="adminSidebar">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
             </button>
 
             <!-- center -->
@@ -123,10 +119,10 @@
               <button class="header-action" type="button" aria-label="Settings" title="Settings">
                 <i class="fa-solid fa-gear"></i>
               </button>
-              <div class="mode-icon">
+              <div class="right-header">
                 <i id="theme-toggle" class="fa-regular fa-moon"></i>
               </div>
-              <div class="notification">
+              <div class="right-header">
                 <i class="fa-solid fa-bell"></i>
                 <span class="dot"></span>
               </div>
@@ -339,9 +335,9 @@
         @include('Dashboard.Admin._staff_modal')
     </div>
 
-    <script src="../assets/script/dark_mode.js" type="module"></script>
-    <script src="../assets/script/menu_dashboard.js"></script>
-    <script src="./assets/script/dropdown_dashboard.js"></script>
+    <script src="{{ asset('assets/script/dark_mode.js') }}" type="module"></script>
+    <script src="{{ asset('assets/script/menu_dashboard.js') }}"></script>
+    <script src="{{ asset('assets/script/dropdown_dashboard.js') }}"></script>
     <script src="{{ asset('assets/script/staff-modal.js') }}" defer></script>
   </body>
 </html>

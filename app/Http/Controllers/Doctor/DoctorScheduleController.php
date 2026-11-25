@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDoctorScheduleRequest;
+use App\Models\Appointment;
 use App\Models\DoctorSchedule;
 use App\Models\User;
 use App\Services\DoctorScheduleAvailability;
@@ -19,7 +20,30 @@ class DoctorScheduleController extends Controller
             ->orderBy('work_date', 'desc')
             ->paginate(12);
 
-        return view('dashboard.doctor.work_schedule', compact('doctor', 'schedules'));
+        $today = now()->format('Y-m-d');
+        $appointments = Appointment::where('staff_id', $doctor->getKey())
+            ->where('status', '!=', 'Cancelled')
+            ->orderBy('appointment_date')
+            ->limit(8)
+            ->get();
+
+        $todayAppointments = $appointments->filter(function ($appointment) use ($today) {
+            return data_get($appointment, 'appointment_date')
+                && \Illuminate\Support\Carbon::parse($appointment->appointment_date)->format('Y-m-d') === $today;
+        })->count();
+
+        $thisWeekSchedules = DoctorSchedule::where('doctor_id', $doctor->getKey())
+            ->where('work_date', '>=', now()->startOfWeek()->format('Y-m-d'))
+            ->where('work_date', '<=', now()->endOfWeek()->format('Y-m-d'))
+            ->count();
+
+        return view('dashboard.doctor.work_schedule', compact(
+            'doctor',
+            'schedules',
+            'appointments',
+            'todayAppointments',
+            'thisWeekSchedules'
+        ));
     }
 
     public function store(StoreDoctorScheduleRequest $request)
@@ -31,7 +55,7 @@ class DoctorScheduleController extends Controller
             ->where('work_date', $validated['work_date'])
             ->exists()) {
             return back()
-                ->withErrors(['work_date' => 'A schedule for this date has already been submitted.'])
+                ->withErrors(['work_date' => 'A schedule for this date has already been saved.'])
                 ->withInput();
         }
 
@@ -45,7 +69,7 @@ class DoctorScheduleController extends Controller
                 'break_start' => $validated['break_start'] ?? null,
                 'break_end' => $validated['break_end'] ?? null,
                 'duration_minutes' => (int) $validated['duration_minutes'],
-                'status' => 'pending',
+                'status' => 'approved',
             ]);
         } catch (BulkWriteException $exception) {
             if ($exception->getCode() !== 11000) {
@@ -53,12 +77,12 @@ class DoctorScheduleController extends Controller
             }
 
             return back()
-                ->withErrors(['work_date' => 'A schedule for this date has already been submitted.'])
+                ->withErrors(['work_date' => 'A schedule for this date has already been saved.'])
                 ->withInput();
         }
 
         return redirect()->route('doctor_schedules.index')
-            ->with('success', 'Work schedule submitted for admin approval.');
+            ->with('success', 'Work schedule saved and published.');
     }
 
     public function availability(Request $request, DoctorScheduleAvailability $availability)
@@ -75,7 +99,6 @@ class DoctorScheduleController extends Controller
 
         $schedule = DoctorSchedule::where('doctor_id', $doctor->getKey())
             ->where('work_date', $validated['date'])
-            ->where('status', 'approved')
             ->first();
 
         if (!$schedule) {
